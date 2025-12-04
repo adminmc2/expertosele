@@ -280,50 +280,19 @@ const Diapositiva1 = () => {
               <h1 
                 style={{ 
                   fontFamily: 'Aglet Mono, monospace',
-                  fontSize: '120px',
+                  fontSize: '48px',
                   fontWeight: 900,
-                  letterSpacing: '8px',
+                  letterSpacing: '2px',
                   color: colors.azulOscuro,
-                  textShadow: '0 8px 40px rgba(0,0,0,0.1)'
+                  textShadow: '0 4px 20px rgba(0,0,0,0.1)'
                 }}
               >
-                EVALIA
+                Herramientas prácticas para crear sesiones de clase inclusivas y personalizadas con Inteligencia Artificial Generativa
               </h1>
             </motion.div>
 
             {/* Subtítulo */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ 
-                opacity: showElements.subtitle ? 1 : 0
-              }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-            >
-              <h2 
-                className="mb-4"
-                style={{ 
-                  fontFamily: 'Raleway, sans-serif',
-                  fontSize: '42px',
-                  fontWeight: 400,
-                  color: colors.azulOscuro,
-                  letterSpacing: '1px'
-                }}
-              >
-                La creación de agentes de IA: una propuesta para la evaluación
-              </h2>
-              <p 
-                style={{ 
-                  fontFamily: 'Raleway, sans-serif',
-                  fontSize: '42px',
-                  fontWeight: 500,
-                  color: colors.verdeTurquesa,
-                  textShadow: '0 4px 20px rgba(0,0,0,0.1)',
-                  letterSpacing: '2px'
-                }}
-              >
-
-              </p>
-            </motion.div>
+            {/* Subtítulo eliminado */}
 
             {/* Información del ponente */}
             <motion.div
@@ -367,7 +336,7 @@ const Diapositiva1 = () => {
                        fontSize: '18px',
                        color: colors.grisOscuro 
                      }}>
-                  <span>30 de septiembre de 2025</span>
+                  <span>7 de diciembre de 2025</span>
                 </div>
               </div>
             </motion.div>
