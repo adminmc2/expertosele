@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Zap, Shield, Wand2, Dice6, BookOpen, Trophy, Grid3x3, Layers } from 'lucide-react';
+import { Zap, Shield, Wand2, Dice6, BookOpen, Trophy, Grid3x3, Layers, Heart, Users, Brain, Lightbulb, Accessibility, Speaker, Eye, Globe } from 'lucide-react';
 
 // Paleta de colores corporativa Hablandis + EVALIA
 const colors = {
@@ -740,49 +740,57 @@ const Diapositiva3 = () => {
       id: 'poco-autonomos',
       titulo: 'Estudiantes poco autónomos',
       descripcion: 'Requieren mayor seguimiento y orientación en su proceso de aprendizaje.',
-      color: colors.amarillo
+      color: colors.amarillo,
+      icon: Accessibility
     },
     {
       id: 'monolingues',
       titulo: 'Hablantes monolingües',
       descripcion: 'No tienen experiencia previa con otras lenguas o culturas.',
-      color: colors.lila
+      color: colors.lila,
+      icon: Speaker
     },
     {
       id: 'estudiantes-mayores',
       titulo: 'Estudiantes mayores',
       descripcion: 'Adultos con contextos y experiencias de vida particulares.',
-      color: colors.verdeTurquesa
+      color: colors.verdeTurquesa,
+      icon: Heart
     },
     {
       id: 'memoristica',
       titulo: 'Aprendientes de forma memorística',
       descripcion: 'Utilizan estrategias de memorización como principal método de aprendizaje.',
-      color: colors.verdeClaro
+      color: colors.verdeClaro,
+      icon: Brain
     },
     {
       id: 'lengua-distante',
       titulo: 'Hablantes de una lengua materna distante del español',
       descripcion: 'Enfrentan mayores desafíos en la adquisición del idioma.',
-      color: colors.azulOscuro
+      color: colors.azulOscuro,
+      icon: Globe
     },
     {
       id: 'sin-seguridad',
       titulo: 'Estudiantes que no hablan si no se sienten seguros',
       descripcion: 'Necesitan construir confianza antes de participar activamente.',
-      color: colors.azulOscuro
+      color: colors.azulOscuro,
+      icon: Shield
     },
     {
       id: 'expuestos',
       titulo: 'Estudiantes que temen sentirse expuestos',
       descripcion: 'Evitan situaciones que los coloquen en el centro de atención.',
-      color: colors.verdeClaro
+      color: colors.verdeClaro,
+      icon: Eye
     },
     {
       id: 'otra-cultura',
       titulo: 'Estudiantes con otra cultura de aprendizaje',
       descripcion: 'Proceden de sistemas educativos con enfoques diferentes.',
-      color: colors.amarillo
+      color: colors.amarillo,
+      icon: Users
     }
   ];
 
@@ -835,11 +843,10 @@ const Diapositiva3 = () => {
               />
               
               <div className="p-5 flex flex-col">
-                {/* Punto de color pequeño */}
-                <div
-                  className="w-4 h-4 rounded-full mb-3"
-                  style={{ backgroundColor: estudiante.color }}
-                />
+                {/* Icono de Lucide */}
+                <div className="mb-3" style={{ color: estudiante.color }}>
+                  {React.createElement(estudiante.icon, { size: 24, strokeWidth: 2 })}
+                </div>
                 
                 {/* Título */}
                 <h3
@@ -910,17 +917,20 @@ const Diapositiva3 = () => {
               {
                 titulo: 'Diferenciación curricular',
                 desc: 'Adaptamos actividades según el nivel y ritmo de aprendizaje de cada estudiante.',
-                color: colors.amarillo
+                color: colors.amarillo,
+                icon: Layers
               },
               {
                 titulo: 'Trabajo colaborativo',
                 desc: 'Creamos espacios seguros para la participación y el aprendizaje mutuo.',
-                color: colors.verdeTurquesa
+                color: colors.verdeTurquesa,
+                icon: Users
               },
               {
                 titulo: 'Retroalimentación personalizada',
                 desc: 'Ofrecemos orientación específica para mejorar el desempeño académico.',
-                color: colors.lila
+                color: colors.lila,
+                icon: Lightbulb
               }
             ].map((estrategia, index) => (
               <motion.div
@@ -931,6 +941,9 @@ const Diapositiva3 = () => {
                 className="p-6 rounded-xl shadow-lg"
                 style={{ backgroundColor: colors.blanco, borderLeft: `4px solid ${estrategia.color}` }}
               >
+                <div className="mb-3" style={{ color: estrategia.color }}>
+                  {React.createElement(estrategia.icon, { size: 28, strokeWidth: 2 })}
+                </div>
                 <h4
                   style={{
                     fontFamily: 'Raleway, sans-serif',
