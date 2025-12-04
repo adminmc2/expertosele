@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Zap, Shield, Wand2, Dice6, BookOpen, Trophy, Grid3x3, Layers } from 'lucide-react';
 
 // Paleta de colores corporativa Hablandis + EVALIA
 const colors = {
@@ -362,9 +363,374 @@ const Diapositiva1 = () => {
 // FIN DIAPOSITIVA 1
 // =======================================================================
 // =======================================================================
-// DIAPOSITIVA 2: EL DRAMA DE LA EVALUACIÓN - DISEÑO UNIFICADO
+// DIAPOSITIVA 2: REGLAS OFICIALES (WORD COLONY) - JUEGO INTERACTIVO
 // =======================================================================
 const Diapositiva2 = () => {
+  const [tabActivo, setTabActivo] = useState('cartas');
+
+  const tabs = [
+    { id: 'cartas', label: 'Las Cartas', icon: Grid3x3, color: '#007567' },
+    { id: 'preparacion', label: 'Preparación', icon: Dice6, color: '#C4D4A4' },
+    { id: 'turno', label: 'El Turno', icon: Zap, color: '#FFC846' },
+    { id: 'construccion', label: 'Construcción', icon: Layers, color: '#FFC846' },
+    { id: 'acciones', label: 'Acciones', icon: Shield, color: '#B9ABE4' },
+    { id: 'finJuego', label: 'Fin del Juego', icon: Trophy, color: '#51CF66' },
+    { id: 'estrategia', label: 'Estrategia', icon: BookOpen, color: '#12055F' },
+  ];
+
+  const cartasData = [
+    { imagen: '/uno.png', tipo: 'letra', nombre: 'UNO', puntos: 1 },
+    { imagen: '/dos.png', tipo: 'letra', nombre: 'DOS', puntos: 2 },
+    { imagen: '/tres.png', tipo: 'letra', nombre: 'TRES', puntos: 3 },
+    { imagen: '/cuatro.png', tipo: 'letra', nombre: 'CUATRO', puntos: 4 },
+    { imagen: '/cinco.png', tipo: 'letra', nombre: 'CINCO', puntos: 5 },
+    { imagen: '/conquista.png', tipo: 'accion', nombre: 'CONQUISTA' },
+    { imagen: '/defensa.png', tipo: 'accion', nombre: 'ESCUDO' },
+    { imagen: '/comodin.png', tipo: 'accion', nombre: 'PALABRA MÁGICA' },
+  ];
+
+  return (
+    <div className="min-h-screen flex flex-col p-8" style={{background: 'linear-gradient(135deg, #C4D4A4 0%, #E8E0F0 50%, #B9ABE4 80%)'}}>
+      {/* Título minimalista */}
+      <motion.h1 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-4xl font-agletmono text-center mb-12" 
+        style={{letterSpacing: '1px', color: '#12055F'}}>
+        REGLAS OFICIALES (Blindapalabras)
+      </motion.h1>
+
+      {/* Pestañas minimalistas */}
+      <div className="flex gap-2 justify-center mb-8 flex-wrap">
+        {tabs.map((tab) => {
+          const Icon = tab.icon;
+          return (
+            <motion.button
+              key={tab.id}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setTabActivo(tab.id)}
+              className={`px-4 py-2 rounded-lg font-raleway text-sm transition-all flex items-center gap-2 ${
+                tabActivo === tab.id
+                  ? 'bg-white/90 shadow-md'
+                  : 'bg-white/50 hover:bg-white/70'
+              }`}
+            >
+              <Icon size={18} style={{color: tab.color}} strokeWidth={2.5} />
+              <span style={{color: tab.color, fontWeight: tabActivo === tab.id ? 600 : 400}}>{tab.label}</span>
+            </motion.button>
+          );
+        })}
+      </div>
+
+      {/* Contenido */}
+      <div className="flex-1 max-w-6xl mx-auto w-full">
+        <AnimatePresence mode="wait">
+          {/* LAS CARTAS */}
+          {tabActivo === 'cartas' && (
+            <motion.div
+              key="cartas"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-y-auto max-h-[70vh] pr-4"
+            >
+              <div className="grid grid-cols-4 gap-6">
+                {cartasData.map((carta, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: idx * 0.05 }}
+                    className="bg-white rounded-lg shadow-sm hover:shadow-md transition-all overflow-hidden"
+                  >
+                    <img src={carta.imagen} alt={carta.nombre} className="w-full h-56 object-contain bg-gray-50 p-2" />
+                    <div className="p-4 text-center">
+                      <h3 className="font-agletmono text-sm" style={{color: '#007567', fontWeight: 600}}>{carta.nombre}</h3>
+                      <p className="text-xs text-gray-500 mt-1">{carta.puntos ? `${carta.puntos} pts` : 'Acción'}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+              <style>{`
+                .overflow-y-auto::-webkit-scrollbar { width: 4px; }
+                .overflow-y-auto::-webkit-scrollbar-thumb { background: #007567; opacity: 0.4; border-radius: 2px; }
+              `}</style>
+            </motion.div>
+          )}
+
+          {/* PREPARACIÓN */}
+          {tabActivo === 'preparacion' && (
+            <motion.div
+              key="preparacion"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="space-y-6"
+            >
+              <div className="bg-white/80 rounded-xl p-10 shadow-sm">
+                <div className="space-y-8">
+                  <div>
+                    <h3 className="font-agletmono text-4xl mb-6" style={{color: '#12055F'}}>1. PREPARACIÓN (Setup)</h3>
+                  </div>
+                  <div className="space-y-6">
+                    <div className="p-6 bg-blue-50 rounded-lg border-l-4" style={{borderLeftColor: '#12055F'}}>
+                      <h4 className="font-agletmono text-2xl mb-3" style={{color: '#12055F'}}>Mazo Único</h4>
+                      <p className="text-xl text-gray-700">Se barajan TODAS las cartas (Letras y Acciones juntas).</p>
+                    </div>
+                    <div className="p-6 bg-green-50 rounded-lg border-l-4" style={{borderLeftColor: '#51CF66'}}>
+                      <h4 className="font-agletmono text-2xl mb-3" style={{color: '#51CF66'}}>Reparto Inicial</h4>
+                      <p className="text-xl text-gray-700">Se reparten <strong>5 cartas</strong> a cada jugador/equipo para empezar. (¡Nadie baja nada todavía!)</p>
+                    </div>
+                    <div className="p-6 bg-yellow-50 rounded-lg border-l-4" style={{borderLeftColor: '#FFC846'}}>
+                      <h4 className="font-agletmono text-2xl mb-3" style={{color: '#FFC846'}}>Mazo de Robo</h4>
+                      <p className="text-xl text-gray-700">El resto se deja en el centro <strong>boca abajo</strong>.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* EL TURNO */}
+          {tabActivo === 'turno' && (
+            <motion.div
+              key="turno"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="space-y-6"
+            >
+              <div className="bg-white/80 rounded-xl p-10 shadow-sm">
+                <div className="space-y-8">
+                  <div>
+                    <h3 className="font-agletmono text-4xl mb-6" style={{color: '#12055F'}}>2. EL TURNO (La Mecánica "Quiz")</h3>
+                    <p className="text-2xl text-gray-700 mb-8">El juego funciona por <strong>turnos rotativos</strong> en sentido del reloj.</p>
+                  </div>
+                  
+                  <div className="space-y-6">
+                    <div className="p-6 bg-purple-50 rounded-lg border-l-4" style={{borderLeftColor: '#B9ABE4'}}>
+                      <h4 className="font-agletmono text-2xl mb-3" style={{color: '#B9ABE4'}}>El Lector</h4>
+                      <p className="text-xl text-gray-700">El jugador activo elige una carta de su mano y <strong>lee la pregunta</strong> al jugador de su izquierda.</p>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-6">
+                      <div className="p-6 bg-green-50 rounded-lg border-l-4" style={{borderLeftColor: '#51CF66'}}>
+                        <h4 className="font-agletmono text-2xl mb-3" style={{color: '#51CF66'}}>✅ Si ACIERTA</h4>
+                        <p className="text-xl text-gray-700">El jugador se queda la carta (gana la Letra) y la pone en su zona de juego.</p>
+                      </div>
+                      <div className="p-6 bg-red-50 rounded-lg border-l-4" style={{borderLeftColor: '#FF6B6B'}}>
+                        <h4 className="font-agletmono text-2xl mb-3" style={{color: '#FF6B6B'}}>❌ Si FALLA</h4>
+                        <p className="text-xl text-gray-700">La carta se va al mazo de descartes (nadie gana la letra).</p>
+                      </div>
+                    </div>
+
+                    <div className="p-6 bg-orange-50 rounded-lg border-l-4" style={{borderLeftColor: '#FFC846'}}>
+                      <h4 className="font-agletmono text-2xl mb-3" style={{color: '#FFC846'}}>Reposición</h4>
+                      <p className="text-xl text-gray-700">El Lector roba una carta del mazo central para volver a tener <strong>5 en la mano</strong>.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* CONSTRUCCIÓN */}
+          {tabActivo === 'construccion' && (
+            <motion.div
+              key="construccion"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="space-y-6"
+            >
+              <div className="bg-white/80 rounded-xl p-10 shadow-sm">
+                <div className="space-y-8">
+                  <div>
+                    <h3 className="font-agletmono text-4xl mb-6" style={{color: '#12055F'}}>3. FASE DE CONSTRUCCIÓN (Tu Colonia)</h3>
+                    <p className="text-2xl text-gray-700 mb-8">Con las letras ganadas, los jugadores construyen palabras en su propia zona.</p>
+                  </div>
+
+                  <div className="space-y-6">
+                    <div className="p-6 bg-blue-50 rounded-lg border-l-4" style={{borderLeftColor: '#007567'}}>
+                      <h4 className="font-agletmono text-2xl mb-3" style={{color: '#007567'}}>Regla de Puntuación</h4>
+                      <p className="text-xl text-gray-700">Cada carta tiene un <strong>valor en la esquina</strong>.</p>
+                    </div>
+
+                    <div className="p-6 bg-gradient-to-br from-green-50 to-red-50 rounded-lg border-2" style={{borderColor: '#007567'}}>
+                      <h4 className="font-agletmono text-2xl mb-5" style={{color: '#12055F'}}>Regla de Seguridad (La Colonia)</h4>
+                      <div className="space-y-4">
+                        <div className="flex items-start gap-4">
+                          <div className="text-2xl" style={{color: '#FF6B6B'}}>⚠️</div>
+                          <div>
+                            <p className="font-agletmono text-xl mb-2" style={{color: '#FF6B6B'}}>Una palabra SOLA (lineal)</p>
+                            <p className="text-xl text-gray-700">es <strong>VULNERABLE</strong></p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-4">
+                          <div className="text-2xl" style={{color: '#51CF66'}}>🛡️</div>
+                          <div>
+                            <p className="font-agletmono text-xl mb-2" style={{color: '#51CF66'}}>Si CRUZAS una palabra con otra</p>
+                            <p className="text-xl text-gray-700">(formando una estructura) se vuelven <strong>SEGURAS</strong></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* ACCIONES ESPECIALES */}
+          {tabActivo === 'acciones' && (
+            <motion.div
+              key="acciones"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="space-y-6"
+            >
+              <div className="bg-white/80 rounded-xl p-10 shadow-sm">
+                <h3 className="font-agletmono text-4xl mb-8" style={{color: '#12055F'}}>4. ACCIONES ESPECIALES (El Conflicto)</h3>
+                <p className="text-2xl text-gray-700 mb-8">Se juegan en tu turno <strong>en lugar de construir</strong>.</p>
+                <div className="grid grid-cols-3 gap-8">
+                  <div className="bg-yellow-50 rounded-lg p-8 border-l-4" style={{borderLeftColor: '#FFC846'}}>
+                    <div className="flex items-center gap-3 mb-4">
+                      <Zap size={32} style={{color: '#FFC846'}} strokeWidth={2.5} />
+                      <h4 className="font-agletmono text-2xl" style={{color: '#12055F'}}>CONQUISTA</h4>
+                    </div>
+                    <p className="text-lg text-gray-700 mb-3">🔥 Ataque</p>
+                    <p className="text-xl text-gray-700 leading-relaxed">Roba una palabra <strong>vulnerable</strong> de un oponente. Condición: Debes poder <strong>conectarla inmediatamente</strong> a tus propias palabras.</p>
+                  </div>
+
+                  <div className="bg-blue-50 rounded-lg p-8 border-l-4" style={{borderLeftColor: '#007567'}}>
+                    <div className="flex items-center gap-3 mb-4">
+                      <Shield size={32} style={{color: '#007567'}} strokeWidth={2.5} />
+                      <h4 className="font-agletmono text-2xl" style={{color: '#12055F'}}>ESCUDO</h4>
+                    </div>
+                    <p className="text-lg text-gray-700 mb-3">🛡️ Defensa</p>
+                    <p className="text-xl text-gray-700 leading-relaxed">Protege una palabra <strong>vulnerable</strong> de ser robada.</p>
+                  </div>
+
+                  <div className="bg-purple-50 rounded-lg p-8 border-l-4" style={{borderLeftColor: '#B9ABE4'}}>
+                    <div className="flex items-center gap-3 mb-4">
+                      <Wand2 size={32} style={{color: '#B9ABE4'}} strokeWidth={2.5} />
+                      <h4 className="font-agletmono text-2xl" style={{color: '#12055F'}}>MÁGICA</h4>
+                    </div>
+                    <p className="text-lg text-gray-700 mb-3">✨ Comodín</p>
+                    <p className="text-xl text-gray-700 leading-relaxed">Sustituye a <strong>cualquier letra</strong>.</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* FIN DEL JUEGO */}
+          {tabActivo === 'finJuego' && (
+            <motion.div
+              key="finJuego"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="space-y-6"
+            >
+              <div className="bg-white/80 rounded-xl p-10 shadow-sm">
+                <div className="space-y-8">
+                  <h3 className="font-agletmono text-4xl" style={{color: '#12055F'}}>5. FIN DEL JUEGO</h3>
+
+                  <div className="p-8 bg-yellow-50 rounded-lg border-l-4" style={{borderLeftColor: '#FFC846'}}>
+                    <h4 className="font-agletmono text-2xl mb-4" style={{color: '#FFC846'}}>🎯 VICTORIA INMEDIATA</h4>
+                    <p className="text-2xl text-gray-700 leading-relaxed"><strong>Un jugador forma una FRASE de DOS PALABRAS</strong> en su zona (pueden estar cruzadas o no).</p>
+                    <p className="text-xl text-gray-600 mt-4">Ejemplo: "GATO" + "GRANDE" = <strong>¡GANA!</strong></p>
+                  </div>
+
+                  <div className="p-8 bg-red-50 rounded-lg border-l-4" style={{borderLeftColor: '#FF6B6B'}}>
+                    <h4 className="font-agletmono text-2xl mb-4" style={{color: '#FF6B6B'}}>Fin por Agotamiento</h4>
+                    <p className="text-2xl text-gray-700">Si nadie forma 2 palabras: Se acaba cuando <strong>se agota el mazo de robo</strong> y un jugador <strong>se queda sin cartas</strong>.</p>
+                  </div>
+
+                  <div className="p-8 bg-green-50 rounded-lg border-l-4" style={{borderLeftColor: '#51CF66'}}>
+                    <h4 className="font-agletmono text-2xl mb-4" style={{color: '#51CF66'}}>Puntuación Final (por agotamiento)</h4>
+                    <div className="space-y-4">
+                      <div className="text-2xl font-bold" style={{color: '#12055F'}}>
+                        (Suma de puntos en la mesa) - (Resta de puntos de cartas en mano)
+                      </div>
+                      <p className="text-xl text-gray-700"><strong>Mayor puntuación = GANA</strong></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* ESTRATEGIA / GUIÓN */}
+          {tabActivo === 'estrategia' && (
+            <motion.div
+              key="estrategia"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="space-y-6"
+            >
+              <div className="bg-white/80 rounded-xl p-10 shadow-sm max-h-[75vh] overflow-y-auto">
+                
+                <div className="space-y-8 text-lg text-gray-700 leading-relaxed">
+                  <div className="p-6 bg-blue-50 rounded-lg border-l-4" style={{borderLeftColor: '#12055F'}}>
+                    <p className="text-2xl mb-3"><strong>"En cada mesa vais a jugar una partida REAL siguiendo estas reglas oficiales"</strong></p>
+                  </div>
+
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="font-agletmono text-2xl mb-3" style={{color: '#C4D4A4'}}>Mano Inicial</h4>
+                      <p className="text-xl text-gray-700">Cada uno empieza con <strong>5 cartas en la mano</strong>. ¡Ojo! Esas cartas <strong>NO son vuestras letras todavía</strong>. Son las <strong>preguntas que haréis a los demás</strong>.</p>
+                    </div>
+
+                    <div>
+                      <h4 className="font-agletmono text-2xl mb-3" style={{color: '#FFC846'}}>Cómo Ganar Letras</h4>
+                      <p className="text-xl text-gray-700">Yo te hago una pregunta de mi mano. Si <strong>la aciertas, te regalo la carta</strong> y ya tienes la letra 'A' para ti. Si <strong>fallas, la carta se tira a la basura</strong>.</p>
+                    </div>
+
+                    <div>
+                      <h4 className="font-agletmono text-2xl mb-3" style={{color: '#007567'}}>El Objetivo</h4>
+                      <p className="text-xl text-gray-700">Acumular letras para <strong>escribir palabras</strong> en vuestra zona.</p>
+                    </div>
+
+                    <div>
+                      <h4 className="font-agletmono text-2xl mb-3" style={{color: '#FF6B6B'}}>El Peligro</h4>
+                      <p className="text-xl text-gray-700">Si tenéis una carta de 'Conquista', podéis <strong>robarle una palabra al vecino</strong>, pero <strong>solo si esa palabra no está cruzada</strong> con otra.</p>
+                    </div>
+
+                    <div>
+                      <h4 className="font-agletmono text-2xl mb-3" style={{color: '#51CF66'}}>Estrategia</h4>
+                      <p className="text-xl text-gray-700"><strong>¡Cruzad vuestras palabras rápido para blindarlas!</strong></p>
+                    </div>
+                  </div>
+
+                  <div className="p-6 bg-purple-50 rounded-lg border-l-4" style={{borderLeftColor: '#B9ABE4'}}>
+                    <p className="text-xl text-gray-700"><strong>Ahora os toca jugar. ¡Que gane el mejor!</strong></p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+};
+
+// =======================================================================
+// DIAPOSITIVA 3: EL DRAMA DE LA EVALUACIÓN - DISEÑO UNIFICADO
+// =======================================================================
+const Diapositiva3Antigua = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -1042,9 +1408,9 @@ const Diapositiva2 = () => {
 // DIAPOSITIVA 3: PROCESO FORMATIVO Y EVALUACIÓN - DISEÑO UNIFICADO
 // =======================================================================
 const Diapositiva3 = () => {
-  const [activeProcess, setActiveProcess] = useState<string | null>(null);
-  const [evaluationTab, setEvaluationTab] = useState<'hablandis' | 'integracion' | null>(null); // CORREGIDO: Eliminado 'polonia'
   const [videoModalSrc, setVideoModalSrc] = useState<string | null>(null);
+  const [activeProcess, setActiveProcess] = useState<string | null>(null);
+  const [evaluationTab, setEvaluationTab] = useState<'hablandis' | 'integracion' | null>(null);
 
   const LineIcons = {
     pencil: ( 
@@ -1277,7 +1643,7 @@ const Diapositiva3 = () => {
   return (
     <div 
       className="h-screen flex flex-col"
-      style={{ background: `linear-gradient(135deg, ${colors.verdeClaro}20 0%, ${colors.blanco} 100%)` }}
+      style={{ background: `linear-gradient(135deg, ${colors.verdeClaro}40 0%, ${colors.amarillo}20 50%, ${colors.verdeTurquesa}30 100%)` }}
     >
       {/* Título UNIFICADO */}
       <motion.h1
