@@ -1,0 +1,201 @@
+/* Estilos para la diapositiva de portada */
+.portada-container {
+  min-height: 100vh;
+  display: flex;
+  /* justify-content: center; /* Ya no centramos verticalmente todo el contenedor */
+  /* align-items: flex-start; /* Ya no alineamos todo al inicio */
+  align-items: center; /* Centramos verticalmente el nuevo .content-left-column */
+  padding-left: 5%; /* Reducimos un poco el padding global si es necesario o lo eliminamos */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Estilo actualizado para los logos (sin cambios respecto a tu versión) */
+.logo-container {
+  position: absolute;
+  top: 20px;
+  left: 20px; /* Cambiado a la izquierda */
+  display: flex;
+  flex-direction: row; /* Ahora en horizontal */
+  align-items: center;
+  gap: 20px; /* Mayor espacio entre logos */
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo más opaco */
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo-container img {
+  height: 70px; /* Tamaño ajustado */
+  width: auto;
+  object-fit: contain;
+}
+
+/* ***** NUEVO: Contenedor para la columna de contenido izquierda ***** */
+.content-left-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra horizontalmente el título y el botón DENTRO de esta columna */
+  justify-content: center; /* Centra verticalmente el bloque título/botón */
+  width: 45%; /* Ocupa el espacio izquierdo (ajusta este % si es necesario) */
+  /* Si quitaste padding-left de portada-container, podrías añadir un margin-left aquí: */
+  /* margin-left: 5%; */
+  z-index: 2; /* Asegura que esté sobre los fondos */
+  padding: 20px; /* Añade algo de padding interno si es necesario */
+  box-sizing: border-box;
+}
+
+/* Estilo para el título en dos líneas */
+.title-container {
+  /* text-align: left; /* Eliminado para que el centrado del wrapper funcione */
+  text-align: center; /* Centra el texto dentro del contenedor del título */
+  margin-bottom: 25px; /* Espacio entre título y botón, ajustado */
+  /* z-index: 2; /* No necesario aquí, el wrapper ya tiene z-index */
+}
+
+h1 {
+  font-size: 5.5em;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.1;
+  color: #12055f;
+}
+
+.subtitle {
+  font-size: 5.5em;
+  font-weight: 700;
+  margin: 0;
+  color: #12055f;
+}
+
+/* Estilo para el botón de inicio */
+.start-button {
+  font-size: 1.5em;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  background-color: #e30a18;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  /* z-index: 2; /* No necesario aquí, el wrapper ya tiene z-index */
+  /* display: block; /* No necesario con flex en el wrapper */
+  /* margin: 20px 0; /* Eliminado, el espaciado se maneja en .title-container o con gap en .content-left-column */
+}
+
+.start-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Contenedor y estilos para la imagen principal (sin cambios respecto a tu versión) */
+.background-image-container {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 55%; /* Ajustamos el ancho */
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  justify-content: center; /* Centramos la imagen */
+  align-items: center;
+  overflow: hidden;
+}
+
+.background-image {
+  height: 90%; /* Ajustamos la altura para centrarla mejor */
+  width: auto;
+  max-width: 100%;
+  object-fit: contain; /* Mantenemos la proporción */
+  filter: contrast(1.1) saturate(1.2); /* Filtro básico estilo Instagram */
+}
+
+/* Fondo adicional para el lado izquierdo (sin cambios respecto a tu versión) */
+.left-background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%; /* Cubre la mitad izquierda */
+  height: 100%;
+  background-color: #ffffff; /* Fondo blanco para el lado izquierdo */
+  z-index: 0; /* Detrás de todo excepto el body */
+}
+
+/* Transición de carga de la imagen (sin cambios respecto a tu versión) */
+.image-load-transition {
+  animation: fadeInImage 1.5s ease-in-out forwards;
+}
+
+@keyframes fadeInImage {
+  0% {
+    opacity: 0;
+    filter: blur(10px) contrast(0.8) saturate(0.8);
+  }
+  100% {
+    opacity: 1; /* Opacidad completa para la imagen */
+    filter: blur(0) contrast(1.1) saturate(1.2);
+  }
+}
+
+/* Media Query opcional para ajustar en pantallas más pequeñas */
+@media (max-width: 900px) {
+  .portada-container {
+    flex-direction: column; /* Apilar contenido en móvil */
+    padding-left: 0; /* Quitar padding en móvil */
+    align-items: center; /* Centrar todo */
+  }
+
+  .content-left-column {
+    width: 90%; /* Ocupar más ancho */
+    order: 2; /* Poner texto debajo de la imagen */
+    text-align: center; /* Centrar texto */
+    padding: 20px 0;
+  }
+
+  .title-container {
+    text-align: center;
+  }
+
+  h1,
+  .subtitle {
+    font-size: 3.5em; /* Reducir tamaño de fuente */
+  }
+
+  .start-button {
+    font-size: 1.3em;
+  }
+
+  .background-image-container {
+    position: relative; /* Quitar absoluto */
+    width: 100%;
+    height: 50vh; /* Altura fija para la imagen */
+    order: 1; /* Poner imagen arriba */
+  }
+
+  .background-image {
+    height: 100%;
+    width: auto;
+    max-width: 90%;
+  }
+
+  .left-background {
+    display: none; /* Ocultar el fondo dividido en móvil */
+  }
+
+  .logo-container {
+    position: relative; /* Quitar absoluto */
+    top: 0;
+    left: 0;
+    width: 100%;
+    justify-content: center;
+    padding: 10px 0;
+    box-shadow: none;
+    background-color: transparent;
+    order: 0; /* Logos arriba del todo */
+  }
+  .logo-container img {
+    height: 50px;
+  }
+}
