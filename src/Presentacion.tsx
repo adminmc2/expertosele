@@ -150,14 +150,23 @@ const Diapositiva1 = () => {
   }, []);
 
   return (
-    <div 
+    <div
       className="min-h-screen relative overflow-hidden"
-      style={{ 
-        background: `linear-gradient(135deg, ${colors.verdeClaro} 0%, #E8E0F0 50%, ${colors.lila}80 100%)`
+      style={{
+        background: `linear-gradient(135deg, ${colors.verdeClaro}40 0%, ${colors.amarillo}20 50%, ${colors.verdeTurquesa}30 100%)`
       }}
     >
+      {/* Efectos de fondo decorativos */}
+      <div
+        className="absolute top-10 left-10 w-96 h-96 rounded-full blur-3xl opacity-25"
+        style={{ backgroundColor: colors.amarillo }}
+      />
+      <div
+        className="absolute bottom-10 right-10 w-80 h-80 rounded-full blur-3xl opacity-20"
+        style={{ backgroundColor: colors.verdeTurquesa }}
+      />
       {/* Efecto de gradiente interactivo */}
-      <div 
+      <div
         className="absolute inset-0 opacity-30"
         style={{
           background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, ${colors.verdeTurquesa}20 0%, transparent 60%)`,
@@ -379,45 +388,72 @@ const Diapositiva2 = () => {
   ];
 
   const cartasData = [
-    { imagen: '/uno.png', tipo: 'letra', nombre: 'UNO', puntos: 1 },
-    { imagen: '/dos.png', tipo: 'letra', nombre: 'DOS', puntos: 2 },
-    { imagen: '/tres.png', tipo: 'letra', nombre: 'TRES', puntos: 3 },
-    { imagen: '/cuatro.png', tipo: 'letra', nombre: 'CUATRO', puntos: 4 },
-    { imagen: '/cinco.png', tipo: 'letra', nombre: 'CINCO', puntos: 5 },
+    { imagen: '/uno.png', tipo: 'letra', nombre: 'Tarjeta de pregunta - 1 pto', puntos: 1 },
+    { imagen: '/dos.png', tipo: 'letra', nombre: 'Tarjeta de pregunta - 2 ptos', puntos: 2 },
+    { imagen: '/tres.png', tipo: 'letra', nombre: 'Tarjeta de pregunta - 3 ptos', puntos: 3 },
+    { imagen: '/cuatro.png', tipo: 'letra', nombre: 'Tarjeta de pregunta - 4 ptos', puntos: 4 },
+    { imagen: '/cinco.png', tipo: 'letra', nombre: 'Tarjeta de pregunta - 5 ptos', puntos: 5 },
     { imagen: '/conquista.png', tipo: 'accion', nombre: 'CONQUISTA' },
     { imagen: '/defensa.png', tipo: 'accion', nombre: 'ESCUDO' },
     { imagen: '/comodin.png', tipo: 'accion', nombre: 'PALABRA MÁGICA' },
   ];
 
   return (
-    <div className="min-h-screen flex flex-col p-8" style={{background: 'linear-gradient(135deg, #C4D4A4 0%, #E8E0F0 50%, #B9ABE4 80%)'}}>
+    <div className="min-h-screen flex flex-col p-8 relative overflow-hidden" style={{background: 'linear-gradient(135deg, #C4D4A440 0%, #FFC84620 50%, #00756730 100%)'}}>
+      {/* Efectos de fondo decorativos */}
+      <div
+        className="absolute top-10 left-10 w-96 h-96 rounded-full blur-3xl opacity-25"
+        style={{ backgroundColor: '#FFC846' }}
+      />
+      <div
+        className="absolute bottom-10 right-10 w-80 h-80 rounded-full blur-3xl opacity-20"
+        style={{ backgroundColor: '#007567' }}
+      />
       {/* Título minimalista */}
-      <motion.h1 
+      <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-4xl font-agletmono text-center mb-12" 
+        className="text-5xl md:text-6xl font-agletmono text-center mb-12"
         style={{letterSpacing: '1px', color: '#12055F'}}>
-        REGLAS OFICIALES (Blindapalabras)
+        REGLAS OFICIALES Blindapalabras
       </motion.h1>
 
-      {/* Pestañas minimalistas */}
-      <div className="flex gap-2 justify-center mb-8 flex-wrap">
+      {/* Pestañas Material Design */}
+      <div className="flex gap-6 justify-center mb-8 flex-wrap">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           return (
             <motion.button
               key={tab.id}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => setTabActivo(tab.id)}
-              className={`px-4 py-2 rounded-lg font-raleway text-sm transition-all flex items-center gap-2 ${
-                tabActivo === tab.id
-                  ? 'bg-white/90 shadow-md'
-                  : 'bg-white/50 hover:bg-white/70'
-              }`}
+              className="relative px-3 py-2 font-raleway text-sm transition-all flex flex-col items-center gap-1.5 bg-transparent"
+              style={{
+                opacity: tabActivo === tab.id ? 1 : 0.6
+              }}
             >
-              <Icon size={18} style={{color: tab.color}} strokeWidth={2.5} />
-              <span style={{color: tab.color, fontWeight: tabActivo === tab.id ? 600 : 400}}>{tab.label}</span>
+              <Icon
+                size={20}
+                style={{color: tabActivo === tab.id ? tab.color : '#12055F'}}
+                strokeWidth={tabActivo === tab.id ? 2.5 : 2}
+              />
+              <span style={{
+                color: tabActivo === tab.id ? tab.color : '#12055F',
+                fontWeight: tabActivo === tab.id ? 600 : 400,
+                fontSize: '13px'
+              }}>
+                {tab.label}
+              </span>
+              {/* Barra indicadora inferior */}
+              {tabActivo === tab.id && (
+                <motion.div
+                  layoutId="activeTab"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
+                  style={{ backgroundColor: tab.color }}
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                />
+              )}
             </motion.button>
           );
         })}
@@ -443,12 +479,17 @@ const Diapositiva2 = () => {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: idx * 0.05 }}
-                    className="bg-white rounded-lg shadow-sm hover:shadow-md transition-all overflow-hidden"
+                    className="rounded-lg shadow-sm hover:shadow-md transition-all overflow-hidden"
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.25)',
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(255, 255, 255, 0.3)'
+                    }}
                   >
-                    <img src={carta.imagen} alt={carta.nombre} className="w-full h-56 object-contain bg-gray-50 p-2" />
+                    <img src={carta.imagen} alt={carta.nombre} className="w-full h-56 object-contain p-2" style={{background: 'rgba(255, 255, 255, 0.15)'}} />
                     <div className="p-4 text-center">
-                      <h3 className="font-agletmono text-sm" style={{color: '#007567', fontWeight: 600}}>{carta.nombre}</h3>
-                      <p className="text-xs text-gray-500 mt-1">{carta.puntos ? `${carta.puntos} pts` : 'Acción'}</p>
+                      <h3 className="font-agletmono text-xs" style={{color: '#12055F', fontWeight: 600}}>{carta.nombre}</h3>
                     </div>
                   </motion.div>
                 ))}
@@ -470,21 +511,47 @@ const Diapositiva2 = () => {
               transition={{ duration: 0.2 }}
               className="space-y-6"
             >
-              <div className="bg-white/80 rounded-xl p-10 shadow-sm">
+              <div className="rounded-xl p-10 shadow-sm" style={{
+                background: 'rgba(255, 255, 255, 0.2)',
+                backdropFilter: 'blur(15px)',
+                WebkitBackdropFilter: 'blur(15px)',
+                border: '1px solid rgba(255, 255, 255, 0.25)'
+              }}>
                 <div className="space-y-8">
                   <div>
                     <h3 className="font-agletmono text-4xl mb-6" style={{color: '#12055F'}}>1. PREPARACIÓN (Setup)</h3>
                   </div>
                   <div className="space-y-6">
-                    <div className="p-6 bg-blue-50 rounded-lg border-l-4" style={{borderLeftColor: '#12055F'}}>
+                    <div className="p-6 rounded-lg border-l-4" style={{
+                      borderLeftColor: '#12055F',
+                      background: 'rgba(18, 5, 95, 0.08)',
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(18, 5, 95, 0.15)',
+                      borderLeft: '4px solid #12055F'
+                    }}>
                       <h4 className="font-agletmono text-2xl mb-3" style={{color: '#12055F'}}>Mazo Único</h4>
                       <p className="text-xl text-gray-700">Se barajan TODAS las cartas (Letras y Acciones juntas).</p>
                     </div>
-                    <div className="p-6 bg-green-50 rounded-lg border-l-4" style={{borderLeftColor: '#51CF66'}}>
+                    <div className="p-6 rounded-lg border-l-4" style={{
+                      borderLeftColor: '#51CF66',
+                      background: 'rgba(81, 207, 102, 0.08)',
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(81, 207, 102, 0.15)',
+                      borderLeft: '4px solid #51CF66'
+                    }}>
                       <h4 className="font-agletmono text-2xl mb-3" style={{color: '#51CF66'}}>Reparto Inicial</h4>
                       <p className="text-xl text-gray-700">Se reparten <strong>5 cartas</strong> a cada jugador/equipo para empezar. (¡Nadie baja nada todavía!)</p>
                     </div>
-                    <div className="p-6 bg-yellow-50 rounded-lg border-l-4" style={{borderLeftColor: '#FFC846'}}>
+                    <div className="p-6 rounded-lg border-l-4" style={{
+                      borderLeftColor: '#FFC846',
+                      background: 'rgba(255, 200, 70, 0.1)',
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(255, 200, 70, 0.2)',
+                      borderLeft: '4px solid #FFC846'
+                    }}>
                       <h4 className="font-agletmono text-2xl mb-3" style={{color: '#FFC846'}}>Mazo de Robo</h4>
                       <p className="text-xl text-gray-700">El resto se deja en el centro <strong>boca abajo</strong>.</p>
                     </div>
@@ -504,7 +571,12 @@ const Diapositiva2 = () => {
               transition={{ duration: 0.2 }}
               className="space-y-6"
             >
-              <div className="bg-white/80 rounded-xl p-10 shadow-sm">
+              <div className="rounded-xl p-10 shadow-sm" style={{
+                background: 'rgba(255, 255, 255, 0.2)',
+                backdropFilter: 'blur(15px)',
+                WebkitBackdropFilter: 'blur(15px)',
+                border: '1px solid rgba(255, 255, 255, 0.25)'
+              }}>
                 <div className="space-y-8">
                   <div>
                     <h3 className="font-agletmono text-4xl mb-6" style={{color: '#12055F'}}>2. EL TURNO (La Mecánica "Quiz")</h3>
@@ -512,17 +584,38 @@ const Diapositiva2 = () => {
                   </div>
                   
                   <div className="space-y-6">
-                    <div className="p-6 bg-purple-50 rounded-lg border-l-4" style={{borderLeftColor: '#B9ABE4'}}>
+                    <div className="p-6 rounded-lg border-l-4" style={{
+                      borderLeftColor: '#B9ABE4',
+                      background: 'rgba(185, 171, 228, 0.08)',
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(185, 171, 228, 0.15)',
+                      borderLeft: '4px solid #B9ABE4'
+                    }}>
                       <h4 className="font-agletmono text-2xl mb-3" style={{color: '#B9ABE4'}}>El Lector</h4>
                       <p className="text-xl text-gray-700">El jugador activo elige una carta de su mano y <strong>lee la pregunta</strong> al jugador de su izquierda.</p>
                     </div>
 
                     <div className="grid grid-cols-2 gap-6">
-                      <div className="p-6 bg-green-50 rounded-lg border-l-4" style={{borderLeftColor: '#51CF66'}}>
+                      <div className="p-6 rounded-lg border-l-4" style={{
+                      borderLeftColor: '#51CF66',
+                      background: 'rgba(81, 207, 102, 0.08)',
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(81, 207, 102, 0.15)',
+                      borderLeft: '4px solid #51CF66'
+                    }}>
                         <h4 className="font-agletmono text-2xl mb-3" style={{color: '#51CF66'}}>✅ Si ACIERTA</h4>
                         <p className="text-xl text-gray-700">El jugador se queda la carta (gana la Letra) y la pone en su zona de juego.</p>
                       </div>
-                      <div className="p-6 bg-red-50 rounded-lg border-l-4" style={{borderLeftColor: '#FF6B6B'}}>
+                      <div className="p-6 rounded-lg border-l-4" style={{
+                        borderLeftColor: '#FF6B6B',
+                        background: 'rgba(255, 107, 107, 0.08)',
+                        backdropFilter: 'blur(10px)',
+                        WebkitBackdropFilter: 'blur(10px)',
+                        border: '1px solid rgba(255, 107, 107, 0.15)',
+                        borderLeft: '4px solid #FF6B6B'
+                      }}>
                         <h4 className="font-agletmono text-2xl mb-3" style={{color: '#FF6B6B'}}>❌ Si FALLA</h4>
                         <p className="text-xl text-gray-700">La carta se va al mazo de descartes (nadie gana la letra).</p>
                       </div>
@@ -548,7 +641,12 @@ const Diapositiva2 = () => {
               transition={{ duration: 0.2 }}
               className="space-y-6"
             >
-              <div className="bg-white/80 rounded-xl p-10 shadow-sm">
+              <div className="rounded-xl p-10 shadow-sm" style={{
+                background: 'rgba(255, 255, 255, 0.2)',
+                backdropFilter: 'blur(15px)',
+                WebkitBackdropFilter: 'blur(15px)',
+                border: '1px solid rgba(255, 255, 255, 0.25)'
+              }}>
                 <div className="space-y-8">
                   <div>
                     <h3 className="font-agletmono text-4xl mb-6" style={{color: '#12055F'}}>3. FASE DE CONSTRUCCIÓN (Tu Colonia)</h3>
@@ -556,7 +654,14 @@ const Diapositiva2 = () => {
                   </div>
 
                   <div className="space-y-6">
-                    <div className="p-6 bg-blue-50 rounded-lg border-l-4" style={{borderLeftColor: '#007567'}}>
+                    <div className="p-6 rounded-lg border-l-4" style={{
+                      borderLeftColor: '#007567',
+                      background: 'rgba(0, 117, 103, 0.08)',
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(0, 117, 103, 0.15)',
+                      borderLeft: '4px solid #007567'
+                    }}>
                       <h4 className="font-agletmono text-2xl mb-3" style={{color: '#007567'}}>Regla de Puntuación</h4>
                       <p className="text-xl text-gray-700">Cada carta tiene un <strong>valor en la esquina</strong>.</p>
                     </div>
@@ -596,11 +701,23 @@ const Diapositiva2 = () => {
               transition={{ duration: 0.2 }}
               className="space-y-6"
             >
-              <div className="bg-white/80 rounded-xl p-10 shadow-sm">
+              <div className="rounded-xl p-10 shadow-sm" style={{
+                background: 'rgba(255, 255, 255, 0.2)',
+                backdropFilter: 'blur(15px)',
+                WebkitBackdropFilter: 'blur(15px)',
+                border: '1px solid rgba(255, 255, 255, 0.25)'
+              }}>
                 <h3 className="font-agletmono text-4xl mb-8" style={{color: '#12055F'}}>4. ACCIONES ESPECIALES (El Conflicto)</h3>
                 <p className="text-2xl text-gray-700 mb-8">Se juegan en tu turno <strong>en lugar de construir</strong>.</p>
                 <div className="grid grid-cols-3 gap-8">
-                  <div className="bg-yellow-50 rounded-lg p-8 border-l-4" style={{borderLeftColor: '#FFC846'}}>
+                  <div className="rounded-lg p-8 border-l-4" style={{
+                    borderLeftColor: '#FFC846',
+                    background: 'rgba(255, 200, 70, 0.1)',
+                    backdropFilter: 'blur(10px)',
+                    WebkitBackdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255, 200, 70, 0.2)',
+                    borderLeft: '4px solid #FFC846'
+                  }}>
                     <div className="flex items-center gap-3 mb-4">
                       <Zap size={32} style={{color: '#FFC846'}} strokeWidth={2.5} />
                       <h4 className="font-agletmono text-2xl" style={{color: '#12055F'}}>CONQUISTA</h4>
@@ -609,7 +726,14 @@ const Diapositiva2 = () => {
                     <p className="text-xl text-gray-700 leading-relaxed">Roba una palabra <strong>vulnerable</strong> de un oponente. Condición: Debes poder <strong>conectarla inmediatamente</strong> a tus propias palabras.</p>
                   </div>
 
-                  <div className="bg-blue-50 rounded-lg p-8 border-l-4" style={{borderLeftColor: '#007567'}}>
+                  <div className="rounded-lg p-8 border-l-4" style={{
+                    borderLeftColor: '#007567',
+                    background: 'rgba(0, 117, 103, 0.08)',
+                    backdropFilter: 'blur(10px)',
+                    WebkitBackdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(0, 117, 103, 0.15)',
+                    borderLeft: '4px solid #007567'
+                  }}>
                     <div className="flex items-center gap-3 mb-4">
                       <Shield size={32} style={{color: '#007567'}} strokeWidth={2.5} />
                       <h4 className="font-agletmono text-2xl" style={{color: '#12055F'}}>ESCUDO</h4>
@@ -618,7 +742,14 @@ const Diapositiva2 = () => {
                     <p className="text-xl text-gray-700 leading-relaxed">Protege una palabra <strong>vulnerable</strong> de ser robada.</p>
                   </div>
 
-                  <div className="bg-purple-50 rounded-lg p-8 border-l-4" style={{borderLeftColor: '#B9ABE4'}}>
+                  <div className="rounded-lg p-8 border-l-4" style={{
+                    borderLeftColor: '#B9ABE4',
+                    background: 'rgba(185, 171, 228, 0.08)',
+                    backdropFilter: 'blur(10px)',
+                    WebkitBackdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(185, 171, 228, 0.15)',
+                    borderLeft: '4px solid #B9ABE4'
+                  }}>
                     <div className="flex items-center gap-3 mb-4">
                       <Wand2 size={32} style={{color: '#B9ABE4'}} strokeWidth={2.5} />
                       <h4 className="font-agletmono text-2xl" style={{color: '#12055F'}}>MÁGICA</h4>
@@ -641,22 +772,48 @@ const Diapositiva2 = () => {
               transition={{ duration: 0.2 }}
               className="space-y-6"
             >
-              <div className="bg-white/80 rounded-xl p-10 shadow-sm">
+              <div className="rounded-xl p-10 shadow-sm" style={{
+                background: 'rgba(255, 255, 255, 0.2)',
+                backdropFilter: 'blur(15px)',
+                WebkitBackdropFilter: 'blur(15px)',
+                border: '1px solid rgba(255, 255, 255, 0.25)'
+              }}>
                 <div className="space-y-8">
                   <h3 className="font-agletmono text-4xl" style={{color: '#12055F'}}>5. FIN DEL JUEGO</h3>
 
-                  <div className="p-8 bg-yellow-50 rounded-lg border-l-4" style={{borderLeftColor: '#FFC846'}}>
+                  <div className="p-8 rounded-lg border-l-4" style={{
+                    borderLeftColor: '#FFC846',
+                    background: 'rgba(255, 200, 70, 0.1)',
+                    backdropFilter: 'blur(10px)',
+                    WebkitBackdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255, 200, 70, 0.2)',
+                    borderLeft: '4px solid #FFC846'
+                  }}>
                     <h4 className="font-agletmono text-2xl mb-4" style={{color: '#FFC846'}}>🎯 VICTORIA INMEDIATA</h4>
                     <p className="text-2xl text-gray-700 leading-relaxed"><strong>Un jugador forma una FRASE de DOS PALABRAS</strong> en su zona (pueden estar cruzadas o no).</p>
                     <p className="text-xl text-gray-600 mt-4">Ejemplo: "GATO" + "GRANDE" = <strong>¡GANA!</strong></p>
                   </div>
 
-                  <div className="p-8 bg-red-50 rounded-lg border-l-4" style={{borderLeftColor: '#FF6B6B'}}>
+                  <div className="p-8 rounded-lg border-l-4" style={{
+                    borderLeftColor: '#FF6B6B',
+                    background: 'rgba(255, 107, 107, 0.08)',
+                    backdropFilter: 'blur(10px)',
+                    WebkitBackdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255, 107, 107, 0.15)',
+                    borderLeft: '4px solid #FF6B6B'
+                  }}>
                     <h4 className="font-agletmono text-2xl mb-4" style={{color: '#FF6B6B'}}>Fin por Agotamiento</h4>
                     <p className="text-2xl text-gray-700">Si nadie forma 2 palabras: Se acaba cuando <strong>se agota el mazo de robo</strong> y un jugador <strong>se queda sin cartas</strong>.</p>
                   </div>
 
-                  <div className="p-8 bg-green-50 rounded-lg border-l-4" style={{borderLeftColor: '#51CF66'}}>
+                  <div className="p-8 rounded-lg border-l-4" style={{
+                    borderLeftColor: '#51CF66',
+                    background: 'rgba(81, 207, 102, 0.08)',
+                    backdropFilter: 'blur(10px)',
+                    WebkitBackdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(81, 207, 102, 0.15)',
+                    borderLeft: '4px solid #51CF66'
+                  }}>
                     <h4 className="font-agletmono text-2xl mb-4" style={{color: '#51CF66'}}>Puntuación Final (por agotamiento)</h4>
                     <div className="space-y-4">
                       <div className="text-2xl font-bold" style={{color: '#12055F'}}>
@@ -731,256 +888,22 @@ const Diapositiva2 = () => {
 // DIAPOSITIVA 3: EL APOYO PEDAGÓGICO - ESTUDIANTES CON NECESIDADES DE APRENDIZAJE PAUTADO
 // =======================================================================
 const Diapositiva3 = () => {
-  const [expandedStudent, setExpandedStudent] = useState<string | null>(null);
-
-  const baseFontSize = '16px';
-
-  const estudiantesNecesidades = [
-    {
-      id: 'poco-autonomos',
-      titulo: 'Estudiantes poco autónomos',
-      descripcion: 'Requieren mayor seguimiento y orientación en su proceso de aprendizaje.',
-      color: colors.amarillo,
-      icon: Accessibility
-    },
-    {
-      id: 'monolingues',
-      titulo: 'Hablantes monolingües',
-      descripcion: 'No tienen experiencia previa con otras lenguas o culturas.',
-      color: colors.lila,
-      icon: Speaker
-    },
-    {
-      id: 'estudiantes-mayores',
-      titulo: 'Estudiantes mayores',
-      descripcion: 'Adultos con contextos y experiencias de vida particulares.',
-      color: colors.verdeTurquesa,
-      icon: Heart
-    },
-    {
-      id: 'memoristica',
-      titulo: 'Aprendientes de forma memorística',
-      descripcion: 'Utilizan estrategias de memorización como principal método de aprendizaje.',
-      color: colors.verdeClaro,
-      icon: Brain
-    },
-    {
-      id: 'lengua-distante',
-      titulo: 'Hablantes de una lengua materna distante del español',
-      descripcion: 'Enfrentan mayores desafíos en la adquisición del idioma.',
-      color: colors.azulOscuro,
-      icon: Globe
-    },
-    {
-      id: 'sin-seguridad',
-      titulo: 'Estudiantes que no hablan si no se sienten seguros',
-      descripcion: 'Necesitan construir confianza antes de participar activamente.',
-      color: colors.azulOscuro,
-      icon: Shield
-    },
-    {
-      id: 'expuestos',
-      titulo: 'Estudiantes que temen sentirse expuestos',
-      descripcion: 'Evitan situaciones que los coloquen en el centro de atención.',
-      color: colors.verdeClaro,
-      icon: Eye
-    },
-    {
-      id: 'otra-cultura',
-      titulo: 'Estudiantes con otra cultura de aprendizaje',
-      descripcion: 'Proceden de sistemas educativos con enfoques diferentes.',
-      color: colors.amarillo,
-      icon: Users
-    }
-  ];
-
   return (
-    <div 
-      className="h-screen flex flex-col"
-      style={{ background: `linear-gradient(135deg, ${colors.verdeClaro}40 0%, ${colors.amarillo}20 50%, ${colors.verdeTurquesa}30 100%)` }}
+    <div
+      className="min-h-screen relative overflow-hidden"
+      style={{
+        background: `linear-gradient(135deg, ${colors.verdeClaro}40 0%, ${colors.amarillo}20 50%, ${colors.verdeTurquesa}30 100%)`
+      }}
     >
-      {/* Título */}
-      <motion.h1
-        initial={{ opacity: 0, y: -20 }} 
-        animate={{ opacity: 1, y: 0 }} 
-        className="text-center pt-10 pb-6 md:pt-12 md:pb-8 px-6 shrink-0 text-2xl md:text-3xl lg:text-4xl font-semibold"
-        style={{ 
-          fontFamily: 'Aglet Mono, monospace',
-          color: colors.azulOscuro,
-          lineHeight: '1.3'
-        }}
-      >
-        El apoyo pedagógico en las actividades para los estudiantes con necesidades de aprendizaje pautado
-      </motion.h1>
-
-      {/* Contenido principal */}
-      <div className="flex-1 px-8 md:px-12 pb-8 overflow-y-auto custom-scrollbar">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5"
-        >
-          {estudiantesNecesidades.map((estudiante, index) => (
-            <motion.div
-              key={estudiante.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + index * 0.05 }}
-              className="relative rounded-xl shadow-lg cursor-pointer transition-all duration-300 overflow-hidden"
-              style={{
-                backgroundColor: colors.blanco,
-                border: `2px solid ${estudiante.color}`,
-                minHeight: expandedStudent === estudiante.id ? 'auto' : '180px'
-              }}
-              onClick={() => setExpandedStudent(expandedStudent === estudiante.id ? null : estudiante.id)}
-              whileHover={{ y: -5, boxShadow: '0 12px 24px rgba(0,0,0,0.15)' }}
-            >
-              {/* Barra de color en la parte superior */}
-              <div
-                className="h-1"
-                style={{ backgroundColor: estudiante.color }}
-              />
-              
-              <div className="p-5 flex flex-col">
-                {/* Icono de Lucide */}
-                <div className="mb-3" style={{ color: estudiante.color }}>
-                  {React.createElement(estudiante.icon, { size: 24, strokeWidth: 2 })}
-                </div>
-                
-                {/* Título */}
-                <h3
-                  style={{
-                    fontFamily: 'Raleway, sans-serif',
-                    fontSize: `calc(${baseFontSize} * 1.05)`,
-                    fontWeight: 700,
-                    color: colors.azulOscuro,
-                    marginBottom: '10px',
-                    lineHeight: '1.3'
-                  }}
-                >
-                  {estudiante.titulo}
-                </h3>
-
-                {/* Descripción expandible */}
-                <AnimatePresence>
-                  {expandedStudent === estudiante.id && (
-                    <motion.p
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.2 }}
-                      style={{
-                        fontFamily: 'Raleway, sans-serif',
-                        fontSize: `calc(${baseFontSize} * 0.9)`,
-                        color: colors.grisOscuro,
-                        lineHeight: '1.5',
-                        marginTop: '10px'
-                      }}
-                    >
-                      {estudiante.descripcion}
-                    </motion.p>
-                  )}
-                </AnimatePresence>
-
-                {/* Indicador de expandible */}
-                <div className="mt-auto pt-3 text-xs" style={{ color: estudiante.color }}>
-                  {expandedStudent === estudiante.id ? '▼ Menos' : '▶ Más'}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Sección de estrategias */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="mt-12"
-        >
-          <h2
-            style={{
-              fontFamily: 'Aglet Mono, monospace',
-              fontSize: `calc(${baseFontSize} * 1.8)`,
-              fontWeight: 700,
-              color: colors.azulOscuro,
-              marginBottom: '20px',
-              textAlign: 'center'
-            }}
-          >
-            Estrategias de apoyo pedagógico
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                titulo: 'Diferenciación curricular',
-                desc: 'Adaptamos actividades según el nivel y ritmo de aprendizaje de cada estudiante.',
-                color: colors.amarillo,
-                icon: Layers
-              },
-              {
-                titulo: 'Trabajo colaborativo',
-                desc: 'Creamos espacios seguros para la participación y el aprendizaje mutuo.',
-                color: colors.verdeTurquesa,
-                icon: Users
-              },
-              {
-                titulo: 'Retroalimentación personalizada',
-                desc: 'Ofrecemos orientación específica para mejorar el desempeño académico.',
-                color: colors.lila,
-                icon: Lightbulb
-              }
-            ].map((estrategia, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 + index * 0.1 }}
-                className="p-6 rounded-xl shadow-lg"
-                style={{ backgroundColor: colors.blanco, borderLeft: `4px solid ${estrategia.color}` }}
-              >
-                <div className="mb-3" style={{ color: estrategia.color }}>
-                  {React.createElement(estrategia.icon, { size: 28, strokeWidth: 2 })}
-                </div>
-                <h4
-                  style={{
-                    fontFamily: 'Raleway, sans-serif',
-                    fontSize: `calc(${baseFontSize} * 1.2)`,
-                    fontWeight: 600,
-                    color: colors.azulOscuro,
-                    marginBottom: '10px'
-                  }}
-                >
-                  {estrategia.titulo}
-                </h4>
-                <p
-                  style={{
-                    fontFamily: 'Raleway, sans-serif',
-                    fontSize: `calc(${baseFontSize} * 0.95)`,
-                    color: colors.grisOscuro,
-                    lineHeight: '1.6'
-                  }}
-                >
-                  {estrategia.desc}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
-      </div>
-
-      {/* Footer */}
-      <div className="absolute bottom-2 left-0 right-0 text-center">
-        <p className="text-xs" style={{ 
-          fontFamily: 'Raleway, sans-serif',
-          color: colors.azulOscuro,
-          opacity: 0.6
-        }}>
-          © 2025 Hablandis. Todos los derechos reservados.
-        </p>
-      </div>
+      {/* Efectos de fondo decorativos */}
+      <div
+        className="absolute top-10 left-10 w-96 h-96 rounded-full blur-3xl opacity-25"
+        style={{ backgroundColor: colors.amarillo }}
+      />
+      <div
+        className="absolute bottom-10 right-10 w-80 h-80 rounded-full blur-3xl opacity-20"
+        style={{ backgroundColor: colors.verdeTurquesa }}
+      />
     </div>
   );
 };
