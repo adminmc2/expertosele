@@ -1405,238 +1405,61 @@ const Diapositiva3Antigua = () => {
 };
 
 // =======================================================================
-// DIAPOSITIVA 3: PROCESO FORMATIVO Y EVALUACIÓN - DISEÑO UNIFICADO
+// DIAPOSITIVA 3: EL APOYO PEDAGÓGICO - ESTUDIANTES CON NECESIDADES DE APRENDIZAJE PAUTADO
 // =======================================================================
 const Diapositiva3 = () => {
-  const [videoModalSrc, setVideoModalSrc] = useState<string | null>(null);
-  const [activeProcess, setActiveProcess] = useState<string | null>(null);
-  const [evaluationTab, setEvaluationTab] = useState<'hablandis' | 'integracion' | null>(null);
-
-  const LineIcons = {
-    pencil: ( 
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2"> 
-        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" strokeLinecap="round" strokeLinejoin="round"/> 
-      </svg> 
-    ),
-    puzzle: ( 
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2"> 
-        <path d="M20 7h-2.5c-1.5 0-2.5-1-2.5-2.5s-2-2.5-3.5-2.5-2.5 1-2.5 2.5-1 2.5-2.5 2.5H4v3c0 1.5-1 2.5-2.5 2.5s-2.5 2-2.5 3.5 1 2.5 2.5 2.5S4 17.5 4 16v-3h2.5c1.5 0 2.5 1 2.5 2.5s2 2.5 3.5 2.5 2.5-1 2.5-2.5 1-2.5 2.5-2.5H20v-6z" strokeLinecap="round" strokeLinejoin="round"/> 
-      </svg> 
-    ),
-    target: ( 
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2"> 
-        <circle cx="12" cy="12" r="10" strokeLinecap="round" strokeLinejoin="round"/> 
-        <circle cx="12" cy="12" r="6" strokeLinecap="round" strokeLinejoin="round"/> 
-        <circle cx="12" cy="12" r="2" strokeLinecap="round" strokeLinejoin="round"/> 
-      </svg> 
-    ),
-    play: ( 
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor"> 
-        <path d="M8 5v14l11-7z"/> 
-      </svg> 
-    ),
-    close: ( 
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"> 
-        <line x1="18" y1="6" x2="6" y2="18" /> 
-        <line x1="6" y1="6" x2="18" y2="18" /> 
-      </svg> 
-    )
-  };
+  const [expandedStudent, setExpandedStudent] = useState<string | null>(null);
 
   const baseFontSize = '16px';
-  const pastelColors = {
-    amarillo: colors.amarillo + '30', 
-    lila: colors.lila + '30', 
-    verdeTurquesa: colors.verdeTurquesa + '30', 
-    azulOscuro: colors.azulOscuro + '15'
-  };
 
-  const procesosFormativos = {
-    ejercicio: { 
-      titulo: 'Ejercicio', 
-      subtitulo: 'Acción descontextualizada', 
-      descripcion: 'Acción descontextualizada no referida a la vida real, que se ejercita de forma mecánica. Requiere de repetición, memorización y reproducción.', 
-      icon: LineIcons.pencil, 
-      color: pastelColors.amarillo, 
-      borderColor: colors.amarillo 
+  const estudiantesNecesidades = [
+    {
+      id: 'poco-autonomos',
+      titulo: 'Estudiantes poco autónomos',
+      descripcion: 'Requieren mayor seguimiento y orientación en su proceso de aprendizaje.',
+      color: colors.amarillo
     },
-    actividad: { 
-      titulo: 'Actividad', 
-      subtitulo: 'Proceso mental sencillo', 
-      descripcion: 'Requiere un proceso mental sencillo para su resolución. Implica comprensión y toma de decisiones.', 
-      icon: LineIcons.puzzle, 
-      color: pastelColors.lila, 
-      borderColor: colors.lila 
+    {
+      id: 'monolingues',
+      titulo: 'Hablantes monolingües',
+      descripcion: 'No tienen experiencia previa con otras lenguas o culturas.',
+      color: colors.lila
     },
-    tarea: { 
-      titulo: 'Tarea o Proyecto', 
-      subtitulo: 'Producto significativo', 
-      descripcion: 'Producto relevante y significativo con referencia a la vida real que requiere una activación de las competencias.', 
-      icon: LineIcons.target, 
-      color: pastelColors.verdeTurquesa, 
-      borderColor: colors.verdeTurquesa 
-    }
-  };
-
-  const evaluacionCompleta = {
-    hablandis: { 
-      titulo: 'Evaluación en Hablandis', 
-      contenido: ( 
-        <div className="space-y-5"> 
-          {[ 
-            { 
-              title: "Test de nivel al principio", 
-              desc: "Evaluación diagnóstica completa para establecer el punto de partida real del estudiante." 
-            }, 
-            { 
-              title: "Diagnóstico del aprendizaje lingüístico", 
-              desc: "Análisis profundo de competencias comunicativas, gramaticales y culturales." 
-            }, 
-            { 
-              title: "Preparación de una propuesta educativa personalizada", 
-              desc: "Diseño específico según objetivos del centro y necesidades del grupo." 
-            }, 
-            { 
-              title: "Evaluación formativa integrativa a través de una tarea", 
-              desc: "Se evalúa el nuevo nivel del estudiante considerando toda su labor durante el período del viaje de estudio. Esto incluye minitareas y la tarea final." 
-            }, 
-          ].map((item, index) => ( 
-            <div key={index} className="flex items-start gap-4"> 
-              <div className="w-7 h-7 rounded-full flex-shrink-0 mt-1 flex items-center justify-center" 
-                   style={{ backgroundColor: colors.verdeTurquesa + '20' }}> 
-                <span className="block w-3 h-3 rounded-full" style={{backgroundColor: colors.verdeTurquesa}}></span> 
-              </div> 
-              <div> 
-                <h5 style={{ 
-                  fontFamily: 'Raleway, sans-serif', 
-                  fontSize: '1.1rem', 
-                  fontWeight: 600, 
-                  color: colors.azulOscuro 
-                }}> 
-                  {item.title} 
-                </h5> 
-                <p style={{ 
-                  fontFamily: 'Raleway, sans-serif', 
-                  fontSize: '0.95rem', 
-                  color: colors.grisOscuro, 
-                  lineHeight: '1.6' 
-                }}> 
-                  {item.desc} 
-                </p> 
-              </div> 
-            </div> 
-          ))} 
-        </div> 
-      ) 
+    {
+      id: 'estudiantes-mayores',
+      titulo: 'Estudiantes mayores',
+      descripcion: 'Adultos con contextos y experiencias de vida particulares.',
+      color: colors.verdeTurquesa
     },
-    integracion: { 
-      titulo: 'Integración', 
-      contenido: ( 
-        <div className="space-y-6"> 
-          <div className="text-center mb-6"> 
-            <h5 style={{ 
-              fontFamily: 'Raleway, sans-serif', 
-              fontSize: '1.2rem', 
-              fontWeight: 600, 
-              color: colors.azulOscuro 
-            }}> 
-              Adaptamos la propuesta evaluativa a la demanda curricular del centro 
-            </h5> 
-            <p style={{ 
-              fontFamily: 'Raleway, sans-serif', 
-              fontSize: '1rem', 
-              color: colors.grisOscuro, 
-              marginTop: '10px' 
-            }}> 
-              Personalizamos nuestra propuesta para cada institución educativa 
-            </p> 
-          </div> 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5"> 
-            {[ 
-              { 
-                title: "Respetamos", 
-                desc: "Currículo oficial inglés y objetivos institucionales.", 
-                bgColor: pastelColors.azulOscuro 
-              }, 
-              { 
-                title: "Enriquecemos", 
-                desc: "Con metodologías comunicativas y contextos reales.", 
-                bgColor: pastelColors.lila 
-              }, 
-              { 
-                title: "Documentamos", 
-                desc: "Portfolio digital con evidencias del progreso.", 
-                bgColor: pastelColors.verdeTurquesa 
-              }, 
-              { 
-                title: "Certificamos", 
-                desc: "Certificado como centro acreditado del Instituto Cervantes.", 
-                bgColor: pastelColors.amarillo 
-              }, 
-            ].map(item => ( 
-              <div key={item.title} className="p-5 rounded-xl" style={{ backgroundColor: item.bgColor }}> 
-                <h6 style={{ 
-                  fontFamily: 'Raleway, sans-serif', 
-                  fontSize: '1.05rem', 
-                  fontWeight: 600, 
-                  color: colors.azulOscuro, 
-                  marginBottom: '6px' 
-                }}> 
-                  {item.title} 
-                </h6> 
-                <p style={{ 
-                  fontFamily: 'Raleway, sans-serif', 
-                  fontSize: '0.95rem', 
-                  color: colors.grisOscuro, 
-                  lineHeight: '1.6' 
-                }}> 
-                  {item.desc} 
-                </p> 
-              </div> 
-            ))} 
-          </div> 
-        </div> 
-      ) 
-    }
-  };
-
-  const VideoModal = ({ src, onClose }: { src: string; onClose: () => void }) => (
-    <motion.div 
-      initial={{ opacity: 0 }} 
-      animate={{ opacity: 1 }} 
-      exit={{ opacity: 0 }} 
-      className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4" 
-      onClick={onClose} 
-    > 
-      <motion.div 
-        initial={{ scale: 0.5, y: 50 }} 
-        animate={{ scale: 1, y: 0 }} 
-        exit={{ scale: 0.5, y: 50 }} 
-        className="bg-black rounded-lg shadow-2xl overflow-hidden relative max-w-4xl w-full aspect-video" 
-        onClick={(e) => e.stopPropagation()} 
-      > 
-        <video src={src} controls autoPlay className="w-full h-full" /> 
-        <button 
-          onClick={onClose} 
-          className="absolute top-3 right-3 text-white bg-black/50 rounded-full p-2 hover:bg-black/70 transition-colors" 
-          aria-label="Cerrar vídeo" 
-        > 
-          {LineIcons.close} 
-        </button> 
-      </motion.div> 
-    </motion.div>
-  );
-
-  const videosData = [
-    { 
-      id: 'video_media2',
-      title: 'Grupo de estudiantes italiano',
-      file: '/media2.mp4', 
+    {
+      id: 'memoristica',
+      titulo: 'Aprendientes de forma memorística',
+      descripcion: 'Utilizan estrategias de memorización como principal método de aprendizaje.',
+      color: colors.verdeClaro
     },
-    { 
-      id: 'video_media3',
-      title: 'Rápidas 2.0',
-      file: '/media3.mp4',
+    {
+      id: 'lengua-distante',
+      titulo: 'Hablantes de una lengua materna distante del español',
+      descripcion: 'Enfrentan mayores desafíos en la adquisición del idioma.',
+      color: colors.azulOscuro
+    },
+    {
+      id: 'sin-seguridad',
+      titulo: 'Estudiantes que no hablan si no se sienten seguros',
+      descripcion: 'Necesitan construir confianza antes de participar activamente.',
+      color: colors.azulOscuro
+    },
+    {
+      id: 'expuestos',
+      titulo: 'Estudiantes que temen sentirse expuestos',
+      descripcion: 'Evitan situaciones que los coloquen en el centro de atención.',
+      color: colors.verdeClaro
+    },
+    {
+      id: 'otra-cultura',
+      titulo: 'Estudiantes con otra cultura de aprendizaje',
+      descripcion: 'Proceden de sistemas educativos con enfoques diferentes.',
+      color: colors.amarillo
     }
   ];
 
@@ -1645,256 +1468,174 @@ const Diapositiva3 = () => {
       className="h-screen flex flex-col"
       style={{ background: `linear-gradient(135deg, ${colors.verdeClaro}40 0%, ${colors.amarillo}20 50%, ${colors.verdeTurquesa}30 100%)` }}
     >
-      {/* Título UNIFICADO */}
+      {/* Título */}
       <motion.h1
         initial={{ opacity: 0, y: -20 }} 
         animate={{ opacity: 1, y: 0 }} 
-        className="text-center pt-10 pb-6 md:pt-12 md:pb-8 px-6 shrink-0 text-3xl md:text-4xl lg:text-5xl font-semibold"
+        className="text-center pt-10 pb-6 md:pt-12 md:pb-8 px-6 shrink-0 text-2xl md:text-3xl lg:text-4xl font-semibold"
         style={{ 
           fontFamily: 'Aglet Mono, monospace',
           color: colors.azulOscuro,
-          lineHeight: '1.2'
+          lineHeight: '1.3'
         }}
       >
-        ¿Cómo se estructura el proceso de aprendizaje en los viajes escolares?
+        El apoyo pedagógico en las actividades para los estudiantes con necesidades de aprendizaje pautado
       </motion.h1>
 
-      <div className="flex-1 flex flex-col lg:flex-row gap-8 xl:gap-10 px-8 md:px-12 pb-6 overflow-y-auto custom-scrollbar">
-        <div className="flex-1 flex flex-col gap-8 xl:gap-10 lg:overflow-y-auto custom-scrollbar pr-2">
-          <motion.section
-            initial={{ opacity: 0, y: 20 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{delay: 0.1}} 
-          > 
-            <h2 style={{ 
-              fontFamily: 'Raleway, sans-serif', 
-              fontSize: `calc(${baseFontSize} * 1.6)`, 
-              fontWeight: 700, 
-              color: colors.azulOscuro, 
-              marginBottom: '18px' 
-            }}> 
-              Del ejercicio a la tarea 
-            </h2> 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5"> 
-              {Object.entries(procesosFormativos).map(([key, proceso], index) => ( 
-                <motion.div 
-                  key={key} 
-                  initial={{ opacity: 0, y: 20 }} 
-                  animate={{ opacity: 1, y: 0 }} 
-                  transition={{ delay: 0.2 + index * 0.1 }} 
-                  className="flex-1 relative rounded-xl shadow-lg cursor-pointer transition-all duration-300 min-h-[160px] flex flex-col" 
-                  style={{ 
-                    backgroundColor: activeProcess === key ? proceso.color : colors.blanco, 
-                    border: `2px solid ${activeProcess === key ? proceso.borderColor : (colors.grisClaro || '#e0e0e0')}` 
-                  }} 
-                  onClick={() => setActiveProcess(activeProcess === key ? null : key)} 
-                  whileHover={{ y: -5, boxShadow: '0 10px 20px rgba(0,0,0,0.1)' }} 
-                > 
-                  <div className="p-5 flex flex-col flex-grow"> 
-                    <div className="flex items-center gap-4 mb-3"> 
-                      <div style={{ color: proceso.borderColor }}> 
-                        {proceso.icon} 
-                      </div> 
-                      <div> 
-                        <h3 style={{ 
-                          fontFamily: 'Raleway, sans-serif', 
-                          fontSize: `calc(${baseFontSize} * 1.15)`, 
-                          fontWeight: 600, 
-                          color: colors.azulOscuro 
-                        }}> 
-                          {proceso.titulo} 
-                        </h3> 
-                        <p style={{ 
-                          fontFamily: 'Raleway, sans-serif', 
-                          fontSize: `calc(${baseFontSize} * 0.9)`, 
-                          color: colors.grisOscuro 
-                        }}> 
-                          {proceso.subtitulo} 
-                        </p> 
-                      </div> 
-                    </div> 
-                    {activeProcess === key && ( 
-                      <motion.p 
-                        initial={{ opacity: 0, height: 0 }} 
-                        animate={{ opacity: 1, height: 'auto' }} 
-                        exit={{ opacity: 0, height: 0 }} 
-                        className="mt-auto" 
-                        style={{ 
-                          fontFamily: 'Raleway, sans-serif', 
-                          fontSize: `calc(${baseFontSize} * 0.9)`, 
-                          color: colors.grisOscuro, 
-                          lineHeight: '1.6' 
-                        }} 
-                      > 
-                        {proceso.descripcion} 
-                      </motion.p> 
-                    )} 
-                  </div> 
-                </motion.div> 
-              ))} 
-            </div> 
-          </motion.section>
-          
-          <motion.section 
-            initial={{ opacity: 0, y: 20 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{delay: 0.2}} 
-            className="flex flex-col"
-          >
-            <h2 style={{ 
-              fontFamily: 'Raleway, sans-serif', 
-              fontSize: `calc(${baseFontSize} * 1.6)`, 
-              fontWeight: 700, 
-              color: colors.azulOscuro, 
-              marginBottom: '10px' 
-            }}> 
-              Una propuesta evaluativa adaptativa 
-            </h2>
-            <p style={{ 
-              fontFamily: 'Raleway, sans-serif', 
-              fontSize: baseFontSize, 
-              color: colors.grisOscuro, 
-              marginBottom: '20px', 
-              lineHeight: '1.6' 
-            }}> 
-              Integramos el sistema educativo polaco con metodologías comunicativas innovadoras. 
-            </p>
-            <div className="flex flex-wrap gap-3 mb-5">
-              {Object.keys(evaluacionCompleta).map((key) => (
-                <button 
-                  key={key}
-                  onClick={() => setEvaluationTab(evaluationTab === key ? null : key as 'hablandis' | 'integracion')} 
-                  className="px-5 py-2.5 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md" 
-                  style={{ 
-                    backgroundColor: evaluationTab === key ? colors.azulOscuro : colors.blanco, 
-                    color: evaluationTab === key ? colors.blanco : colors.azulOscuro, 
-                    fontFamily: 'Raleway, sans-serif', 
-                    fontSize: `calc(${baseFontSize} * 0.90)`, 
-                    fontWeight: 500, 
-                    border: `1px solid ${evaluationTab === key ? colors.azulOscuro : (colors.grisClaro || '#e0e0e0')}` 
-                  }} 
-                > 
-                  {evaluacionCompleta[key as keyof typeof evaluacionCompleta].titulo.split(' - ')[0]} 
-                </button>
-              ))}
-            </div>
-            <div 
-              className="bg-white rounded-xl shadow-lg p-5 md:p-6 overflow-y-auto custom-scrollbar"
-              style={{ minHeight: '300px', maxHeight: '50vh' }}
-            >
-              <AnimatePresence mode="wait">
-                {evaluationTab ? (
-                  <motion.div 
-                    key={evaluationTab} 
-                    initial={{ opacity: 0, y: 20 }} 
-                    animate={{ opacity: 1, y: 0, transition: { duration: 0.3, delay: 0.1 } }} 
-                    exit={{ opacity: 0, y: -20, transition: { duration: 0.2 } }} 
-                  > 
-                    <h4 style={{ 
-                      fontFamily: 'Raleway, sans-serif', 
-                      fontSize: `calc(${baseFontSize} * 1.25)`, 
-                      fontWeight: 600, 
-                      color: colors.azulOscuro, 
-                      marginBottom: '18px' 
-                    }}> 
-                      {evaluacionCompleta[evaluationTab].titulo} 
-                    </h4> 
-                    {evaluacionCompleta[evaluationTab].contenido} 
-                  </motion.div>
-                ) : (
-                  <motion.div 
-                    key="placeholder-eval" 
-                    initial={{opacity:0}} 
-                    animate={{opacity:1}} 
-                    exit={{opacity:0}} 
-                    className="h-full flex items-center justify-center text-center"
-                  > 
-                    <p style={{ 
-                      fontFamily: 'Raleway, sans-serif', 
-                      fontSize: baseFontSize, 
-                      color: colors.grisOscuro, 
-                      opacity: 0.7 
-                    }}> 
-                      Haz clic en una pestaña para ver más información. 
-                    </p> 
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </motion.section>
-        </div>
-
-        <motion.aside 
-          className="w-full lg:w-[300px] xl:w-[340px] flex flex-col gap-6 shrink-0 lg:overflow-y-auto custom-scrollbar pr-2"
-          initial={{ opacity: 0, x: 20 }} 
-          animate={{ opacity: 1, x: 0 }} 
-          transition={{delay: 0.3}}
+      {/* Contenido principal */}
+      <div className="flex-1 px-8 md:px-12 pb-8 overflow-y-auto custom-scrollbar">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5"
         >
-          {videosData.map((video) => (
+          {estudiantesNecesidades.map((estudiante, index) => (
             <motion.div
-              key={video.id}
-              initial={{ opacity: 0, y: 15 }}
+              key={estudiante.id}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 + videosData.indexOf(video) * 0.15 }}
-              className="relative rounded-xl overflow-hidden shadow-xl group cursor-pointer aspect-[4/3]"
-              style={{ backgroundColor: colors.grisOscuro }}
-              onClick={() => setVideoModalSrc(video.file)}
+              transition={{ delay: 0.1 + index * 0.05 }}
+              className="relative rounded-xl shadow-lg cursor-pointer transition-all duration-300 overflow-hidden"
+              style={{
+                backgroundColor: colors.blanco,
+                border: `2px solid ${estudiante.color}`,
+                minHeight: expandedStudent === estudiante.id ? 'auto' : '180px'
+              }}
+              onClick={() => setExpandedStudent(expandedStudent === estudiante.id ? null : estudiante.id)}
+              whileHover={{ y: -5, boxShadow: '0 12px 24px rgba(0,0,0,0.15)' }}
             >
-              <video
-                src={video.file}
-                className="absolute inset-0 w-full h-full object-cover"
-                muted
-                playsInline
-                preload="metadata"
-                onError={(e) => { console.error("Error al cargar vídeo:", video.file, e); }}
-              ></video>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/40 to-transparent flex flex-col justify-between p-4">
-                <div/>
-                <div className="flex items-center justify-center">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg group-hover:bg-white transition-colors duration-300 transform group-hover:scale-110">
-                    {React.cloneElement(LineIcons.play, { 
-                      style: { color: colors.azulOscuro, width: '28px', height: '28px' }
-                    })}
-                  </div>
+              {/* Barra de color en la parte superior */}
+              <div
+                className="h-1"
+                style={{ backgroundColor: estudiante.color }}
+              />
+              
+              <div className="p-5 flex flex-col">
+                {/* Punto de color pequeño */}
+                <div
+                  className="w-4 h-4 rounded-full mb-3"
+                  style={{ backgroundColor: estudiante.color }}
+                />
+                
+                {/* Título */}
+                <h3
+                  style={{
+                    fontFamily: 'Raleway, sans-serif',
+                    fontSize: `calc(${baseFontSize} * 1.05)`,
+                    fontWeight: 700,
+                    color: colors.azulOscuro,
+                    marginBottom: '10px',
+                    lineHeight: '1.3'
+                  }}
+                >
+                  {estudiante.titulo}
+                </h3>
+
+                {/* Descripción expandible */}
+                <AnimatePresence>
+                  {expandedStudent === estudiante.id && (
+                    <motion.p
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.2 }}
+                      style={{
+                        fontFamily: 'Raleway, sans-serif',
+                        fontSize: `calc(${baseFontSize} * 0.9)`,
+                        color: colors.grisOscuro,
+                        lineHeight: '1.5',
+                        marginTop: '10px'
+                      }}
+                    >
+                      {estudiante.descripcion}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+
+                {/* Indicador de expandible */}
+                <div className="mt-auto pt-3 text-xs" style={{ color: estudiante.color }}>
+                  {expandedStudent === estudiante.id ? '▼ Menos' : '▶ Más'}
                 </div>
-                <h4 style={{
-                  fontFamily: 'Raleway, sans-serif',
-                  fontSize: `calc(${baseFontSize} * 1.05)`,
-                  color: colors.blanco,
-                  fontWeight: 600,
-                  textShadow: '1px 1px 4px rgba(0,0,0,0.9)'
-                }}>
-                  {video.title}
-                </h4>
               </div>
             </motion.div>
           ))}
-          
-          <motion.div
-            initial={{ opacity: 0, y: 15 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ delay: 0.9 }} 
-            className="text-center mt-2 p-2"
-          > 
-            <img 
-              src="/qr.png" 
-              alt="Código QR para más información" 
-              className="w-36 h-36 md:w-40 md:h-40 object-contain mx-auto mb-2.5" 
-            /> 
-            <p style={{ 
-              fontFamily: 'Raleway, sans-serif', 
-              fontSize: `calc(${baseFontSize} * 0.9)`, 
-              color: colors.azulOscuro, 
-              fontWeight: 500, 
-              lineHeight: '1.4' 
-            }}> 
-              Completa el formulario y recibe<br/>todo este material 
-            </p> 
-          </motion.div>
-        </motion.aside>
+        </motion.div>
+
+        {/* Sección de estrategias */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="mt-12"
+        >
+          <h2
+            style={{
+              fontFamily: 'Aglet Mono, monospace',
+              fontSize: `calc(${baseFontSize} * 1.8)`,
+              fontWeight: 700,
+              color: colors.azulOscuro,
+              marginBottom: '20px',
+              textAlign: 'center'
+            }}
+          >
+            Estrategias de apoyo pedagógico
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                titulo: 'Diferenciación curricular',
+                desc: 'Adaptamos actividades según el nivel y ritmo de aprendizaje de cada estudiante.',
+                color: colors.amarillo
+              },
+              {
+                titulo: 'Trabajo colaborativo',
+                desc: 'Creamos espacios seguros para la participación y el aprendizaje mutuo.',
+                color: colors.verdeTurquesa
+              },
+              {
+                titulo: 'Retroalimentación personalizada',
+                desc: 'Ofrecemos orientación específica para mejorar el desempeño académico.',
+                color: colors.lila
+              }
+            ].map((estrategia, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 + index * 0.1 }}
+                className="p-6 rounded-xl shadow-lg"
+                style={{ backgroundColor: colors.blanco, borderLeft: `4px solid ${estrategia.color}` }}
+              >
+                <h4
+                  style={{
+                    fontFamily: 'Raleway, sans-serif',
+                    fontSize: `calc(${baseFontSize} * 1.2)`,
+                    fontWeight: 600,
+                    color: colors.azulOscuro,
+                    marginBottom: '10px'
+                  }}
+                >
+                  {estrategia.titulo}
+                </h4>
+                <p
+                  style={{
+                    fontFamily: 'Raleway, sans-serif',
+                    fontSize: `calc(${baseFontSize} * 0.95)`,
+                    color: colors.grisOscuro,
+                    lineHeight: '1.6'
+                  }}
+                >
+                  {estrategia.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
       </div>
-      
-      {/* Footer Minimalista */}
+
+      {/* Footer */}
       <div className="absolute bottom-2 left-0 right-0 text-center">
         <p className="text-xs" style={{ 
           fontFamily: 'Raleway, sans-serif',
@@ -1904,10 +1645,6 @@ const Diapositiva3 = () => {
           © 2025 Hablandis. Todos los derechos reservados.
         </p>
       </div>
-
-      <AnimatePresence>
-        {videoModalSrc && <VideoModal src={videoModalSrc} onClose={() => setVideoModalSrc(null)} />}
-      </AnimatePresence>
     </div>
   );
 };
