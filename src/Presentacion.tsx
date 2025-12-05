@@ -11,19 +11,24 @@ const colors = {
   verdeTurquesa: '#007567',   // PANTONE 3295 C - Verde turquesa
   negro: '#000000',           // Negro puro
   lila: '#B9ABE4',           // PANTONE 2092 C - Lila suave
-  
+
+  // Colores adicionales
+  verde: '#007567',          // Alias para verdeTurquesa
+  naranja: '#FF9800',        // Naranja para alertas
+  verdeHablandis: '#C4D4A4', // Alias para verdeClaro
+
   // Colores adicionales para EVALIA
   blanco: '#FFFFFF',
   grisClaro: '#F5F5F5',
   grisMedio: '#E0E0E0',
   grisOscuro: '#666666',
-  
+
   // Colores de estado/feedback
   exito: '#4CAF50',
   alerta: '#FF9800',
   error: '#F44336',
   info: '#2196F3',
-  
+
   // Gradientes para fondos
   degradadoAzul: 'linear-gradient(135deg, #12055F 0%, #1a0a7a 100%)',
   degradadoVerde: 'linear-gradient(135deg, #007567 0%, #00a090 100%)',
