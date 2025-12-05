@@ -3145,14 +3145,12 @@ const Diapositiva6 = () => {
               }}
             >
               <div className="relative" style={{ paddingBottom: '56.25%', backgroundColor: '#000' }}>
-                <img
-                  src="https://img.youtube.com/vi/BF2k_fKuCVM/maxresdefault.jpg"
-                  alt="Video: ¿Qué son los agentes de IA?"
-                  className="absolute inset-0 w-full h-full object-cover"
-                  onError={(e) => {
-                    const img = e.target as HTMLImageElement;
-                    img.src = "https://img.youtube.com/vi/BF2k_fKuCVM/hqdefault.jpg";
-                  }}
+                <video
+                  src="/videoplayback.mp4"
+                  className="absolute inset-0 w-full h-full"
+                  style={{ objectFit: 'contain' }}
+                  muted
+                  playsInline
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -3302,7 +3300,7 @@ const Diapositiva6 = () => {
         </div>
       </div>
 
-      {/* Modal de video */}
+      {/* Modal de video - Formato Vertical (Short) */}
       <AnimatePresence>
         {videoExpanded && (
           <motion.div
@@ -3310,29 +3308,37 @@ const Diapositiva6 = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setVideoExpanded(false)}
-            className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4"
           >
             <motion.div
               initial={{ scale: 0.5, y: 50 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.5, y: 50 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-black rounded-lg shadow-2xl overflow-hidden relative max-w-4xl w-full aspect-video"
+              className="bg-black rounded-2xl shadow-2xl overflow-hidden relative"
+              style={{
+                width: '500px',
+                height: '85vh',
+                maxHeight: '900px'
+              }}
             >
-              <iframe
-                src="https://www.youtube.com/embed/BF2k_fKuCVM?autoplay=1"
-                title="¿Qué son los agentes de IA?"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-full h-full"
-              />
+              <video
+                src="/videoplayback.mp4"
+                autoPlay
+                controls
+                loop
+                className="w-full h-full object-cover"
+                style={{ backgroundColor: '#000' }}
+              >
+                Tu navegador no soporta el elemento de video.
+              </video>
               <button
                 onClick={() => setVideoExpanded(false)}
-                className="absolute top-3 right-3 text-white bg-black/50 rounded-full p-2 hover:bg-black/70 transition-colors"
+                className="absolute top-4 right-4 text-white bg-black/60 rounded-full p-3 hover:bg-black/80 transition-colors shadow-lg"
                 aria-label="Cerrar video"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </motion.div>
@@ -3401,27 +3407,40 @@ const Presentacion = () => {
   return (
     <div className="relative w-full h-screen overflow-hidden">
       {SlideComponent && <SlideComponent />}
-      <div className="absolute bottom-4 right-4 flex items-center space-x-3 z-20">
-        <button
-          className={`p-1.5 rounded-full bg-white bg-opacity-40 text-gray-800 transition-all shadow-sm ${diapositivaActual === 1 ? 'opacity-30 cursor-not-allowed' : 'hover:bg-opacity-60'}`}
-          onClick={() => cambiarDiapositiva('prev')}
-          disabled={diapositivaActual === 1}
-          aria-label="Diapositiva anterior"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-          </svg>
-        </button>
-        <button
-          className={`p-1.5 rounded-full bg-white bg-opacity-40 text-gray-800 transition-all shadow-sm ${diapositivaActual === totalDiapositivas ? 'opacity-30 cursor-not-allowed' : 'hover:bg-opacity-60'}`}
-          onClick={() => cambiarDiapositiva('next')}
-          disabled={diapositivaActual === totalDiapositivas}
-          aria-label="Siguiente diapositiva"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-          </svg>
-        </button>
+      {/* Navegación con número de diapositiva */}
+      <div className="absolute bottom-4 right-4 flex items-center justify-end z-20">
+        <div className="flex items-center space-x-4 bg-white bg-opacity-50 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg">
+          <button
+            className={`p-1.5 rounded-full bg-white bg-opacity-60 text-gray-800 transition-all shadow-sm ${diapositivaActual === 1 ? 'opacity-30 cursor-not-allowed' : 'hover:bg-opacity-90 hover:scale-110'}`}
+            onClick={() => cambiarDiapositiva('prev')}
+            disabled={diapositivaActual === 1}
+            aria-label="Diapositiva anterior"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+          </button>
+
+          <div className="flex items-center space-x-2 px-3">
+            <span style={{ fontFamily: 'Raleway, sans-serif', fontSize: '16px', fontWeight: 700, color: colors.azulOscuro }}>
+              {diapositivaActual}
+            </span>
+            <span style={{ fontFamily: 'Raleway, sans-serif', fontSize: '14px', fontWeight: 400, color: colors.grisOscuro }}>
+              / {totalDiapositivas}
+            </span>
+          </div>
+
+          <button
+            className={`p-1.5 rounded-full bg-white bg-opacity-60 text-gray-800 transition-all shadow-sm ${diapositivaActual === totalDiapositivas ? 'opacity-30 cursor-not-allowed' : 'hover:bg-opacity-90 hover:scale-110'}`}
+            onClick={() => cambiarDiapositiva('next')}
+            disabled={diapositivaActual === totalDiapositivas}
+            aria-label="Siguiente diapositiva"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   );
