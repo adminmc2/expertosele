@@ -3055,13 +3055,312 @@ const Diapositiva5 = () => {
   );
 };
 
+// =======================================================================
+// DIAPOSITIVA 6: ¿QUÉ SON LOS AGENTES DE IA?
+// =======================================================================
+const Diapositiva6 = () => {
+  const baseFontSize = '16px';
+  const [videoExpanded, setVideoExpanded] = useState(false);
+
+  const funcionalidades = [
+    { text: 'Personalizan el aprendizaje según el perfil del estudiante', icon: BookOpen },
+    { text: 'Automatizan correcciones y tareas administrativas', icon: Zap },
+    { text: 'Ofrecen tutoría virtual 24/7', icon: Users },
+    { text: 'Detectan dificultades de aprendizaje tempranas', icon: Eye }
+  ];
+
+  const ventajas = [
+    { text: 'Aprendizaje más eficaz', icon: Trophy },
+    { text: 'Educación accesible y flexible', icon: Globe },
+    { text: 'Apoyo continuo al docente', icon: Heart }
+  ];
+
+  const areasUso = [
+    { text: 'Plataformas de e-learning', icon: Grid3x3 },
+    { text: 'Aulas virtuales', icon: Users },
+    { text: 'Formación básica y superior', icon: BookOpen }
+  ];
+
+  return (
+    <div
+      className="h-screen flex flex-col relative overflow-hidden"
+      style={{ background: `linear-gradient(135deg, ${colors.verdeClaro}40 0%, ${colors.amarillo}20 50%, ${colors.verdeTurquesa}30 100%)` }}
+    >
+      {/* Logo pequeño */}
+      <div className="absolute top-6 right-6 z-30">
+        <img
+          src="/hablandis.png"
+          alt="Hablandis"
+          className="h-20 md:h-24"
+          style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.1))' }}
+          onError={(e) => {
+            const img = e.target as HTMLImageElement;
+            img.style.display = 'none';
+            img.parentElement!.innerHTML = `
+              <div>
+                <div style="font-family: 'Aglet Mono', monospace; color: ${colors.azulOscuro}; font-size: 28px; font-weight: 700;">
+                  Hablandis
+                </div>
+                <div style="font-family: 'Raleway', sans-serif; color: ${colors.verdeTurquesa}; font-size: 12px; margin-top: 2px;">
+                  Centro Internacional de Idiomas
+                </div>
+              </div>
+            `;
+          }}
+        />
+      </div>
+
+      {/* Título */}
+      <motion.h1
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center pt-8 pb-4 px-6 text-4xl md:text-5xl lg:text-6xl font-bold"
+        style={{
+          fontFamily: 'Aglet Mono, monospace',
+          color: colors.azulOscuro,
+          lineHeight: '1.1',
+          letterSpacing: '-0.02em'
+        }}
+      >
+        AGENTES DE IA EN EDUCACIÓN - 2025
+      </motion.h1>
+
+      <div className="flex-1 px-6 md:px-10 pb-6 overflow-y-auto">
+        <div className="w-full h-full flex gap-8 items-center max-w-[1800px] mx-auto">
+
+          {/* Video a la izquierda - 45% */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.1, duration: 0.6 }}
+            className="flex-shrink-0"
+            style={{ width: '45%' }}
+          >
+            <div
+              onClick={() => setVideoExpanded(true)}
+              className="block rounded-2xl shadow-2xl overflow-hidden transition-all duration-500 hover:shadow-3xl hover:scale-[1.02] cursor-pointer"
+              style={{
+                background: 'rgba(255, 255, 255, 0.95)',
+                border: `2px solid ${colors.azulOscuro}20`
+              }}
+            >
+              <div className="relative" style={{ paddingBottom: '56.25%', backgroundColor: '#000' }}>
+                <img
+                  src="https://img.youtube.com/vi/BF2k_fKuCVM/maxresdefault.jpg"
+                  alt="Video: ¿Qué son los agentes de IA?"
+                  className="absolute inset-0 w-full h-full object-cover"
+                  onError={(e) => {
+                    const img = e.target as HTMLImageElement;
+                    img.src = "https://img.youtube.com/vi/BF2k_fKuCVM/hqdefault.jpg";
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.9 }}>
+                    <div className="w-20 h-20 rounded-full bg-red-600 flex items-center justify-center shadow-2xl relative">
+                      <svg className="w-10 h-10 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                      <div className="absolute inset-0 rounded-full animate-ping bg-red-600 opacity-30" style={{ animationDuration: '2s' }} />
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
+              <div className="p-4" style={{ background: `linear-gradient(135deg, ${colors.azulOscuro} 0%, ${colors.azulOscuro}dd 100%)` }}>
+                <p style={{
+                  fontFamily: 'Raleway, sans-serif',
+                  fontSize: `calc(${baseFontSize} * 1.05)`,
+                  color: colors.blanco,
+                  textAlign: 'center',
+                  fontWeight: 700
+                }}>
+                  ¿Qué son los agentes de IA?
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Contenido a la derecha en 3 columnas - 55% */}
+          <div className="flex-1 grid grid-cols-3 gap-5">
+            {/* Funcionalidades */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="rounded-2xl p-7"
+              style={{
+                background: 'rgba(255, 255, 255, 0.95)',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+              }}
+            >
+              <h2 style={{
+                fontFamily: 'Raleway, sans-serif',
+                fontSize: `calc(${baseFontSize} * 1.35)`,
+                fontWeight: 700,
+                color: colors.azulOscuro,
+                marginBottom: '20px'
+              }}>
+                Funcionalidades
+              </h2>
+              <div className="space-y-4">
+                {funcionalidades.map((func, index) => (
+                  <div key={index} className="flex items-start gap-4">
+                    <div style={{ color: colors.azulOscuro, flexShrink: 0, marginTop: '3px' }}>
+                      {React.createElement(func.icon, { size: 24, strokeWidth: 2.5 })}
+                    </div>
+                    <p style={{
+                      fontFamily: 'Raleway, sans-serif',
+                      fontSize: `calc(${baseFontSize} * 1.1)`,
+                      color: colors.grisOscuro,
+                      lineHeight: '1.6'
+                    }}>
+                      {func.text}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Ventajas */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="rounded-2xl p-7"
+              style={{
+                background: 'rgba(255, 255, 255, 0.95)',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+              }}
+            >
+              <h2 style={{
+                fontFamily: 'Raleway, sans-serif',
+                fontSize: `calc(${baseFontSize} * 1.35)`,
+                fontWeight: 700,
+                color: colors.azulOscuro,
+                marginBottom: '20px'
+              }}>
+                Ventajas
+              </h2>
+              <div className="space-y-4">
+                {ventajas.map((ventaja, index) => (
+                  <div key={index} className="flex items-start gap-4">
+                    <div style={{ color: colors.lila, flexShrink: 0, marginTop: '3px' }}>
+                      {React.createElement(ventaja.icon, { size: 24, strokeWidth: 2.5 })}
+                    </div>
+                    <p style={{
+                      fontFamily: 'Raleway, sans-serif',
+                      fontSize: `calc(${baseFontSize} * 1.1)`,
+                      color: colors.grisOscuro,
+                      lineHeight: '1.6'
+                    }}>
+                      {ventaja.text}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Áreas de uso */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="rounded-2xl p-7"
+              style={{
+                background: 'rgba(255, 255, 255, 0.95)',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+              }}
+            >
+              <h2 style={{
+                fontFamily: 'Raleway, sans-serif',
+                fontSize: `calc(${baseFontSize} * 1.35)`,
+                fontWeight: 700,
+                color: colors.azulOscuro,
+                marginBottom: '20px'
+              }}>
+                Áreas de uso
+              </h2>
+              <div className="space-y-4">
+                {areasUso.map((area, index) => (
+                  <div key={index} className="flex items-start gap-4">
+                    <div style={{ color: colors.amarillo, flexShrink: 0, marginTop: '3px' }}>
+                      {React.createElement(area.icon, { size: 24, strokeWidth: 2.5 })}
+                    </div>
+                    <p style={{
+                      fontFamily: 'Raleway, sans-serif',
+                      fontSize: `calc(${baseFontSize} * 1.1)`,
+                      color: colors.grisOscuro,
+                      lineHeight: '1.6'
+                    }}>
+                      {area.text}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
+      {/* Modal de video */}
+      <AnimatePresence>
+        {videoExpanded && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setVideoExpanded(false)}
+            className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.5, y: 50 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.5, y: 50 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-black rounded-lg shadow-2xl overflow-hidden relative max-w-4xl w-full aspect-video"
+            >
+              <iframe
+                src="https://www.youtube.com/embed/BF2k_fKuCVM?autoplay=1"
+                title="¿Qué son los agentes de IA?"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+              <button
+                onClick={() => setVideoExpanded(false)}
+                className="absolute top-3 right-3 text-white bg-black/50 rounded-full p-2 hover:bg-black/70 transition-colors"
+                aria-label="Cerrar video"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Footer */}
+      <div className="absolute bottom-2 left-0 right-0 text-center">
+        <p className="text-xs" style={{
+          fontFamily: 'Raleway, sans-serif',
+          color: colors.azulOscuro,
+          opacity: 0.6
+        }}>
+          © 2025 Hablandis. Todos los derechos reservados.
+        </p>
+      </div>
+    </div>
+  );
+};
+
 
 // =======================================================================
 // COMPONENTE PRINCIPAL DE PRESENTACIÓN - CORREGIDO
 // =======================================================================
 const Presentacion = () => {
   const [diapositivaActual, setDiapositivaActual] = useState(1);
-  const totalDiapositivas = 5; // Diapositivas: 1-Intro, 2-Blindapalabras, 3-Laboratorio, 4-Vacía, 5-EVALIA
+  const totalDiapositivas = 6; // Diapositivas: 1-Intro, 2-Blindapalabras, 3-Laboratorio, 4-Apoyo, 5-EVALIA, 6-Agentes IA
 
   const cambiarDiapositiva = (direccion: 'prev' | 'next') => {
     setDiapositivaActual(actual => {
@@ -3093,6 +3392,7 @@ const Presentacion = () => {
   else if (diapositivaActual === 3) SlideComponent = Diapositiva3;
   else if (diapositivaActual === 4) SlideComponent = Diapositiva4;
   else if (diapositivaActual === 5) SlideComponent = Diapositiva5;
+  else if (diapositivaActual === 6) SlideComponent = Diapositiva6;
   else {
     // Fallback por si acaso
     SlideComponent = () => <div className="flex items-center justify-center h-screen text-2xl">Diapositiva {diapositivaActual} no encontrada</div>;
