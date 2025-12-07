@@ -3799,11 +3799,467 @@ const Diapositiva8 = () => {
 
 
 // =======================================================================
+// DIAPOSITIVA 9: FLUJO DE PROCESAMIENTO TEXTUAL IA
+// =======================================================================
+const Diapositiva9 = () => {
+  const year = new Date().getFullYear();
+
+  const colors = {
+    verdeClaro: '#C4D4A4', azulOscuro: '#12055F', amarillo: '#FFC846',
+    verdeTurquesa: '#007567', negro: '#111827', lila: '#B9ABE4',
+    white: '#FFFFFF', fondoBase: '#E8E6DA', panelBg: '#FFFFFF',
+    panelBorder: '#E5E7EB',
+    lineaRojaPrincipal: '#FF0000',
+    puntoConexionAzul: '#0075FF',
+    puntoConexionVerde: '#00C853',
+    textSecondaryOnPanel: '#374151',
+    connectionActive: '#FF0000',
+  };
+
+  const unifiedColors = {
+    azulOscuro: '#12055F',
+    verdeTurquesa: '#007567',
+    blanco: '#FFFFFF'
+  };
+
+  const LogoConfig = {
+    size: 'h-24 md:h-32',
+    position: 'absolute top-6 left-6 z-30',
+    fallbackFontSize: '36px md:48px',
+    shadow: 'drop-shadow(0 4px 8px rgba(0,0,0,0.1))'
+  };
+
+  const TitleConfig = {
+    fontFamily: 'Aglet Mono, monospace',
+    mainSize: 'text-3xl md:text-4xl lg:text-5xl',
+    weight: 'font-semibold',
+    color: unifiedColors.azulOscuro,
+    spacing: 'mb-4 md:mb-6'
+  };
+
+  const SubtitleConfig = {
+    fontFamily: 'Raleway, sans-serif',
+    size: 'text-lg md:text-xl lg:text-2xl',
+    weight: 'font-normal',
+    color: unifiedColors.verdeTurquesa,
+    spacing: 'mb-2'
+  };
+
+  const FooterConfig = {
+    position: 'absolute bottom-4 left-0 right-0',
+    padding: 'py-3',
+    background: `${unifiedColors.blanco}70`,
+    backdropFilter: 'backdrop-blur(10px)',
+    text: {
+      fontFamily: 'Raleway, sans-serif',
+      size: '13px',
+      color: unifiedColors.azulOscuro,
+      opacity: '0.8',
+      weight: '500'
+    }
+  };
+
+  const LogoHablandisUnified = ({ className = "" }: { className?: string }) => (
+    <img
+      src="/hablandis.png"
+      alt="Hablandis"
+      className={`${LogoConfig.size} ${className}`}
+      style={{ filter: LogoConfig.shadow }}
+      onError={(e) => {
+        const img = e.target as HTMLImageElement;
+        img.style.display = 'none';
+        const parent = img.parentElement;
+        if (parent) {
+          parent.innerHTML = `
+            <div style="font-family: 'Aglet Mono', monospace; color: ${unifiedColors.azulOscuro}; font-size: ${LogoConfig.fallbackFontSize}; font-weight: 700; line-height: 1;">
+              Hablandis
+            </div>
+            <div style="font-family: 'Raleway', sans-serif; color: ${unifiedColors.verdeTurquesa}; font-size: 14px; margin-top: 2px;">
+              Centro Internacional de Idiomas
+            </div>
+          `;
+        }
+      }}
+    />
+  );
+
+  const MainTitle = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
+    <h1
+      className={`${TitleConfig.mainSize} ${TitleConfig.weight} ${TitleConfig.spacing} ${className}`}
+      style={{
+        fontFamily: TitleConfig.fontFamily,
+        color: TitleConfig.color
+      }}
+    >
+      {children}
+    </h1>
+  );
+
+  const Subtitle = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
+    <p
+      className={`${SubtitleConfig.size} ${SubtitleConfig.weight} ${SubtitleConfig.spacing} ${className}`}
+      style={{
+        fontFamily: SubtitleConfig.fontFamily,
+        color: SubtitleConfig.color
+      }}
+    >
+      {children}
+    </p>
+  );
+
+  const IconLinearDocument = ({ className = "w-9 h-9" }: { className?: string }) => ( <svg className={className} strokeWidth="1.2" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg> );
+  const IconLinearChat = ({ className = "w-9 h-9" }: { className?: string }) => ( <svg className={className} strokeWidth="1.2" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg> );
+  const IconLinearSearchPlus = ({ className = "w-9 h-9" }: { className?: string }) => ( <svg className={className} strokeWidth="1.2" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="10.5" cy="10.5" r="7.5"></circle><line x1="21" y1="21" x2="15.8" y2="15.8"></line><line x1="10.5" y1="7" x2="10.5" y2="14"></line><line x1="7" y1="10.5" x2="14" y2="10.5"></line></svg> );
+  const IconLinearTuneSliders = ({ className = "w-9 h-9" }: { className?: string }) => ( <svg className={className} strokeWidth="1.2" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg> );
+  const IconPencilSimple = ({ className = "w-6 h-6" }: { className?: string }) => ( <svg className={className} strokeWidth="1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg> );
+  const IconAISparkles = ({ className = "w-6 h-6" }: { className?: string }) => ( <svg className={className} strokeWidth="1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2L9 9l-7 3 7 3 3 7 3-7 7-3-7-3L12 2zM20 12l-2.828-2.828M6.828 6.828L4 4m0 16l2.828-2.828M20 4l-2.828 2.828"></path></svg> );
+  const Highlight = ({ children, color } : { children: React.ReactNode, color: string }) => (  <mark style={{ backgroundColor: `${color}20`, padding: '0.08em 0.3em', borderRadius: '4px', color: 'inherit' }}>{children}</mark>  );
+
+  const [selectedNodeId, setSelectedNodeId] = React.useState<string | null>(null);
+  const [hoveredNodeId, setHoveredNodeId] = React.useState<string | null>(null);
+  const canvasRef = React.useRef<HTMLCanvasElement>(null);
+
+  interface OriginalContentData {
+    title: string;
+    content: () => React.ReactElement;
+  }
+
+  interface ProcessedContentData {
+    promptTitle: string;
+    promptContent: () => React.ReactElement;
+    responseTitle: string;
+    responseContent: () => React.ReactElement;
+  }
+
+  interface TextDataMap {
+    originalB1: OriginalContentData;
+    transformColloquial: ProcessedContentData;
+    extractVocab: ProcessedContentData;
+    refineB2: ProcessedContentData;
+  }
+
+  interface ProcessingNode { id: string; title: string; shortTitle: string; icon: React.ReactElement; position: { x: number; y: number }; connections: string[]; dataKey: keyof TextDataMap; baseColor: string; }
+  const nodes: ProcessingNode[] = [ { id: 'original', title: "Texto original: Normas para Asistentes a Conciertos en España", shortTitle: "ORIGEN B1", icon: <IconLinearDocument />, position: { x: 20, y: 50 }, connections: ['colloquial'], dataKey: 'originalB1', baseColor: colors.verdeTurquesa }, { id: 'colloquial', title: "Transformación: Diálogo Informal", shortTitle: "DIÁLOGO", icon: <IconLinearChat />, position: { x: 45, y: 35 }, connections: ['extraction'], dataKey: 'transformColloquial', baseColor: colors.lila }, { id: 'extraction', title: "Análisis: Vocabulario A2", shortTitle: "VOCAB. A2", icon: <IconLinearSearchPlus />, position: { x: 55, y: 65 }, connections: ['refinement'], dataKey: 'extractVocab', baseColor: colors.verdeClaro }, { id: 'refinement', title: "Refinamiento: Texto Nivel B2", shortTitle: "NIVEL B2", icon: <IconLinearTuneSliders />, position: { x: 80, y: 50 }, connections: [], dataKey: 'refineB2', baseColor: colors.azulOscuro }, ];
+
+  const textData: TextDataMap = {
+    originalB1: {
+      title: "Texto original: Normas para Asistentes a Conciertos en España",
+      content: () => (
+        <>
+          <h3 className="text-xl font-semibold mb-4" style={{color: colors.azulOscuro, fontFamily: 'Aglet Mono Light'}}>Normas para Asistentes a Conciertos en España</h3>
+          <p className="mb-4" style={{fontFamily:'Raleway', fontSize:'1rem', color: colors.textSecondaryOnPanel}}>
+            <strong>Introducción</strong><br />
+            Este documento presenta 15 obligaciones y prohibiciones básicas para los asistentes a conciertos en pabellones y zonas afines en España. Las normas están adaptadas para ser claras y comprensibles, y se basan en regulaciones oficiales y buenas prácticas.
+          </p>
+          <h4 className="font-semibold mb-2" style={{fontFamily:'Raleway', color: colors.verdeTurquesa}}>Obligaciones y Prohibiciones</h4>
+          <ol className="list-decimal list-inside space-y-2 text-lg leading-relaxed" style={{fontFamily:'Raleway'}}>
+            <li><Highlight color={colors.amarillo}>No puedes llevar comida o bebida externa si el recinto lo prohíbe.</Highlight></li>
+            <li><Highlight color={colors.amarillo}>Debes seguir las indicaciones de seguridad (evacuación, rutas marcadas).</Highlight></li>
+            <li><Highlight color={colors.amarillo}>No está permitido gritar o hacer ruido excesivo que moleste a otros.</Highlight></li>
+            <li><Highlight color={colors.amarillo}>Es obligatorio respetar los horarios de entrada y salida del evento.</Highlight></li>
+            <li><Highlight color={colors.amarillo}>No puedes portar objetos peligrosos (armas, sustancias prohibidas).</Highlight></li>
+            <li><Highlight color={colors.amarillo}>Debes mantener los espacios limpios (no tirar basura).</Highlight></li>
+            <li><Highlight color={colors.amarillo}>No está permitido grabar videos o fotos sin autorización.</Highlight></li>
+            <li>Es obligatorio usar equipo de seguridad (cascos) en zonas de montaje.</li>
+            <li>No puedes fumar en zonas no autorizadas (dentro del recinto, salidas de emergencia).</li>
+            <li>Debes pagar la entrada antes de acceder al recinto.</li>
+            <li>No está permitido correr o empujar para evitar accidentes.</li>
+            <li>Es obligatorio colaborar con el personal de seguridad (inspecciones de mochilas).</li>
+            <li>No puedes usar ropa o símbolos que promuevan el odio o la violencia.</li>
+            <li>Debes devolver el dinero si el concierto se cancela sin justificación.</li>
+            <li>No está permitido abandonar el recinto sin permiso durante una evacuación.</li>
+          </ol>
+          <p className="mt-5" style={{fontFamily:'Raleway', color: colors.textSecondaryOnPanel, fontSize:'1rem'}}>
+            <strong>Nota:</strong> Este documento es un resumen simplificado. Para información detallada, consulta las normativas oficiales como el Real Decreto 44/2014 y normativas locales.
+          </p>
+          <p className="mt-4 italic text-base" style={{fontFamily:'Raleway', color: colors.textSecondaryOnPanel}}>
+            © 2025 - Documento informativo. Basado en regulaciones vigentes en España.
+          </p>
+        </>
+      ),
+    },
+    transformColloquial: {
+      promptTitle: "Prompt para Diálogo Informal",
+      promptContent: () => <p className="text-lg leading-relaxed" style={{fontFamily:'Raleway'}}>Reescribe la información básica del texto anterior con el estilo de un diálogo informal entre estudiantes, con vocabulario coloquial al estilo de La Pija y La Quinqui.</p>,
+      responseTitle: "Respuesta IA: Diálogo Coloquial",
+      responseContent: () => (
+        <div className="text-lg leading-relaxed space-y-3" style={{fontFamily:'Raleway'}}>
+          <p><strong>La Pija:</strong> O sea, tía, ¿has visto la lista de normas de los conciertos? <Highlight color={colors.amarillo}>Es que me muero, qué control, de verdad.</Highlight></p>
+          <p><strong>La Quinqui:</strong> ¡Buah, flipas! <Highlight color={colors.amarillo}>Si es que no nos dejan ni traer unas birras de casa, ¿pa' qué tanto rollo?</Highlight></p>
+          <p><strong>La Pija:</strong> Literal, <Highlight color={colors.amarillo}>si llevas algo de fuera te lo requisan en la puerta. Y como grites un poco, ya está el segurata mirándote mal.</Highlight></p>
+          <p><strong>La Quinqui:</strong> <Highlight color={colors.amarillo}>Pues que les den, yo grito si me da la gana, ¿o qué? Pero bueno… tampoco mola que te echen, que la entrada cuesta pasta.</Highlight></p>
+          <p><strong>La Pija:</strong> Y si suena la alarma, todos en fila, monísimas, <Highlight color={colors.amarillo}>que hay que salir por donde te digan. Nada de buscar el atajo, que luego te sueltan la chapa.</Highlight></p>
+          <p><strong>La Quinqui:</strong> <Highlight color={colors.amarillo}>Y lo de grabar, ¿qué? Saca el móvil y verás, te lo quitan. Ni stories ni ná, vaya bajón.</Highlight></p>
+          <p><strong>La Pija:</strong> Tía, <Highlight color={colors.amarillo}>si fumas dentro, te montan el pollo. Hay zonas fuera, pero dentro ni lo sueñes.</Highlight></p>
+          <p><strong>La Quinqui:</strong> Yo con la peña de seguridad no discuto, <Highlight color={colors.amarillo}>que se ponen chungos. Mejor portarse bien y ya.</Highlight></p>
+          <p><strong>La Pija:</strong> Eso sí, <Highlight color={colors.amarillo}>si cancelan el concierto sin motivo, devuelven la pasta. Pero como sea por el artista, te fastidias y a llorar a casa.</Highlight></p>
+          <p><strong>La Quinqui:</strong> Pues nada, tía, <Highlight color={colors.amarillo}>a seguir las normas y a disfrutar. Pero qué rabia, con lo bien que se liaba antes en los conciertos…</Highlight></p>
+        </div>
+      ),
+    },
+    extractVocab: {
+      promptTitle: "Prompt para Extracción de Vocabulario A2",
+      promptContent: () => <p className="text-lg leading-relaxed" style={{fontFamily:'Raleway'}}>Extrae del texto una lista con las palabras más relevantes del texto para un estudiante de español de nivel A2 del MCERL, y amplíala con la traducción al inglés de cada término, una frase de ejemplo en español, dos términos relacionados y dos colocaciones habituales en español.</p>,
+      responseTitle: "Respuesta IA: Vocabulario Clave A2",
+      responseContent: () => (
+        <ul className="space-y-4 text-lg leading-relaxed" style={{fontFamily:'Raleway'}}>
+          <li><Highlight color={colors.amarillo}><strong>1. Prohibir</strong></Highlight><br/>
+            <b>Traducción</b>: To prohibit<br/>
+            <b>Ejemplo</b>: No se permite llevar comida si el recinto lo prohíbe.<br/>
+            <b>Términos relacionados</b>: Prohibido, norma<br/>
+            <b>Colocaciones</b>: Prohibir comida, prohibir el acceso
+          </li>
+          <li><Highlight color={colors.amarillo}><strong>2. Regla</strong></Highlight><br/>
+            <b>Traducción</b>: Rule<br/>
+            <b>Ejemplo</b>: Hay reglas claras para los asistentes a conciertos.<br/>
+            <b>Términos relacionados</b>: Norma, instrucción<br/>
+            <b>Colocaciones</b>: Seguir las reglas, romper una regla
+          </li>
+          <li><Highlight color={colors.amarillo}><strong>3. Comida</strong></Highlight><br/>
+            <b>Traducción</b>: Food<br/>
+            <b>Ejemplo</b>: No se puede traer comida externa a algunos recintos.<br/>
+            <b>Términos relacionados</b>: Alimento, bebida<br/>
+            <b>Colocaciones</b>: Traer comida, comida permitida
+          </li>
+          <li><Highlight color={colors.amarillo}><strong>4. Seguridad</strong></Highlight><br/>
+            <b>Traducción</b>: Safety<br/>
+            <b>Ejemplo</b>: Debes seguir las indicaciones de seguridad.<br/>
+            <b>Términos relacionados</b>: Emergencia, riesgo<br/>
+            <b>Colocaciones</b>: Medidas de seguridad, salir por seguridad
+          </li>
+          <li><Highlight color={colors.amarillo}><strong>5. Ruido</strong></Highlight><br/>
+            <b>Traducción</b>: Noise<br/>
+            <b>Ejemplo</b>: No está permitido hacer ruido excesivo.<br/>
+            <b>Términos relacionados</b>: Sonido, grito<br/>
+            <b>Colocaciones</b>: Hacer ruido, reducir el ruido
+          </li>
+          <li><Highlight color={colors.amarillo}><strong>6. Fumar</strong></Highlight><br/>
+            <b>Traducción</b>: To smoke<br/>
+            <b>Ejemplo</b>: No puedes fumar en zonas no autorizadas.<br/>
+            <b>Términos relacionados</b>: Cigarrillo, prohibido<br/>
+            <b>Colocaciones</b>: Fumar en público, prohibir fumar
+          </li>
+          <li><Highlight color={colors.amarillo}><strong>7. Grabar</strong></Highlight><br/>
+            <b>Traducción</b>: To record<br/>
+            <b>Ejemplo</b>: No está permitido grabar sin autorización.<br/>
+            <b>Términos relacionados</b>: Video, foto<br/>
+            <b>Colocaciones</b>: Grabar un video, grabar en secreto
+          </li>
+          <li><Highlight color={colors.amarillo}><strong>8. Dinero</strong></Highlight><br/>
+            <b>Traducción</b>: Money<br/>
+            <b>Ejemplo</b>: Devuelven el dinero si el concierto se cancela.<br/>
+            <b>Términos relacionados</b>: Pago, billete<br/>
+            <b>Colocaciones</b>: Devolver el dinero, costo del dinero
+          </li>
+          <li><Highlight color={colors.amarillo}><strong>9. Emergencia</strong></Highlight><br/>
+            <b>Traducción</b>: Emergency<br/>
+            <b>Ejemplo</b>: Sigue las rutas marcadas en caso de emergencia.<br/>
+            <b>Términos relacionados</b>: Alarma, evacuación<br/>
+            <b>Colocaciones</b>: Evacuación de emergencia, llamada de emergencia
+          </li>
+          <li><Highlight color={colors.amarillo}><strong>10. Personal de seguridad</strong></Highlight><br/>
+            <b>Traducción</b>: Security staff<br/>
+            <b>Ejemplo</b>: Colabora con el personal de seguridad.<br/>
+            <b>Términos relacionados</b>: Guardia, policía<br/>
+            <b>Colocaciones</b>: Trabajar con el personal de seguridad, inspección del personal
+          </li>
+        </ul>
+      ),
+    },
+    refineB2: {
+      promptTitle: "Prompt para Refinamiento a Nivel B2",
+      promptContent: () => <p className="text-lg leading-relaxed" style={{fontFamily:'Raleway'}}>Reescribe este texto para que tenga un nivel de complejidad B2.</p>,
+      responseTitle: "Respuesta IA: Texto Refinado Nivel B2",
+      responseContent: () => (
+        <div className="text-lg leading-relaxed space-y-4" style={{fontFamily:'Raleway'}}>
+          <h3 className="text-xl font-semibold" style={{color: colors.azulOscuro, fontFamily: 'Aglet Mono Light'}}>🎤 Normas para Asistentes a Conciertos en España (Nivel B2.2)</h3>
+          <p><strong>Introducción</strong><br/>
+          Este documento recoge 15 normas básicas que todo asistente debe conocer antes de acudir a un concierto en España, ya sea en pabellones, salas cubiertas o espacios similares. Las reglas están basadas en la legislación vigente y en prácticas habituales de seguridad y convivencia.</p>
+          <h4 className="font-semibold" style={{fontFamily:'Raleway', color: colors.verdeTurquesa}}>Obligaciones y Prohibiciones</h4>
+          <ul className="list-disc list-inside space-y-2">
+            <li><Highlight color={colors.amarillo}>No está permitido entrar con comida ni bebida del exterior si el recinto lo indica expresamente.</Highlight></li>
+            <li><Highlight color={colors.amarillo}>Es obligatorio seguir todas las indicaciones de seguridad, como las rutas de evacuación o las instrucciones del personal.</Highlight></li>
+            <li><Highlight color={colors.amarillo}>Evita gritar o hacer ruidos excesivos que puedan molestar al resto del público.</Highlight></li>
+            <li><Highlight color={colors.amarillo}>Respeta los horarios oficiales de entrada y salida. No se garantiza el acceso fuera del horario establecido.</Highlight></li>
+            <li><Highlight color={colors.amarillo}>Queda totalmente prohibido acceder con objetos peligrosos, como armas o sustancias ilegales.</Highlight></li>
+            <li><Highlight color={colors.amarillo}>Contribuye a mantener limpio el lugar: no dejes basura fuera de los contenedores.</Highlight></li>
+            <li><Highlight color={colors.amarillo}>No se pueden hacer fotos ni vídeos profesionales sin autorización de la organización.</Highlight></li>
+            <li>En las zonas de montaje o acceso restringido, es obligatorio usar el equipo de protección necesario, como cascos.</li>
+            <li>No fumes en zonas no habilitadas, como pasillos, salidas de emergencia o zonas interiores.</li>
+            <li>Para entrar al concierto, debes haber pagado la entrada correspondiente y tenerla disponible.</li>
+            <li>Está prohibido correr o empujar, ya que puede generar accidentes y poner en peligro a otras personas.</li>
+            <li>Colabora con el personal de seguridad si te piden mostrar tu bolso o realizar una inspección.</li>
+            <li>No se permite el uso de ropa o símbolos que inciten al odio, la discriminación o la violencia.</li>
+            <li>Si el concierto se cancela sin una razón justificada, tienes derecho a que te devuelvan el dinero.</li>
+            <li>En caso de evacuación, no abandones el recinto por tu cuenta: sigue las instrucciones de los responsables del evento.</li>
+          </ul>
+          <p className="mt-3"><b>📌 Nota importante:</b><br/>
+          Este texto es un resumen con fines informativos. Para conocer todos los detalles legales, consulta el Real Decreto 44/2014 y las normativas locales aplicables en tu comunidad autónoma.
+          </p>
+          <p className="italic text-base" style={{color: colors.textSecondaryOnPanel}}>
+            © 2025 – Documento informativo basado en regulaciones oficiales del territorio español.
+          </p>
+        </div>
+      ),
+    }
+  };
+
+  const drawBrushStrokeLine = ( ctx: CanvasRenderingContext2D, x1: number, y1: number, x2: number, y2: number, color: string, baseThickness: number, pointColorStart?: string, pointColorEnd?: string, midPointColor?: string ) => { const distance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2); const steps = Math.max(10, Math.floor(distance / 3)); const dx = (x2 - x1) / steps; const dy = (y2 - y1) / steps; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; for (let i = 0; i <= steps; i++) { const currentX = x1 + dx * i; const currentY = y1 + dy * i; const thickness = baseThickness + (Math.random() - 0.5) * (baseThickness * 0.6); const offsetX = (Math.random() - 0.5) * (baseThickness * 0.4); const offsetY = (Math.random() - 0.5) * (baseThickness * 0.4); ctx.beginPath(); ctx.arc(currentX + offsetX, currentY + offsetY, thickness / 2, 0, Math.PI * 2); ctx.fillStyle = color + Math.floor((0.7 + Math.random() * 0.3) * 255).toString(16).padStart(2, '0'); ctx.fill(); } const pointRadius = baseThickness * 1.2; if (pointColorStart) { ctx.beginPath(); ctx.arc(x1, y1, pointRadius, 0, Math.PI * 2); ctx.fillStyle = pointColorStart; ctx.fill(); } if (pointColorEnd) { ctx.beginPath(); ctx.arc(x2, y2, pointRadius, 0, Math.PI * 2); ctx.fillStyle = pointColorEnd; ctx.fill(); } if (midPointColor && steps > 1) { const midX = x1 + dx * Math.floor(steps / 2); const midY = y1 + dy * Math.floor(steps / 2); ctx.beginPath(); ctx.arc(midX, midY, pointRadius * 1.2, 0, Math.PI * 2); ctx.fillStyle = midPointColor; ctx.fill(); } };
+  React.useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    nodes.forEach(node => {
+      node.connections.forEach(connId => {
+        const targetNode = nodes.find(n => n.id === connId);
+        if (targetNode) {
+          const startX = node.position.x / 100 * rect.width;
+          const startY = node.position.y / 100 * rect.height;
+          const endX = targetNode.position.x / 100 * rect.width;
+          const endY = targetNode.position.y / 100 * rect.height;
+
+          const isActive = selectedNodeId === node.id || selectedNodeId === targetNode.id || hoveredNodeId === node.id || hoveredNodeId === targetNode.id;
+          const lineColor = isActive ? colors.connectionActive : colors.lineaRojaPrincipal + '90';
+          const lineThickness = isActive ? 5 : 4;
+
+          drawBrushStrokeLine(
+            ctx, startX, startY, endX, endY,
+            lineColor,
+            lineThickness,
+            colors.puntoConexionAzul,
+            colors.puntoConexionAzul,
+            (node.id === 'extraction' && targetNode.id === 'refinement') ? colors.puntoConexionVerde : undefined
+          );
+        }
+      });
+    });
+  }, [selectedNodeId, hoveredNodeId, nodes, colors]);
+  React.useEffect(() => {
+    const handleResize = () => {
+      const canvas = canvasRef.current;
+      if (canvas && canvas.parentElement) {
+        setHoveredNodeId(prev => prev);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const currentSelectedNodeDetails = selectedNodeId ? nodes.find(n => n.id === selectedNodeId) : null;
+  const currentSelectedNodeContent = currentSelectedNodeDetails ? textData[currentSelectedNodeDetails.dataKey] : null;
+
+  const nodeDisplaySize = 110;
+  const nodeClickAreaPadding = 20;
+  const panelWidthPercentage = 45;
+  const networkShiftFactor = 1.8;
+  const titleShiftFactor = 2.0;
+
+  return (
+    <div className="min-h-screen w-full flex flex-col items-center justify-start p-4 sm:p-6 overflow-hidden relative" style={{ background: colors.fondoBase }}>
+      <div className={LogoConfig.position}>
+        <LogoHablandisUnified />
+      </div>
+
+      <motion.div className="text-center my-8 sm:my-10 md:my-12 w-full max-w-4xl z-10 flex-shrink-0 transition-all duration-500 ease-in-out" initial={{ opacity: 0, y: -25 }} animate={{ opacity: 1, y: 0, x: selectedNodeId ? `-${panelWidthPercentage / titleShiftFactor}%` : '0%', }} transition={{ type: "spring", stiffness: 180, damping: 22 }}>
+        <MainTitle className="mb-2">
+          Flujo de Procesamiento Textual IA
+        </MainTitle>
+        <Subtitle>
+          Haz clic en una etapa para explorar los detalles de transformación.
+        </Subtitle>
+      </motion.div>
+
+      <motion.div id="network-container" className="relative flex-grow w-full max-w-5xl xl:max-w-6xl mb-6 rounded-lg transition-all duration-500 ease-in-out" style={{minHeight: '45vh'}} animate={{ x: selectedNodeId ? `-${panelWidthPercentage / networkShiftFactor}%` : '0%', width: selectedNodeId ? `${100 - panelWidthPercentage + (panelWidthPercentage / (networkShiftFactor + 0.5))}%` : '100%', }} transition={{ type: "spring", stiffness: 180, damping: 22 }}>
+        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full z-0" />
+        {nodes.map((node, index) => ( <motion.div key={node.id} className="absolute cursor-pointer z-10 flex flex-col items-center justify-center transition-all duration-200 ease-out" style={{ left: `calc(${node.position.x}% - ${(nodeDisplaySize + nodeClickAreaPadding) / 2}px)`, top: `calc(${node.position.y}% - ${(nodeDisplaySize + nodeClickAreaPadding) / 2}px)`, width: `${nodeDisplaySize + nodeClickAreaPadding}px`, height: `${nodeDisplaySize + nodeClickAreaPadding}px`, }} initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 + index * 0.1, type: "spring", stiffness:150, damping:20 }} onClick={() => setSelectedNodeId(selectedNodeId === node.id ? null : node.id)} onMouseEnter={() => setHoveredNodeId(node.id)} onMouseLeave={() => setHoveredNodeId(null)} > <motion.div className="rounded-full flex flex-col items-center justify-center bg-white shadow-lg" style={{ width: `${nodeDisplaySize}px`, height: `${nodeDisplaySize}px`, border: `3.5px solid ${selectedNodeId === node.id || hoveredNodeId === node.id ? node.baseColor : colors.azulOscuro + 'B0'}`, color: selectedNodeId === node.id || hoveredNodeId === node.id ? node.baseColor : colors.azulOscuro, boxShadow: selectedNodeId === node.id || hoveredNodeId === node.id ? `0 0 18px ${node.baseColor}70, 0 0 0 3.5px ${node.baseColor}30`  : `0 5px 12px rgba(0,0,0,0.1)`, }} animate={{ scale: selectedNodeId === node.id ? 1.1 : hoveredNodeId === node.id ? 1.05 : 1 }} transition={{ type: "spring", stiffness: 200, damping: 15 }} >
+            {React.cloneElement(node.icon as React.ReactElement<{ className?: string }>, { className: "w-9 h-9 sm:w-10 sm:h-10 stroke-current" })}
+            </motion.div> <span className="mt-2.5 text-center text-xs sm:text-sm font-semibold leading-tight tracking-normal" style={{ fontFamily: 'Raleway Semibold', color: colors.negro, opacity: 0.95 }}> {node.shortTitle} </span> </motion.div> ))}
+      </motion.div>
+      <AnimatePresence>
+        {selectedNodeId && currentSelectedNodeDetails && currentSelectedNodeContent && (
+          <motion.div key="details-panel-complete" initial={{ x: "100%", opacity: 0 }} animate={{ x: "0%", opacity: 1 }} exit={{ x: "100%", opacity: 0 }} transition={{ type: "spring", stiffness: 280, damping: 30, duration:0.4 }} className="fixed top-0 right-0 bottom-0 shadow-2xl z-40 flex flex-col border-l-4" style={{ width: `${panelWidthPercentage}%`, minWidth: '380px', maxWidth: '650px', borderColor: currentSelectedNodeDetails.baseColor, backgroundColor: colors.panelBg }}>
+            <div className="flex items-center justify-between p-5 sm:p-6 border-b" style={{borderColor: colors.panelBorder, backgroundColor: colors.white }}> <h2 className="text-xl sm:text-2xl font-medium" style={{fontFamily: 'Aglet Mono Light, monospace', color: currentSelectedNodeDetails.baseColor, letterSpacing:'-0.5px'}}> {currentSelectedNodeDetails.title} </h2> <button onClick={() => setSelectedNodeId(null)} className="p-2 rounded-full text-gray-500 hover:bg-gray-100 hover:text-gray-700 transition-colors"> <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg> </button> </div>
+            <div className="flex-1 overflow-y-auto p-5 sm:p-7 space-y-8 custom-scrollbar-minimalist" style={{ fontFamily:'Raleway, sans-serif', color: colors.negro, fontSize: '1.1rem', lineHeight:'1.8', backgroundColor: colors.white }}>
+              {currentSelectedNodeDetails.id === 'original' ? (
+                <section>
+                  <div className="flex items-center mb-4 p-3 rounded-lg" style={{backgroundColor: `${currentSelectedNodeDetails.baseColor}10`}}>
+                    <div className="p-2 rounded-full mr-3 shadow-sm" style={{backgroundColor: currentSelectedNodeDetails.baseColor, color: colors.white}}>
+                      {React.cloneElement(currentSelectedNodeDetails.icon as React.ReactElement<{ className?: string }>, {className:"w-5 h-5"})}
+                    </div>
+                    <h3 className="text-lg font-semibold" style={{fontFamily: 'Raleway Semibold', color: colors.negro}}>Contenido Original</h3>
+                  </div>
+                  {(currentSelectedNodeContent as OriginalContentData).content()}
+                </section>
+              ) : (
+                <>
+                  {(currentSelectedNodeContent as ProcessedContentData).promptContent && (
+                    <section>
+                      <div className="flex items-center mb-4 p-3 rounded-lg" style={{backgroundColor: `${colors.amarillo}10`}}>
+                        <div className="p-2 rounded-full mr-3 shadow-sm" style={{backgroundColor: colors.amarillo, color: colors.azulOscuro}}><IconPencilSimple className="w-5 h-5"/></div>
+                        <h3 className="text-lg font-semibold" style={{fontFamily: 'Raleway Semibold', color: colors.negro}}>Prompt (Entrada)</h3>
+                      </div>
+                      {(currentSelectedNodeContent as ProcessedContentData).promptContent()}
+                    </section>
+                  )}
+                  {(currentSelectedNodeContent as ProcessedContentData).responseContent && (
+                    <section>
+                      <div className="flex items-center mb-4 p-3 rounded-lg" style={{backgroundColor: `${colors.verdeTurquesa}10`}}>
+                        <div className="p-2 rounded-full mr-3 shadow-sm" style={{backgroundColor: colors.verdeTurquesa, color: colors.white}}><IconAISparkles className="w-5 h-5"/></div>
+                        <h3 className="text-lg font-semibold" style={{fontFamily: 'Raleway Semibold', color: colors.negro}}>Respuesta IA (Salida)</h3>
+                      </div>
+                      {(currentSelectedNodeContent as ProcessedContentData).responseContent()}
+                    </section>
+                  )}
+                </>
+              )}
+            </div>
+            <div className="p-4 border-t text-xs text-center" style={{borderColor: colors.panelBorder, color: colors.textSecondaryOnPanel, fontFamily:'Raleway', backgroundColor: colors.white}}> Contenido generado y procesado por IA para fines educativos. </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div
+        className={FooterConfig.position}
+        style={{
+          backgroundColor: FooterConfig.background,
+          backdropFilter: FooterConfig.backdropFilter,
+          padding: FooterConfig.padding
+        }}
+      >
+        <p
+          className="text-center"
+          style={{
+            fontFamily: FooterConfig.text.fontFamily,
+            fontSize: FooterConfig.text.size,
+            color: FooterConfig.text.color,
+            opacity: FooterConfig.text.opacity,
+            fontWeight: FooterConfig.text.weight
+          }}
+        >
+          © {year} Hablandis. Centro Internacional de Idiomas. Todos los derechos reservados.
+        </p>
+      </div>
+    </div>
+  );
+};
+
+
+// =======================================================================
 // COMPONENTE PRINCIPAL DE PRESENTACIÓN - CORREGIDO
 // =======================================================================
 const Presentacion = () => {
   const [diapositivaActual, setDiapositivaActual] = useState(1);
-  const totalDiapositivas = 8; // Diapositivas: 1-Intro, 2-Blindapalabras, 3-Laboratorio, 4-Apoyo, 5-EVALIA, 6-Agentes IA, 7-AgentIAele, 8-TBD
+  const totalDiapositivas = 9; // Diapositivas: 1-Intro, 2-Blindapalabras, 3-Laboratorio, 4-Apoyo, 5-EVALIA, 6-Agentes IA, 7-AgentIAele, 8-MATERIAELE, 9-Flujo IA
 
   const cambiarDiapositiva = (direccion: 'prev' | 'next') => {
     setDiapositivaActual(actual => {
@@ -3838,6 +4294,7 @@ const Presentacion = () => {
   else if (diapositivaActual === 6) SlideComponent = Diapositiva6;
   else if (diapositivaActual === 7) SlideComponent = Diapositiva7;
   else if (diapositivaActual === 8) SlideComponent = Diapositiva8;
+  else if (diapositivaActual === 9) SlideComponent = Diapositiva9;
   else {
     // Fallback por si acaso
     SlideComponent = () => <div className="flex items-center justify-center h-screen text-2xl">Diapositiva {diapositivaActual} no encontrada</div>;
