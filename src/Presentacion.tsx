@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Zap, Shield, Wand2, Dice6, BookOpen, Trophy, Grid3x3, Layers, Heart, Users, Brain, Lightbulb, Accessibility, Speaker, Eye, Globe } from 'lucide-react';
-import { AgentSVG } from './AgentSVG';
 
 // Paleta de colores corporativa Hablandis + EVALIA
 const colors = {
