@@ -4255,11 +4255,285 @@ const Diapositiva9 = () => {
 
 
 // =======================================================================
+// DIAPOSITIVA 10: IA PARA DETERMINAR (Y ADAPTAR) EL NIVEL DE UN TEXTO
+// =======================================================================
+interface SvgIconProps {
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+const Diapositiva10 = () => {
+  const [currentInstante, setCurrentInstante] = useState(1);
+  const [activeLevel, setActiveLevel] = useState<string | null>('A1-A2');
+  const [highlightedFactorInMap, setHighlightedFactorInMap] = useState<string | null>(null);
+  const year = new Date().getFullYear();
+
+  const hablandisColors = {
+    verdeClaro: "#C4D4A4",
+    azulOscuro: "#12055F",
+    amarillo: "#FFC846",
+    verdeTurquesa: "#007567",
+    negro: "#000000",
+    lila: "#B9ABE4",
+  };
+
+  const slideColors = {
+    bgBase: '#E8E6DA',
+    bgGradientEnd: '#E8E6DA',
+    textPrimary: '#2A3B4D',
+    textSecondary: '#6A7889',
+    accent1: hablandisColors.azulOscuro,
+    accent2: hablandisColors.verdeTurquesa,
+    accent3: hablandisColors.amarillo,
+    accent4: hablandisColors.lila,
+    lineColor1: hablandisColors.lila,
+    lineColor2: hablandisColors.verdeClaro,
+    cardBg: '#FFFFFF',
+    link: hablandisColors.verdeTurquesa,
+  };
+
+  const IconFrequencyBars = ({ className = "w-7 h-7", style }: SvgIconProps) => (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className} style={style}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+    </svg>
+  );
+  const IconImpact = ({ className = "w-7 h-7", style }: SvgIconProps) => ( <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className} style={style}><path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" /></svg>);
+  const IconComplexity = ({ className = "w-7 h-7", style }: SvgIconProps) => ( <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className} style={style}><path strokeLinecap="round" strokeLinejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.646.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.333.183-.582.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>);
+  const IconRelations = ({ className = "w-7 h-7", style }: SvgIconProps) => ( <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className} style={style}><path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" /></svg>);
+  const IconDocumentText = ({ className = "w-7 h-7", style }: SvgIconProps) => ( <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className} style={style}><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>);
+  const IconChatBubbleLeftRight = ({ className = "w-7 h-7", style }: SvgIconProps) => ( <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className} style={style}><path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3.697-3.697c-.02.002-.039.005-.058.007H9.486c-1.136 0-2.097-.847-2.193-1.98A18.75 18.75 0 016.75 12.25c0-1.136.847-2.097 1.98-2.193.34-.027.68-.052 1.02-.072V6.75A2.25 2.25 0 0112 4.5h3.879a2.25 2.25 0 012.121 1.608M12 6.75v2.25m0 0H8.25m3.75 0M12 11.25V9m0 2.25H8.25m3.75 0a2.25 2.25 0 012.25 2.25M15 11.25h2.25" /></svg>);
+  const IconExternalLink = ({ className = "w-4 h-4 ml-1", style }: SvgIconProps) => ( <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className={className} style={style}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>);
+  const IconArrowsRightLeft = ({ className = "w-7 h-7", style }: SvgIconProps) => ( <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className} style={style}><path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h18M16.5 3L21 7.5m0 0L16.5 12M21 7.5H3" /></svg>);
+
+  const factors = [
+    { id: 'freq', name: 'Frecuencia', description: 'Errores que aparecen muy a menudo y afectan a muchas partes del discurso.', example: 'Ej: Uso incorrecto de ser/estar en niveles iniciales.', icon: IconFrequencyBars, color: hablandisColors.azulOscuro },
+    { id: 'impact', name: 'Impacto Comunicativo', description: 'Errores que, aunque no sean frecuentes, pueden llevar a malentendidos graves o impedir la comunicación.', example: 'Ej: Confundir tiempos verbales clave en una narración.', icon: IconImpact, color: hablandisColors.verdeTurquesa },
+    { id: 'complex', name: 'Complejidad Estructural', description: 'Errores relacionados con estructuras gramaticales complejas cuya corrección desbloquea un entendimiento más profundo.', example: 'Ej: Dificultades con el subjuntivo o la voz pasiva.', icon: IconComplexity, color: hablandisColors.amarillo },
+    { id: 'relations', name: 'Relaciones Sistémicas', description: 'Errores que indican una falta de comprensión de cómo diferentes partes del sistema lingüístico se interconectan.', example: 'Ej: Falta de concordancia entre sujeto y verbo, o género y número.', icon: IconRelations, color: hablandisColors.lila },
+  ];
+
+  const levelsData = [
+    { id: 'A1-A2', name: 'Nivel A1-A2 (Básico)', error: 'Concordancia de género y número (artículos, sustantivos, adjetivos).', details: 'Este error es fundamental porque afecta la estructura básica de la frase y es muy frecuente. Su corrección mejora drásticamente la claridad.', color: hablandisColors.verdeClaro },
+    { id: 'B1-B2', name: 'Nivel B1-B2 (Intermedio)', error: 'Uso incorrecto del Subjuntivo vs. Indicativo.', details: 'A medida que los estudiantes expresan opiniones, deseos o hipótesis, el dominio del subjuntivo se vuelve crucial para la precisión y naturalidad.', color: hablandisColors.amarillo },
+    { id: 'C1-C2', name: 'Nivel C1-C2 (Avanzado)', error: 'Matices en el uso de preposiciones y conectores discursivos complejos.', details: 'En niveles avanzados, la precisión en la elección de preposiciones y el uso sofisticado de conectores afinan el discurso y demuestran un dominio nativo.', color: hablandisColors.lila },
+  ];
+
+  const MetroNode = ({ instante, id, x, y, label, icon: IconComponent, size = 12, color = slideColors.textSecondary, pulse = false, labelPosition = "right" }: any) => ( <motion.g initial={{ opacity: 0, scale: 0 }} animate={{ opacity: instante >= id ? 1 : 0.3, scale: instante >= id ? 1 : 0.8 }} transition={{ duration: 0.5, delay: id * 0.1 }} > <motion.circle cx={x} cy={y} r={size} fill={color} stroke={slideColors.bgBase} strokeWidth="1.5" animate={{ scale: pulse ? [1, 1.1, 1] : 1 }} transition={pulse ? { duration: 1.2, repeat: Infinity, ease:"easeInOut" } : {}} /> {IconComponent && instante >= id && ( <foreignObject x={x - size*0.7} y={y - size*0.7} width={size*1.4} height={size*1.4}> <div className="flex items-center justify-center w-full h-full"> <IconComponent className={`w-[${Math.floor(size*0.8)}px] h-[${Math.floor(size*0.8)}px]`} style={{ color: slideColors.bgBase}} /> </div> </foreignObject> )} {label && instante >= id && ( <text x={labelPosition === "right" ? x + size + 5 : (labelPosition === "left" ? x - size - 5 : x)} y={labelPosition === "bottom" ? y + size + 14 : (labelPosition === "top" ? y - size - 8 : y + size/2.5)} fontSize="12px" fill={slideColors.textPrimary} style={{fontFamily: 'Raleway SemiBold, sans-serif'}} textAnchor={labelPosition === "left" ? "end" : (labelPosition === "middle" || labelPosition === "bottom" || labelPosition === "top" ? "middle" : "start")} > {label} </text> )} </motion.g>);
+  const MetroLine = ({ instante, id, d, color = slideColors.textSecondary, strokeWidth = 2.5 }: any) => ( <motion.path d={d} stroke={color} strokeWidth={strokeWidth} fill="none" initial={{ pathLength: 0, opacity: 0 }} animate={{ pathLength: instante >= id ? 1 : 0, opacity: instante >= id ? 1 : 0.3 }} transition={{ duration: 0.8, delay: id * 0.2, ease: "easeInOut" }} />);
+
+  const InfoCard = ({icon, title, link, linkText, link2, linkText2, description, items, accentColor, delay = 0}: any) => (
+    <motion.div
+      className="p-5 rounded-xl shadow-lg flex flex-col mb-6 w-full"
+      style={{ backgroundColor: slideColors.cardBg, borderLeft: `4px solid ${accentColor}`}}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay }}
+    >
+      <div className="flex items-center mb-3">
+        {icon && React.createElement(icon, { className: "w-8 h-8 mr-3 flex-shrink-0", style: { color: accentColor }})}
+        <h3 className="text-lg md:text-xl font-semibold" style={{ fontFamily: 'Raleway SemiBold, sans-serif', color: slideColors.textPrimary }}>
+          {title}
+        </h3>
+      </div>
+      {link && linkText && (
+        <a
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm inline-flex items-center font-medium mb-1 hover:underline break-all"
+          style={{ color: slideColors.link }}
+        >
+          {linkText} <IconExternalLink />
+        </a>
+      )}
+      {link2 && linkText2 && (
+        <a
+          href={link2}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm inline-flex items-center font-medium mb-2 hover:underline break-all"
+          style={{ color: slideColors.link }}
+        >
+          {linkText2} <IconExternalLink />
+        </a>
+      )}
+      {description &&
+        <p className="text-sm mt-1" style={{ fontFamily: 'Raleway, sans-serif', color: slideColors.textSecondary }}>
+          {description}
+        </p>
+      }
+      {items && (
+        <ul className="list-decimal list-inside space-y-1 text-sm mt-2 pl-2" style={{ fontFamily: 'Raleway, sans-serif', color: slideColors.textSecondary }}>
+          {items.map((item: string, index: number) => <li key={index} className="mb-1">{item}</li>)}
+        </ul>
+      )}
+    </motion.div>
+  );
+
+  const renderInstanteContent = () => {
+    const instanteBaseDelay = 0.1;
+
+    switch (currentInstante) {
+      case 1:
+        return ( <motion.div key="inst1" initial={{ opacity: 0, y:20 }} animate={{ opacity: 1, y:0 }} exit={{ opacity: 0, y:-20 }} className="text-center flex flex-col items-center h-full justify-center"> <h2 className="text-3xl md:text-4xl mb-3" style={{ fontFamily: 'Raleway Bold, sans-serif', color: slideColors.textPrimary }}> El Viaje del Aprendizaje: </h2> <h3 className="text-2xl md:text-3xl mb-6" style={{ fontFamily: 'Aglet Mono Light, monospace', color: slideColors.accent1 }}> ¿Todos los Errores Pesan Igual? </h3> <p className="text-md md:text-lg mb-8 max-w-3xl mx-auto" style={{ fontFamily: 'Raleway, sans-serif', color: slideColors.textSecondary }}> En el aprendizaje de idiomas, no todos los errores tienen el mismo peso. Aquí es donde entra en juego el concepto de <strong style={{color: slideColors.accent1}}>Centralidad de Errores</strong>. Imagina que los errores gramaticales son como estaciones de metro en una gran ciudad: algunas son simples paradas, mientras que otras son <strong style={{color: slideColors.accent2}}>nodos vitales</strong> que conectan múltiples líneas y cuyo correcto funcionamiento es crucial para todo el sistema comunicativo. </p> <div className="w-full h-60 md:h-72 flex items-center justify-center"> <svg viewBox="0 0 250 120" className="w-full max-w-lg h-auto"> <MetroNode instante={currentInstante} id={1} x={40} y={60} size={12} color={slideColors.accent1} pulse label="Error Clave"/> <MetroNode instante={currentInstante} id={1.1} x={100} y={30} size={9} color={slideColors.textSecondary} label="Error Menor"/> <MetroNode instante={currentInstante} id={1.2} x={120} y={90} size={9} color={slideColors.textSecondary} label="Otro Error"/> <MetroNode instante={currentInstante} id={1.3} x={180} y={50} size={12} color={slideColors.accent2} pulse label="Error Central"/> <MetroNode instante={currentInstante} id={1.4} x={220} y={80} size={9} color={slideColors.textSecondary} label="Detalle"/> <MetroLine instante={currentInstante} id={1} d="M40 60 Q 70 45, 100 30" color={slideColors.lineColor1} /> <MetroLine instante={currentInstante} id={1.1} d="M40 60 Q 80 75, 120 90" color={slideColors.lineColor1} /> <MetroLine instante={currentInstante} id={1.2} d="M100 30 L 180 50" color={slideColors.lineColor2} /> <MetroLine instante={currentInstante} id={1.3} d="M120 90 L 180 50" color={slideColors.lineColor2} /> <MetroLine instante={currentInstante} id={1.4} d="M180 50 L 220 80" color={slideColors.lineColor2} /> </svg> </div> <p className="text-md md:text-lg mt-6 max-w-2xl mx-auto" style={{ fontFamily: 'Raleway, sans-serif', color: slideColors.textSecondary }}> Comprender la <strong style={{color: slideColors.accent1}}>centralidad</strong> nos permite identificar qué "estaciones" (errores) son prioritarias para asegurar un viaje de aprendizaje más eficiente y efectivo. </p> </motion.div>);
+
+      case 2:
+        const factorNodePositions = [ { data: factors[0], x: 125, y: 45 }, { data: factors[1], x: 205, y: 100 }, { data: factors[3], x: 125, y: 155 }, { data: factors[2], x: 45,  y: 100 }, ];
+        return ( <motion.div key="inst2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full flex flex-col h-full"> <h2 className="text-3xl md:text-4xl mb-8 text-center" style={{ fontFamily: 'Aglet Mono Light, monospace', color: slideColors.textPrimary }}>Factores de Centralidad</h2> <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6"> {factors.map((factor, idx) => ( <motion.div key={factor.id} className="p-4 rounded-xl border-l-4 flex flex-col" style={{ borderColor: factor.color, backgroundColor: slideColors.bgGradientEnd, boxShadow: '0 4px 15px rgba(0,0,0,0.07)' }} initial={{opacity:0, x: idx % 2 === 0 ? -20 : 20, y:10}} animate={{opacity:1, x:0, y:0}} transition={{delay: idx * 0.15, duration:0.4}} > <div className="flex items-center mb-2"> <factor.icon className="w-6 h-6 mr-2 flex-shrink-0" style={{color: factor.color}}/> <h3 className="text-lg font-semibold" style={{ fontFamily: 'Raleway SemiBold, sans-serif', color: slideColors.textPrimary }}>{factor.name}</h3> </div> <p className="text-xs mb-1 flex-grow" style={{color: slideColors.textSecondary}}>{factor.description}</p> <p className="text-xs italic font-medium" style={{color: slideColors.textPrimary}}>{factor.example}</p> </motion.div> ))} </div> <div className="w-full h-60 md:h-72 flex items-center justify-center mt-4 mb-2 flex-grow"> <svg viewBox="0 0 250 200" className="w-full max-w-lg h-auto"> {highlightedFactorInMap && factorNodePositions.map(targetPos => { if (targetPos.data.id === highlightedFactorInMap) return null;  const sourcePos = factorNodePositions.find(p => p.data.id === highlightedFactorInMap); if (!sourcePos) return null; return ( <motion.line key={`line-${sourcePos.data.id}-${targetPos.data.id}`} x1={sourcePos.x} y1={sourcePos.y} x2={targetPos.x} y2={targetPos.y} stroke={slideColors.textSecondary} strokeWidth="1.5" initial={{ opacity: 0, pathLength: 0 }} animate={{ opacity: 0.4, pathLength: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }} /> ); })} {factorNodePositions.map(({ data, x, y }) => ( <motion.g key={data.id} onClick={() => setHighlightedFactorInMap(highlightedFactorInMap === data.id ? null : data.id)} style={{ cursor: 'pointer' }} initial={{ scale: 0.9, opacity: 0.7 }} animate={{  scale: highlightedFactorInMap === data.id ? 1.15 : 0.9,  opacity: highlightedFactorInMap === data.id ? 1 : (highlightedFactorInMap ? 0.5 : 0.7)  }} whileHover={{ scale: highlightedFactorInMap === data.id ? 1.2 : 1.0 }} transition={{ duration: 0.25, ease: "circOut" }} > <circle cx={x} cy={y} r="24"  fill={data.color} stroke={highlightedFactorInMap === data.id ? data.color : slideColors.bgGradientEnd}  strokeWidth={highlightedFactorInMap === data.id ? 3 : 2} /> <foreignObject x={x - 12} y={y - 12} width="24" height="24"> <div className="flex items-center justify-center w-full h-full"> <data.icon  className="w-[18px] h-[18px]" style={{ color: slideColors.bgBase }}  /> </div> </foreignObject> <text  x={x} y={y + 38}  fontSize="11"  textAnchor="middle"  fill={highlightedFactorInMap === data.id ? data.color : slideColors.textSecondary} style={{fontFamily: 'Raleway Bold, sans-serif', fontWeight: highlightedFactorInMap === data.id ? 700 : 500}} > {data.name} </text> </motion.g> ))} </svg> </div> </motion.div>);
+
+      case 3:
+        const selectedLevelData = levelsData.find(l => l.id === activeLevel);
+        const levelNodesForDisplay = [ { ...levelsData[0], x: 75, y: 50 }, { ...levelsData[1], x: 150, y: 50 }, { ...levelsData[2], x: 225, y: 50 }, ];
+        return (  <motion.div key="inst3" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full flex flex-col h-full"> <h2 className="text-3xl md:text-4xl mb-8 text-center" style={{ fontFamily: 'Aglet Mono Light, monospace', color: slideColors.textPrimary }}>Errores Centrales por Nivel</h2> <div className="flex justify-center mb-6 space-x-2 md:space-x-3"> {levelsData.map(level => (
+          <button key={level.id} onClick={() => setActiveLevel(level.id)} className={`py-2.5 px-4 md:px-6 rounded-lg text-sm md:text-base transition-all duration-300 transform hover:scale-105 ${activeLevel === level.id ? 'font-semibold shadow-xl scale-105' : 'opacity-80 hover:opacity-100 shadow-md'}`}
+            style={{
+              backgroundColor: activeLevel === level.id ? level.color : `${level.color}55`,
+              color: activeLevel === level.id ? (['B1-B2', 'A1-A2'].includes(level.id) ? slideColors.textPrimary : '#fff') : slideColors.textPrimary,
+              fontFamily:'Raleway SemiBold, sans-serif'
+            }}
+          >
+            {level.id}
+          </button>
+        ))} </div> {selectedLevelData && ( <motion.div key={activeLevel} initial={{opacity:0, y:15}} animate={{opacity:1, y:0}} transition={{duration:0.4}} className="p-6 md:p-8 rounded-xl shadow-lg text-center mb-8 mx-auto w-full max-w-xl lg:max-w-2xl" style={{backgroundColor: `${selectedLevelData.color}20`}} > <h3 className="text-xl md:text-2xl font-semibold mb-3" style={{fontFamily: 'Raleway Bold, sans-serif', color: slideColors.textPrimary}}>{selectedLevelData.name}</h3> <p className="text-md md:text-lg mb-2" style={{color: slideColors.accent1}}> <strong>Error Central:</strong> {selectedLevelData.error} </p> <p className="text-sm md:text-base" style={{color: slideColors.textSecondary}}>{selectedLevelData.details}</p> </motion.div> )} <div className="w-full h-48 md:h-56 flex items-center justify-center mt-auto mb-4 flex-grow"> <svg viewBox="0 0 300 100" className="w-full max-w-xl h-auto"> <path d={`M ${levelNodesForDisplay[0].x} ${levelNodesForDisplay[0].y} L ${levelNodesForDisplay[1].x} ${levelNodesForDisplay[1].y} L ${levelNodesForDisplay[2].x} ${levelNodesForDisplay[2].y}`} stroke={slideColors.textSecondary} strokeWidth="3.5" fill="none" /> {levelNodesForDisplay.map((nodeData, index) => ( <MetroNode key={`node-${nodeData.id}`} instante={currentInstante} id={3 + (index * 0.1)} x={nodeData.x} y={nodeData.y} size={activeLevel === nodeData.id ? 16 : 11} color={nodeData.color} pulse={activeLevel === nodeData.id} label={null} /> ))} </svg> </div> </motion.div>);
+
+      case 4:
+        return ( <motion.div key="inst4" initial={{ opacity: 0, scale:0.9 }} animate={{ opacity: 1, scale:1 }} exit={{ opacity: 0, scale:0.9 }} className="text-center flex flex-col items-center h-full justify-center"> <h2 className="text-3xl md:text-4xl mb-8" style={{ fontFamily: 'Aglet Mono Light, monospace', color: slideColors.textPrimary }}>Restaurando el Flujo Comunicativo</h2> <div className="w-full h-60 md:h-72 flex items-center justify-center mb-8"> <svg viewBox="0 0 250 120" className="w-full max-w-lg h-auto"> <MetroNode instante={currentInstante} id={4} x={40} y={60} size={12} color={slideColors.accent1} pulse/> <MetroNode instante={currentInstante} id={4.1} x={100} y={30} size={9} color={hablandisColors.verdeTurquesa}/> <MetroNode instante={currentInstante} id={4.2} x={120} y={90} size={9} color={hablandisColors.verdeTurquesa}/> <MetroNode instante={currentInstante} id={4.3} x={180} y={50} size={12} color={slideColors.accent2} pulse/> <MetroNode instante={currentInstante} id={4.4} x={220} y={80} size={9} color={hablandisColors.verdeTurquesa}/> <MetroLine instante={currentInstante} id={4} d="M40 60 Q 70 45, 100 30" color={slideColors.lineColor1} strokeWidth={4}/> <MetroLine instante={currentInstante} id={4.1} d="M40 60 Q 80 75, 120 90" color={slideColors.lineColor1} strokeWidth={4}/> <MetroLine instante={currentInstante} id={4.2} d="M100 30 L 180 50" color={slideColors.lineColor2} strokeWidth={4}/> <MetroLine instante={currentInstante} id={4.3} d="M120 90 L 180 50" color={slideColors.lineColor2} strokeWidth={4}/> <MetroLine instante={currentInstante} id={4.4} d="M180 50 L 220 80" color={slideColors.lineColor2} strokeWidth={4}/> </svg> </div> <p className="text-lg md:text-xl max-w-3xl mx-auto p-6 rounded-xl shadow-lg" style={{ fontFamily: 'Raleway, sans-serif', color: slideColors.textPrimary, backgroundColor: slideColors.bgGradientEnd, borderLeft: `5px solid ${slideColors.accent1}` }}> "Corregir un error central es como reparar las vías del metro en hora punta: requiere paciencia, pero <strong style={{color: slideColors.accent1}}>restaura el flujo comunicativo</strong>." </p> </motion.div>);
+
+      case 5:
+        return (
+          <motion.div key="inst5" initial={{ opacity: 0, y:20 }} animate={{ opacity: 1, y:0 }} className="w-full flex flex-col h-full items-center justify-center px-4 md:max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl mb-8 text-center" style={{ fontFamily: 'Aglet Mono Light, monospace', color: slideColors.textPrimary }}>
+              Determinar Nivel y Adaptar Texto
+            </h2>
+            <InfoCard
+              icon={IconDocumentText}
+              title="Texto:"
+              link="https://hablacultura.com/cultura-textos-aprender-espanol/cultura/titirimundi/"
+              linkText="Titirimundi"
+              accentColor={slideColors.accent1}
+              delay={instanteBaseDelay}
+            />
+            <InfoCard
+              icon={IconDocumentText}
+              title="Texto original (BBC):"
+              link="https://www.bbc.com/mundo/articles/cnvqrz6yzzmo"
+              linkText="La felicidad"
+              accentColor={slideColors.accent1}
+              delay={instanteBaseDelay + 0.1}
+            />
+            <InfoCard
+              icon={IconChatBubbleLeftRight}
+              title="Evaluación del nivel y adaptación del texto:"
+              link2="https://chatgpt.com/share/68346ccf-98f0-800d-851c-8e0426dfd621"
+              linkText2="Transcripción de la conversación con ChatGPT"
+              accentColor={slideColors.accent2}
+              delay={instanteBaseDelay + 0.2}
+            />
+          </motion.div>
+        );
+
+      case 6:
+        return (
+          <motion.div key="inst6" initial={{ opacity: 0, y:20 }} animate={{ opacity: 1, y:0 }} className="w-full flex flex-col h-full items-center justify-center px-4 md:max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl mb-8 text-center" style={{ fontFamily: 'Aglet Mono Light, monospace', color: slideColors.textPrimary }}>
+              Y no tenemos por qué aceptar todos los cambios...
+            </h2>
+            <InfoCard
+              icon={IconArrowsRightLeft}
+              title="Elijamos los cambios que queramos mantener de forma sencilla:"
+              link="https://text-compare.com/es/"
+              linkText="Text Compare - Herramienta de comparación"
+              items={[
+                "Creemos dos documentos: \"tiempo libre (original)\" y \"tiempo libre (adaptado)\" y peguemos en ellos los textos respectivos.",
+                "Nos situamos en el texto original, y en el menú \"herramientas\" elegimos \"comparar\".",
+                "Elegimos ahora el texto simplificado.",
+                "Se genera una versión mixta en la que podemos aceptar o rechazar cada uno de los cambios aceptando o rechazando sugerencias."
+              ]}
+              accentColor={slideColors.accent4}
+              delay={instanteBaseDelay}
+            />
+          </motion.div>
+        );
+
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div
+      className="min-h-screen w-screen relative overflow-hidden flex flex-col items-center p-6 md:p-8"
+      style={{ background: slideColors.bgBase }}
+    >
+      <div className="absolute top-6 left-6 md:top-8 md:left-8 z-30">
+        <img
+          src="/hablandis.png"
+          alt="Hablandis Logo"
+          className="h-32 md:h-40 w-auto"
+          onError={(e) => { const img = e.target as HTMLImageElement; img.style.display = 'none'; img.parentElement!.innerHTML = `<div style="font-family: 'Aglet Mono Light', monospace; color: ${slideColors.accent1}; font-size: 72px; font-weight: 700;">Hablandis</div>`; }}
+        />
+      </div>
+
+      <motion.h1
+        initial={{opacity:0, y: -20}} animate={{opacity:1, y:0}} transition={{duration:0.6}}
+        className="text-2xl md:text-3xl font-semibold mt-4 md:mt-2 mb-6 md:mb-8 text-center w-full max-w-5xl z-10"
+        style={{fontFamily: 'Aglet Mono Light, monospace', color: slideColors.textPrimary}}
+      >
+        IA para determinar (y adaptar) el nivel de un texto
+      </motion.h1>
+
+      <div className="flex-grow flex flex-col items-center justify-center w-full max-w-5xl z-10 mb-4">
+        <AnimatePresence mode="wait">
+          {renderInstanteContent()}
+        </AnimatePresence>
+      </div>
+
+      <div className="w-full max-w-5xl z-20 mt-auto">
+        <div className="flex justify-between items-center mb-3">
+          <button
+            onClick={() => setCurrentInstante(prev => Math.max(1, prev - 1))}
+            disabled={currentInstante === 1}
+            className="py-2.5 px-6 rounded-lg text-sm md:text-base disabled:opacity-40 transition-all duration-200 transform hover:scale-105"
+            style={{ fontFamily: 'Raleway SemiBold', backgroundColor: slideColors.accent2, color: 'white' }}
+          >
+            Anterior
+          </button>
+          <div className="flex space-x-1.5">
+            {[1, 2, 3, 4, 5, 6].map(i => (
+              <button
+                key={i}
+                onClick={() => setCurrentInstante(i)}
+                className={`w-3 h-3 md:w-3.5 md:h-3.5 rounded-full transition-all duration-300 ${currentInstante === i ? 'ring-2 ring-offset-2 scale-110' : 'opacity-60 hover:opacity-100'}`}
+                style={{
+                  backgroundColor: currentInstante === i ? slideColors.accent1 : slideColors.textSecondary
+                }}
+              />
+            ))}
+          </div>
+          <button
+            onClick={() => setCurrentInstante(prev => Math.min(6, prev + 1))}
+            disabled={currentInstante === 6}
+            className="py-2.5 px-6 rounded-lg text-sm md:text-base disabled:opacity-40 transition-all duration-200 transform hover:scale-105"
+            style={{ fontFamily: 'Raleway SemiBold', backgroundColor: slideColors.accent1, color: 'white' }}
+          >
+            Siguiente
+          </button>
+        </div>
+        <p className="text-center mt-6 text-xs" style={{ fontFamily: 'Raleway, sans-serif', color: slideColors.textSecondary, opacity: 0.7 }}>
+          © {year} Hablandis. Todos los derechos reservados.
+        </p>
+      </div>
+    </div>
+  );
+};
+
+
+// =======================================================================
 // COMPONENTE PRINCIPAL DE PRESENTACIÓN - CORREGIDO
 // =======================================================================
 const Presentacion = () => {
   const [diapositivaActual, setDiapositivaActual] = useState(1);
-  const totalDiapositivas = 9; // Diapositivas: 1-Intro, 2-Blindapalabras, 3-Laboratorio, 4-Apoyo, 5-EVALIA, 6-Agentes IA, 7-AgentIAele, 8-MATERIAELE, 9-Flujo IA
+  const totalDiapositivas = 10; // Diapositivas: 1-Intro, 2-Blindapalabras, 3-Laboratorio, 4-Apoyo, 5-EVALIA, 6-Agentes IA, 7-AgentIAele, 8-MATERIAELE, 9-Flujo IA, 10-Nivel Texto
 
   const cambiarDiapositiva = (direccion: 'prev' | 'next') => {
     setDiapositivaActual(actual => {
@@ -4295,6 +4569,7 @@ const Presentacion = () => {
   else if (diapositivaActual === 7) SlideComponent = Diapositiva7;
   else if (diapositivaActual === 8) SlideComponent = Diapositiva8;
   else if (diapositivaActual === 9) SlideComponent = Diapositiva9;
+  else if (diapositivaActual === 10) SlideComponent = Diapositiva10;
   else {
     // Fallback por si acaso
     SlideComponent = () => <div className="flex items-center justify-center h-screen text-2xl">Diapositiva {diapositivaActual} no encontrada</div>;
