@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Zap, Shield, Wand2, Dice6, BookOpen, Trophy, Grid3x3, Layers, Heart, Users, Brain, Lightbulb, Accessibility, Speaker, Eye, Globe } from 'lucide-react';
+import { AgentSVG } from './AgentSVG';
 
 // Paleta de colores corporativa Hablandis + EVALIA
 const colors = {
@@ -3362,11 +3363,255 @@ const Diapositiva6 = () => {
 
 
 // =======================================================================
+// COMPONENTE: TARJETA CON EFECTO FLIP
+// =======================================================================
+const FlipCard = ({ front, back }: {
+  front: { title: string; icon: React.ReactNode; accentColor: string };
+  back: { content: string; accentColor: string };
+}) => {
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  return (
+    <div
+      className="relative cursor-pointer"
+      style={{
+        height: '100%',
+        maxHeight: '270px',
+        perspective: '1000px'
+      }}
+      onClick={() => setIsFlipped(!isFlipped)}
+    >
+      <motion.div
+        className="relative w-full h-full"
+        style={{
+          transformStyle: 'preserve-3d',
+          transition: 'transform 0.6s'
+        }}
+        animate={{
+          rotateY: isFlipped ? 180 : 0
+        }}
+      >
+        {/* Cara frontal */}
+        <div
+          className="absolute w-full h-full rounded-lg overflow-hidden"
+          style={{
+            backfaceVisibility: 'hidden',
+            background: '#FFFFFF',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+            border: '1px solid rgba(0,0,0,0.06)'
+          }}
+        >
+          <div className="flex flex-col items-center justify-center h-full p-6">
+            <div className="mb-4">
+              {front.icon}
+            </div>
+            <h3
+              className="text-xl font-bold text-center"
+              style={{
+                fontFamily: 'Aglet Mono, monospace',
+                color: colors.azulOscuro
+              }}
+            >
+              {front.title}
+            </h3>
+            <div
+              className="w-12 h-1 rounded-full mt-4"
+              style={{ background: front.accentColor }}
+            />
+          </div>
+        </div>
+
+        {/* Cara trasera */}
+        <div
+          className="absolute w-full h-full rounded-lg overflow-hidden"
+          style={{
+            backfaceVisibility: 'hidden',
+            transform: 'rotateY(180deg)',
+            background: '#FFFFFF',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+            border: '1px solid rgba(0,0,0,0.06)'
+          }}
+        >
+          <div className="flex flex-col items-center justify-center h-full p-6">
+            <div
+              className="w-12 h-1 rounded-full mb-4"
+              style={{ background: back.accentColor }}
+            />
+            <p
+              className="text-lg text-center leading-relaxed"
+              style={{
+                fontFamily: 'Raleway, sans-serif',
+                color: colors.grisOscuro,
+                fontWeight: 600
+              }}
+            >
+              {back.content}
+            </p>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+
+// =======================================================================
+// DIAPOSITIVA 7: ANIMACIÓN INTERACTIVA "AGENT"
+// =======================================================================
+const Diapositiva7 = () => {
+  return (
+    <div
+      className="h-screen flex flex-col relative overflow-hidden"
+      style={{
+        background: '#E8E6DA'
+      }}
+    >
+      {/* Header con título */}
+      <div className="relative w-full py-6">
+        {/* Título AgentiaELE */}
+        <div className="text-center">
+          <h1
+            className="font-bold"
+            style={{
+              fontFamily: 'Aglet Mono, monospace',
+              color: colors.azulOscuro,
+              textShadow: '3px 3px 6px rgba(0,0,0,0.15)',
+              fontSize: '5.5rem',
+              letterSpacing: '0.05em'
+            }}
+          >
+            AgentIAele
+          </h1>
+        </div>
+
+        {/* Logo pequeño */}
+        <div className="absolute top-6 right-6 z-30">
+          <img
+            src="/hablandis.png"
+            alt="Hablandis"
+            className="h-20 md:h-24"
+            style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.1))' }}
+            onError={(e) => {
+              const img = e.target as HTMLImageElement;
+              img.style.display = 'none';
+              img.parentElement!.innerHTML = `
+                <div>
+                  <div style="font-family: 'Aglet Mono', monospace; color: ${colors.azulOscuro}; font-size: 28px; font-weight: 700;">
+                    Hablandis
+                  </div>
+                  <div style="font-family: 'Raleway', sans-serif; color: ${colors.verdeTurquesa}; font-size: 12px; margin-top: 2px;">
+                    Centro Internacional de Idiomas
+                  </div>
+                </div>
+              `;
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Tarjetas de vocabulario con efecto flip */}
+      <div className="flex-1 overflow-y-auto px-8 pb-6 pt-2">
+        <div className="grid grid-cols-3 gap-6 h-full" style={{ gridTemplateRows: 'repeat(2, 1fr)' }}>
+          {/* Tarjeta 1 */}
+          <FlipCard
+            front={{
+              title: "¿QUÉ ES?",
+              icon: <Lightbulb size={40} color={colors.naranja} />,
+              accentColor: colors.naranja
+            }}
+            back={{
+              content: "Una plataforma revolucionaria con asistentes de IA —adorables gatos expertos— para transformar cómo enseñas y tus estudiantes aprenden español.",
+              accentColor: colors.naranja
+            }}
+          />
+
+          {/* Tarjeta 2 */}
+          <FlipCard
+            front={{
+              title: "EL DESAFÍO",
+              icon: <Users size={40} color={colors.azulOscuro} />,
+              accentColor: colors.azulOscuro
+            }}
+            back={{
+              content: "Estudiantes que necesitan más tiempo, alumnos que no se atreven a preguntar, diferentes ritmos de aprendizaje. AgentIAele nace para resolver esto.",
+              accentColor: colors.azulOscuro
+            }}
+          />
+
+          {/* Tarjeta 3 */}
+          <FlipCard
+            front={{
+              title: "APRENDIZAJE PAUTADO",
+              icon: <Layers size={40} color={colors.verdeTurquesa} />,
+              accentColor: colors.verdeTurquesa
+            }}
+            back={{
+              content: "Los gatos IA siguen tus instrucciones, se adaptan al nivel del estudiante, ofrecen progresión gradual y celebran logros. Tú defines las pautas, ellos las ejecutan.",
+              accentColor: colors.verdeTurquesa
+            }}
+          />
+
+          {/* Tarjeta 4 */}
+          <FlipCard
+            front={{
+              title: "TE AMPLIFICA",
+              icon: <Users size={40} color={colors.lila} />,
+              accentColor: colors.lila
+            }}
+            back={{
+              content: "Tú diseñas actividades y defines pautas, los gatos las ejecutan 24/7. Tú atiendes casos complejos, ellos liberan tu tiempo. Te dan datos de interacciones.",
+              accentColor: colors.lila
+            }}
+          />
+
+          {/* Tarjeta 6 */}
+          <FlipCard
+            front={{
+              title: "BENEFICIOS",
+              icon: <Heart size={40} color={colors.naranja} />,
+              accentColor: colors.naranja
+            }}
+            back={{
+              content: "Atención personalizada para cada estudiante. Más tiempo para enseñar.",
+              accentColor: colors.naranja
+            }}
+          />
+
+          {/* Tarjeta 8 */}
+          <FlipCard
+            front={{
+              title: "RESULTADOS",
+              icon: <Heart size={40} color={colors.verdeTurquesa} />,
+              accentColor: colors.verdeTurquesa
+            }}
+            back={{
+              content: "4371 estudiantes confirman: experiencia personalizada que se adapta a lo que necesitan. Quieren a los gatos.",
+              accentColor: colors.verdeTurquesa
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="absolute bottom-2 left-0 right-0 text-center">
+        <p className="text-xs" style={{
+          fontFamily: 'Raleway, sans-serif',
+          color: colors.azulOscuro,
+          opacity: 0.6
+        }}>
+          © 2025 Hablandis. Todos los derechos reservados.
+        </p>
+      </div>
+    </div>
+  );
+};
+
+
+// =======================================================================
 // COMPONENTE PRINCIPAL DE PRESENTACIÓN - CORREGIDO
 // =======================================================================
 const Presentacion = () => {
   const [diapositivaActual, setDiapositivaActual] = useState(1);
-  const totalDiapositivas = 6; // Diapositivas: 1-Intro, 2-Blindapalabras, 3-Laboratorio, 4-Apoyo, 5-EVALIA, 6-Agentes IA
+  const totalDiapositivas = 7; // Diapositivas: 1-Intro, 2-Blindapalabras, 3-Laboratorio, 4-Apoyo, 5-EVALIA, 6-Agentes IA, 7-AGENT
 
   const cambiarDiapositiva = (direccion: 'prev' | 'next') => {
     setDiapositivaActual(actual => {
@@ -3399,6 +3644,7 @@ const Presentacion = () => {
   else if (diapositivaActual === 4) SlideComponent = Diapositiva4;
   else if (diapositivaActual === 5) SlideComponent = Diapositiva5;
   else if (diapositivaActual === 6) SlideComponent = Diapositiva6;
+  else if (diapositivaActual === 7) SlideComponent = Diapositiva7;
   else {
     // Fallback por si acaso
     SlideComponent = () => <div className="flex items-center justify-center h-screen text-2xl">Diapositiva {diapositivaActual} no encontrada</div>;
