@@ -6640,7 +6640,7 @@ const Diapositiva14 = ({
     <div
       className="min-h-screen relative overflow-hidden"
       style={{
-        background: `linear-gradient(145deg, ${colors.lila} 0%, ${colors.verdeClaro} 100%)`
+        background: '#E8E4DB'
       }}
     >
       {/* Gradiente interactivo */}
@@ -6673,13 +6673,13 @@ const Diapositiva14 = ({
               transform: `rotate(${word.rotation}deg)`
             }}
           >
-            Gracias
+            dziękuje
           </span>
         ))}
       </div>
 
       <div className="relative z-20 h-screen flex flex-col p-8">
-        {/* Logo GRANDE */}
+        {/* Logo pequeño en esquina superior izquierda */}
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{
@@ -6687,36 +6687,68 @@ const Diapositiva14 = ({
             scale: showElements.logo ? 1 : 0.5
           }}
           transition={{ duration: 1, type: "spring" }}
-          className="absolute top-0 left-0"
+          className="absolute top-4 left-4 z-30"
         >
           <img
             src="/hablandis.png"
             alt="Hablandis"
-            className="h-80"
+            className="h-20"
             style={{
-              filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.1))',
-              maxWidth: '400px'
+              filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.1))',
+              maxWidth: '200px'
             }}
             onError={(e) => {
               const img = e.target as HTMLImageElement;
               img.style.display = 'none';
-              img.parentElement!.innerHTML = `
-                <div style="padding: 30px;">
-                  <div style="font-family: 'Aglet Mono', monospace; color: ${uniformColor}; font-size: 72px; font-weight: 900;">
-                    Hablandis
-                  </div>
-                  <div style="font-family: 'Raleway', sans-serif; color: ${colors.verdeTurquesa}; font-size: 20px; margin-top: 10px;">
-                    Centro Internacional de Idiomas
-                  </div>
-                </div>
-              `;
             }}
           />
         </motion.div>
 
-        {/* Contenido central */}
-        <div className="flex-1 flex items-center justify-center">
-          <div className="text-center max-w-6xl">
+        {/* Contenido en 2 columnas */}
+        <div className="flex-1 flex items-center justify-center gap-12 px-8">
+
+          {/* COLUMNA IZQUIERDA - Video */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{
+              opacity: showElements.logo ? 1 : 0,
+              x: showElements.logo ? 0 : -50
+            }}
+            transition={{ duration: 1, delay: 0.3 }}
+            className="flex-1 flex items-center justify-center"
+          >
+            <div
+              className="relative rounded-3xl overflow-hidden"
+              style={{
+                width: '100%',
+                maxWidth: '640px',
+                aspectRatio: '16/9',
+                boxShadow: '0 20px 60px rgba(0,0,0,0.2)',
+                border: '4px solid rgba(255,255,255,0.3)'
+              }}
+            >
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube-nocookie.com/embed/f5L9arSvlEw"
+                title="YouTube video"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                referrerPolicy="strict-origin-when-cross-origin"
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%'
+                }}
+              ></iframe>
+            </div>
+          </motion.div>
+
+          {/* COLUMNA DERECHA - Texto y contacto */}
+          <div className="flex-1 flex flex-col justify-center items-center">
 
             {/* ¡MUCHAS GRACIAS! */}
             <motion.div
@@ -6726,19 +6758,32 @@ const Diapositiva14 = ({
                 y: showElements.title ? 0 : 50
               }}
               transition={{ duration: 1, type: "spring", stiffness: 100 }}
-              className="mb-12"
+              className="mb-8 text-center"
             >
               <h1
                 style={{
                   fontFamily: 'Aglet Mono, monospace',
-                  fontSize: '70px',
+                  fontSize: 'clamp(50px, 8vw, 100px)',
                   fontWeight: 900,
                   letterSpacing: '4px',
-                  color: uniformColor,
                   textShadow: '0 8px 40px rgba(0,0,0,0.07)',
+                  lineHeight: '1.2'
                 }}
               >
-                ¡MUCHAS GRACIAS!
+                <span style={{ color: '#5B7591' }}>M</span>
+                <span style={{ color: '#CBE1C9' }}>U</span>
+                <span style={{ color: '#7FA8C6' }}>C</span>
+                <span style={{ color: '#E9DCB0' }}>H</span>
+                <span style={{ color: '#C8BDDA' }}>A</span>
+                <span style={{ color: '#B9B5AC' }}>S</span>
+                <br />
+                <span style={{ color: '#646964' }}>G</span>
+                <span style={{ color: '#5B7591' }}>R</span>
+                <span style={{ color: '#646964' }}>A</span>
+                <span style={{ color: '#CBE1C9' }}>C</span>
+                <span style={{ color: '#7FA8C6' }}>I</span>
+                <span style={{ color: '#E9DCB0' }}>A</span>
+                <span style={{ color: '#C8BDDA' }}>S</span>
               </h1>
             </motion.div>
 
@@ -6749,12 +6794,13 @@ const Diapositiva14 = ({
                 opacity: showElements.subtitle ? 1 : 0
               }}
               transition={{ delay: 0.3, duration: 0.8 }}
+              className="text-center mb-8"
             >
               <h2
-                className="mb-4"
+                className="mb-3"
                 style={{
                   fontFamily: 'Raleway, sans-serif',
-                  fontSize: '36px',
+                  fontSize: '28px',
                   fontWeight: 600,
                   color: uniformColor,
                   letterSpacing: '1px'
@@ -6765,7 +6811,7 @@ const Diapositiva14 = ({
               <p
                 style={{
                   fontFamily: 'Raleway, sans-serif',
-                  fontSize: '28px',
+                  fontSize: '22px',
                   fontWeight: 500,
                   color: colors.verdeTurquesa,
                   textShadow: '0 4px 20px rgba(0,0,0,0.1)',
@@ -6784,40 +6830,39 @@ const Diapositiva14 = ({
                 scale: showElements.info ? 1 : 0.9
               }}
               transition={{ delay: 0.6, type: "spring" }}
-              className="mt-16"
             >
               <div
-                className="inline-block rounded-3xl px-12 py-8"
+                className="inline-block rounded-2xl px-8 py-6"
                 style={{
                   backgroundColor: colors.blanco + '80',
                   backdropFilter: 'blur(30px)',
-                  boxShadow: '0 20px 60px rgba(0,0,0,0.1)'
+                  boxShadow: '0 15px 40px rgba(0,0,0,0.1)'
                 }}
               >
-                <div className="flex items-center gap-8">
-                  <div className="w-40 h-40 bg-gray-50 rounded-2xl flex items-center justify-center shadow-inner">
+                <div className="flex items-center gap-6">
+                  <div className="w-28 h-28 bg-gray-50 rounded-xl flex items-center justify-center shadow-inner">
                     <img
                       src="/qr.png"
                       alt="QR Code Presentación EVALIA"
-                      className="w-full h-full object-contain p-3"
+                      className="w-full h-full object-contain p-2"
                     />
                   </div>
                   <div className="text-left">
                     <h3 style={{
                       fontFamily: 'Aglet Mono, monospace',
-                      fontSize: '28px',
+                      fontSize: '20px',
                       fontWeight: 800,
                       color: uniformColor,
-                      marginBottom: '8px'
+                      marginBottom: '4px'
                     }}>
-                      Materiales de Presentación
+                      Materiales
                     </h3>
                     <p style={{
                       fontFamily: 'Raleway, sans-serif',
-                      fontSize: '18px',
+                      fontSize: '14px',
                       color: colors.grisOscuro
                     }}>
-                      Escanea para acceder a recursos y documentación
+                      Recursos y documentación
                     </p>
                   </div>
                 </div>
