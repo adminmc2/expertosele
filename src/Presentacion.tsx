@@ -3607,11 +3607,203 @@ const Diapositiva7 = () => {
 
 
 // =======================================================================
+// DIAPOSITIVA 8: MATERIAELE
+// =======================================================================
+const Diapositiva8 = () => {
+  return (
+    <div
+      className="h-screen flex flex-col relative overflow-hidden"
+      style={{
+        background: '#E8E6DA'
+      }}
+    >
+      {/* Header con logo */}
+      <div className="relative w-full py-6">
+        {/* Logo */}
+        <div className="absolute top-6 right-6 z-30">
+          <img
+            src="/hablandis.png"
+            alt="Hablandis"
+            className="h-52 md:h-60"
+            style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.1))' }}
+            onError={(e) => {
+              const img = e.target as HTMLImageElement;
+              img.style.display = 'none';
+              img.parentElement!.innerHTML = `
+                <div>
+                  <div style="font-family: 'Aglet Mono', monospace; color: ${colors.azulOscuro}; font-size: 28px; font-weight: 700;">
+                    Hablandis
+                  </div>
+                  <div style="font-family: 'Raleway', sans-serif; color: ${colors.verdeTurquesa}; font-size: 12px; margin-top: 2px;">
+                    Centro Internacional de Idiomas
+                  </div>
+                </div>
+              `;
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Contenido - Título y QR Codes */}
+      <div className="flex-1 flex flex-col items-center justify-center px-16 gap-12">
+        {/* Título principal */}
+        <div className="text-center">
+          <h1
+            className="font-bold mb-4"
+            style={{
+              fontFamily: 'Aglet Mono, monospace',
+              color: colors.azulOscuro,
+              fontSize: '3.5rem',
+              lineHeight: '1.2',
+              textShadow: '2px 2px 4px rgba(0,0,0,0.1)'
+            }}
+          >
+            Descubre <span style={{ color: colors.naranja }}>MATER<span style={{ color: colors.azulOscuro }}>IA</span>ELE</span>
+          </h1>
+          <p
+            style={{
+              fontFamily: 'Raleway, sans-serif',
+              fontSize: '1.5rem',
+              fontWeight: 600,
+              color: colors.verdeTurquesa,
+              marginBottom: '0.5rem'
+            }}
+          >
+            un espacio para visualizar los materiales que usas en clase
+          </p>
+          <p
+            style={{
+              fontFamily: 'Raleway, sans-serif',
+              fontSize: '1.3rem',
+              fontWeight: 500,
+              color: colors.azulOscuro
+            }}
+          >
+            Trabajo en parejas con los móviles
+          </p>
+        </div>
+
+        {/* Códigos QR */}
+        <div className="grid grid-cols-2 gap-16 w-full max-w-5xl">
+          {/* QR Izquierda - codigoem */}
+          <div className="flex flex-col items-center">
+            <div
+              style={{
+                background: 'white',
+                padding: '1.5rem',
+                borderRadius: '1rem',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                border: `3px solid ${colors.naranja}`
+              }}
+            >
+              <img
+                src="/codigoem.png"
+                alt="QR Español en Marcha"
+                style={{
+                  width: '280px',
+                  height: '280px',
+                  display: 'block'
+                }}
+                onError={(e) => {
+                  const img = e.target as HTMLImageElement;
+                  img.style.display = 'none';
+                  img.parentElement!.innerHTML = `
+                    <div style="width: 280px; height: 280px; display: flex; align-items: center; justify-content: center; background: #f5f5f5; border-radius: 0.5rem;">
+                      <div style="text-align: center; font-family: 'Raleway', sans-serif; color: ${colors.azulOscuro};">
+                        <div style="font-size: 48px; margin-bottom: 8px;">📱</div>
+                        <div style="font-size: 14px;">codigoem</div>
+                      </div>
+                    </div>
+                  `;
+                }}
+              />
+            </div>
+            <p
+              className="text-center mt-4"
+              style={{
+                fontFamily: 'Raleway, sans-serif',
+                fontSize: '1.1rem',
+                fontWeight: 600,
+                color: colors.azulOscuro,
+                lineHeight: '1.4',
+                maxWidth: '320px'
+              }}
+            >
+              Acceso a la unidad de muestra de Español en Marcha 1
+            </p>
+          </div>
+
+          {/* QR Derecha - codigomateria */}
+          <div className="flex flex-col items-center">
+            <div
+              style={{
+                background: 'white',
+                padding: '1.5rem',
+                borderRadius: '1rem',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                border: `3px solid ${colors.verdeTurquesa}`
+              }}
+            >
+              <img
+                src="/codigomateriaele.png"
+                alt="QR Material Complementario"
+                style={{
+                  width: '280px',
+                  height: '280px',
+                  display: 'block'
+                }}
+                onError={(e) => {
+                  const img = e.target as HTMLImageElement;
+                  img.style.display = 'none';
+                  img.parentElement!.innerHTML = `
+                    <div style="width: 280px; height: 280px; display: flex; align-items: center; justify-content: center; background: #f5f5f5; border-radius: 0.5rem;">
+                      <div style="text-align: center; font-family: 'Raleway', sans-serif; color: ${colors.azulOscuro};">
+                        <div style="font-size: 48px; margin-bottom: 8px;">📚</div>
+                        <div style="font-size: 14px;">codigomateria</div>
+                      </div>
+                    </div>
+                  `;
+                }}
+              />
+            </div>
+            <p
+              className="text-center mt-4"
+              style={{
+                fontFamily: 'Raleway, sans-serif',
+                fontSize: '1.1rem',
+                fontWeight: 600,
+                color: colors.azulOscuro,
+                lineHeight: '1.4',
+                maxWidth: '320px'
+              }}
+            >
+              Acceso al material complementario
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="absolute bottom-2 left-0 right-0 text-center">
+        <p className="text-xs" style={{
+          fontFamily: 'Raleway, sans-serif',
+          color: colors.azulOscuro,
+          opacity: 0.6
+        }}>
+          © 2025 Hablandis. Todos los derechos reservados.
+        </p>
+      </div>
+    </div>
+  );
+};
+
+
+// =======================================================================
 // COMPONENTE PRINCIPAL DE PRESENTACIÓN - CORREGIDO
 // =======================================================================
 const Presentacion = () => {
   const [diapositivaActual, setDiapositivaActual] = useState(1);
-  const totalDiapositivas = 7; // Diapositivas: 1-Intro, 2-Blindapalabras, 3-Laboratorio, 4-Apoyo, 5-EVALIA, 6-Agentes IA, 7-AGENT
+  const totalDiapositivas = 8; // Diapositivas: 1-Intro, 2-Blindapalabras, 3-Laboratorio, 4-Apoyo, 5-EVALIA, 6-Agentes IA, 7-AgentIAele, 8-TBD
 
   const cambiarDiapositiva = (direccion: 'prev' | 'next') => {
     setDiapositivaActual(actual => {
@@ -3645,6 +3837,7 @@ const Presentacion = () => {
   else if (diapositivaActual === 5) SlideComponent = Diapositiva5;
   else if (diapositivaActual === 6) SlideComponent = Diapositiva6;
   else if (diapositivaActual === 7) SlideComponent = Diapositiva7;
+  else if (diapositivaActual === 8) SlideComponent = Diapositiva8;
   else {
     // Fallback por si acaso
     SlideComponent = () => <div className="flex items-center justify-center h-screen text-2xl">Diapositiva {diapositivaActual} no encontrada</div>;
