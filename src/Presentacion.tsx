@@ -3684,13 +3684,13 @@ const Diapositiva8 = () => {
         </div>
 
         {/* Códigos QR */}
-        <div className="grid grid-cols-2 gap-16 w-full max-w-5xl">
+        <div className="grid grid-cols-3 gap-12 w-full max-w-6xl">
           {/* QR Izquierda - codigoem */}
           <div className="flex flex-col items-center">
             <div
               style={{
                 background: 'white',
-                padding: '1.5rem',
+                padding: '1.2rem',
                 borderRadius: '1rem',
                 boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
                 border: `3px solid ${colors.naranja}`
@@ -3700,15 +3700,15 @@ const Diapositiva8 = () => {
                 src="/codigoem.png"
                 alt="QR Español en Marcha"
                 style={{
-                  width: '280px',
-                  height: '280px',
+                  width: '220px',
+                  height: '220px',
                   display: 'block'
                 }}
                 onError={(e) => {
                   const img = e.target as HTMLImageElement;
                   img.style.display = 'none';
                   img.parentElement!.innerHTML = `
-                    <div style="width: 280px; height: 280px; display: flex; align-items: center; justify-content: center; background: #f5f5f5; border-radius: 0.5rem;">
+                    <div style="width: 220px; height: 220px; display: flex; align-items: center; justify-content: center; background: #f5f5f5; border-radius: 0.5rem;">
                       <div style="text-align: center; font-family: 'Raleway', sans-serif; color: ${colors.azulOscuro};">
                         <div style="font-size: 48px; margin-bottom: 8px;">📱</div>
                         <div style="font-size: 14px;">codigoem</div>
@@ -3722,23 +3722,23 @@ const Diapositiva8 = () => {
               className="text-center mt-4"
               style={{
                 fontFamily: 'Raleway, sans-serif',
-                fontSize: '1.1rem',
+                fontSize: '1rem',
                 fontWeight: 600,
                 color: colors.azulOscuro,
                 lineHeight: '1.4',
-                maxWidth: '320px'
+                maxWidth: '260px'
               }}
             >
               Acceso a la unidad de muestra de Español en Marcha 1
             </p>
           </div>
 
-          {/* QR Derecha - codigomateria */}
+          {/* QR Centro - codigomateria */}
           <div className="flex flex-col items-center">
             <div
               style={{
                 background: 'white',
-                padding: '1.5rem',
+                padding: '1.2rem',
                 borderRadius: '1rem',
                 boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
                 border: `3px solid ${colors.verdeTurquesa}`
@@ -3748,15 +3748,15 @@ const Diapositiva8 = () => {
                 src="/codigomateriaele.png"
                 alt="QR Material Complementario"
                 style={{
-                  width: '280px',
-                  height: '280px',
+                  width: '220px',
+                  height: '220px',
                   display: 'block'
                 }}
                 onError={(e) => {
                   const img = e.target as HTMLImageElement;
                   img.style.display = 'none';
                   img.parentElement!.innerHTML = `
-                    <div style="width: 280px; height: 280px; display: flex; align-items: center; justify-content: center; background: #f5f5f5; border-radius: 0.5rem;">
+                    <div style="width: 220px; height: 220px; display: flex; align-items: center; justify-content: center; background: #f5f5f5; border-radius: 0.5rem;">
                       <div style="text-align: center; font-family: 'Raleway', sans-serif; color: ${colors.azulOscuro};">
                         <div style="font-size: 48px; margin-bottom: 8px;">📚</div>
                         <div style="font-size: 14px;">codigomateria</div>
@@ -3770,14 +3770,62 @@ const Diapositiva8 = () => {
               className="text-center mt-4"
               style={{
                 fontFamily: 'Raleway, sans-serif',
-                fontSize: '1.1rem',
+                fontSize: '1rem',
                 fontWeight: 600,
                 color: colors.azulOscuro,
                 lineHeight: '1.4',
-                maxWidth: '320px'
+                maxWidth: '260px'
               }}
             >
               Acceso al material complementario
+            </p>
+          </div>
+
+          {/* QR Derecha - agente */}
+          <div className="flex flex-col items-center">
+            <div
+              style={{
+                background: 'white',
+                padding: '1.2rem',
+                borderRadius: '1rem',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                border: `3px solid ${colors.lila}`
+              }}
+            >
+              <img
+                src="/agente.png"
+                alt="QR Crea tu agente"
+                style={{
+                  width: '220px',
+                  height: '220px',
+                  display: 'block'
+                }}
+                onError={(e) => {
+                  const img = e.target as HTMLImageElement;
+                  img.style.display = 'none';
+                  img.parentElement!.innerHTML = `
+                    <div style="width: 220px; height: 220px; display: flex; align-items: center; justify-content: center; background: #f5f5f5; border-radius: 0.5rem;">
+                      <div style="text-align: center; font-family: 'Raleway', sans-serif; color: ${colors.azulOscuro};">
+                        <div style="font-size: 48px; margin-bottom: 8px;">🤖</div>
+                        <div style="font-size: 14px;">Crea tu agente</div>
+                      </div>
+                    </div>
+                  `;
+                }}
+              />
+            </div>
+            <p
+              className="text-center mt-4"
+              style={{
+                fontFamily: 'Raleway, sans-serif',
+                fontSize: '1rem',
+                fontWeight: 600,
+                color: colors.azulOscuro,
+                lineHeight: '1.4',
+                maxWidth: '260px'
+              }}
+            >
+              Crea tu agente
             </p>
           </div>
         </div>
@@ -5381,13 +5429,1427 @@ const Diapositiva12 = () => {
   );
 };
 
+// =======================================================================
+// DIAPOSITIVA 13: La complejidad en la interpretación y análisis de la expresión e interacción oral. Un ejemplo con los imperativos
+// =======================================================================
 
+// Definir colores y animaciones específicos para Diapositiva13
+const diap13Colors = {
+  verdeClaro: "#C4D4A4",
+  azulOscuro: "#12055F",
+  amarillo: "#FFC846",
+  verdeTurquesa: "#007567",
+  negro: "#000000",
+  lila: "#B9ABE4",
+  grisClaro: "#F5F5F5",
+  grisOscuro: "#666666",
+  grisMedio: "#999999",
+  blanco: "#FFFFFF",
+  exito: "#4CAF50",
+  error: "#f44336"
+};
+
+const diap13Animations = {
+  fadeIn: { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.3 } },
+  scaleIn: { initial: { scale: 0.8, opacity: 0 }, animate: { scale: 1, opacity: 1 }, transition: { duration: 0.3 } }
+};
+
+// SUB-DIAPOSITIVA 1: DETECTIVE DE MODALIDADES - Movida fuera del componente principal
+const DetectiveModalidades = () => {
+  const [currentExample, setCurrentExample] = useState(0);
+  const [showAnalysis, setShowAnalysis] = useState(false);
+  const [score, setScore] = useState(0);
+
+  const examples = [
+    { sentence: "Probablemente llueva mañana", dictum: "llueve mañana", modus: "probabilidad", explanation: "El hablante expresa incertidumbre sobre el evento futuro" },
+    { sentence: "¡Ojalá vengas pronto!", dictum: "vienes pronto", modus: "deseo", explanation: "El hablante expresa su deseo de que ocurra la acción" },
+    { sentence: "¿Estudiarás para el examen?", dictum: "estudias para el examen", modus: "pregunta", explanation: "El hablante solicita información sobre una acción futura" },
+    { sentence: "Debes terminar la tarea", dictum: "terminas la tarea", modus: "obligación", explanation: "El hablante expresa que la acción es necesaria" },
+    { sentence: "Tal vez sea cierto", dictum: "es cierto", modus: "posibilidad", explanation: "El hablante muestra duda sobre la veracidad" }
+  ];
+
+  const nextExample = () => {
+    setCurrentExample(prev => (prev + 1) % examples.length);
+    setShowAnalysis(false);
+  };
+
+  const revealAnalysis = () => {
+    if (!showAnalysis) {
+      setScore(prevScore => prevScore + 1);
+    }
+    setShowAnalysis(true);
+  };
+
+  return (
+    <div className="flex flex-col p-3 md:p-4 bg-white rounded-lg shadow-xl h-full" style={{ fontFamily: 'Raleway, sans-serif' }}>
+      <div style={{ backgroundColor: diap13Colors.azulOscuro }} className="text-white p-3 md:p-4 rounded-t-lg">
+        <h3 className="text-lg md:text-xl font-bold text-center" style={{ fontFamily: 'Aglet Mono, monospace' }}>¡DETECTIVE DE MODALIDADES!</h3>
+        <h4 className="text-sm md:text-base text-center" style={{ color: diap13Colors.lila }}>Dictum vs Modus: Descubriendo las Intenciones 🕵️‍♂️</h4>
+      </div>
+      
+      <div className="p-3 md:p-4 mb-2 md:mb-3 rounded-lg" style={{ backgroundColor: diap13Colors.lila+'30' }}>
+        <p className="text-sm md:text-base font-medium" style={{ color: diap13Colors.azulOscuro }}>
+          La modalidad expresa la actitud del hablante hacia el contenido.
+          <strong style={{color: diap13Colors.verdeTurquesa}}> DICTUM</strong> = lo que se dice | <strong style={{color: diap13Colors.amarillo}}>MODUS</strong> = actitud del hablante
+        </p>
+      </div>
+      
+      <div className="flex-grow p-3 md:p-6 rounded-lg mb-2 md:mb-3 min-h-[150px] md:min-h-[200px]" style={{ backgroundColor: diap13Colors.grisClaro }}>
+        <div className="text-center mb-4 md:mb-6">
+          <p className="text-lg md:text-xl font-bold mb-3 md:mb-4" style={{ color: diap13Colors.azulOscuro }}>
+            "{examples[currentExample].sentence}"
+          </p>
+          <p className="text-xs md:text-sm" style={{color: diap13Colors.grisOscuro}}>🔍 Analiza esta oración y encuentra el DICTUM y MODUS</p>
+        </div>
+        
+        {showAnalysis ? (
+          <motion.div {...diap13Animations.fadeIn} className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+            <div className="p-3 md:p-4 rounded-lg border-l-4" style={{ backgroundColor: diap13Colors.verdeClaro+'50', borderColor: diap13Colors.verdeTurquesa}}>
+              <h5 className="font-bold mb-2" style={{ color: diap13Colors.verdeTurquesa, fontFamily: 'Raleway Bold, sans-serif' }}>📝 DICTUM (Contenido)</h5>
+              <p className="text-md md:text-lg">"{examples[currentExample].dictum}"</p>
+              <p className="text-xs md:text-sm mt-2" style={{color: diap13Colors.grisOscuro}}>Lo que se comunica objetivamente</p>
+            </div>
+            
+            <div className="p-3 md:p-4 rounded-lg border-l-4" style={{ backgroundColor: diap13Colors.amarillo+'50', borderColor: diap13Colors.amarillo}}>
+              <h5 className="font-bold mb-2" style={{ color: diap13Colors.amarillo, fontFamily: 'Raleway Bold, sans-serif' }}>🎭 MODUS (Actitud)</h5>
+              <p className="text-md md:text-lg">"{examples[currentExample].modus}"</p>
+              <p className="text-xs md:text-sm mt-2" style={{color: diap13Colors.grisOscuro}}>{examples[currentExample].explanation}</p>
+            </div>
+          </motion.div>
+        ) : (
+          <div className="text-center">
+            <div className="mb-3 md:mb-4">
+              <p className="mb-2" style={{color: diap13Colors.grisOscuro}}>Piensa en:</p>
+              <p className="text-xs md:text-sm">• ¿Cuál es el contenido objetivo?</p>
+              <p className="text-xs md:text-sm">• ¿Qué actitud muestra el hablante?</p>
+            </div>
+          </div>
+        )}
+      </div>
+      
+      <div className="p-3 md:p-4 rounded-lg mb-2 md:mb-3" style={{ backgroundColor: diap13Colors.amarillo+'30' }}>
+        <h5 className="font-bold mb-2" style={{ fontFamily: 'Raleway Bold, sans-serif', color: diap13Colors.azulOscuro }}>🤖 Relevancia para IA:</h5>
+        <p className="text-xs md:text-sm" style={{ color: diap13Colors.grisOscuro }}>
+          Para los sistemas de IA, distinguir DICTUM y MODUS es fundamental para comprender intención comunicativa. 
+          Un chatbot que entiende que "¿Podrías ayudarme?" no es solo una pregunta sobre capacidad sino una solicitud 
+          educada, puede generar respuestas más apropiadas y naturales.
+        </p>
+      </div>
+      
+      <div className="flex flex-col sm:flex-row justify-between items-center mt-auto">
+        <div className="text-xs md:text-sm mb-2 sm:mb-0" style={{color: diap13Colors.grisOscuro}}>
+          Puntuación: {score} / {examples.length}
+        </div>
+        <div className="flex gap-2">
+          <button 
+            className="px-3 py-1 md:px-4 md:py-2 text-white rounded-lg text-xs md:text-sm"
+            style={{ backgroundColor: showAnalysis ? diap13Colors.grisMedio : diap13Colors.verdeTurquesa, fontFamily: 'Raleway Semibold, sans-serif' }}
+            onClick={revealAnalysis}
+            disabled={showAnalysis}
+          >
+            🔍 Revelar Análisis
+          </button>
+          <button 
+            className="px-3 py-1 md:px-4 md:py-2 text-white rounded-lg text-xs md:text-sm"
+            style={{ backgroundColor: diap13Colors.azulOscuro, fontFamily: 'Raleway Semibold, sans-serif' }}
+            onClick={nextExample}
+          >
+            Siguiente Ejemplo
+          </button>
+        </div>
+      </div>
+      <div className="mt-2 text-center text-xs md:text-sm" style={{color: diap13Colors.grisOscuro}}>
+        Ejemplo {currentExample + 1} de {examples.length}
+      </div>
+    </div>
+  );
+};
+
+// SUB-DIAPOSITIVA 2: BATALLA DE MODALIDADES - Movida fuera
+const BatallaModalidades = () => {
+  const [currentExample, setCurrentExample] = useState(0);
+  const [selectedType, setSelectedType] = useState('');
+  const [showResult, setShowResult] = useState(false);
+  const [score, setScore] = useState(0);
+
+  const examples = [
+    { sentence: "Puede que llueva", type: "proposicional", explanation: "Actitud hacia la verdad del evento - expresa posibilidad" },
+    { sentence: "¡Ven aquí!", type: "extraproposicional", explanation: "Actitud hacia el interlocutor - solicita una acción" },
+    { sentence: "Debe de estar enfermo", type: "proposicional", explanation: "Suposición sobre la verdad de la situación" },
+    { sentence: "¿Vienes o no?", type: "extraproposicional", explanation: "Solicitud de información dirigida al oyente" },
+    { sentence: "Quizás tengas razón", type: "proposicional", explanation: "Grado de certeza sobre la verdad de la afirmación" },
+    { sentence: "¡Qué hermoso día!", type: "extraproposicional", explanation: "Expresión dirigida hacia el interlocutor para compartir evaluación" }
+  ];
+
+  const checkAnswer = (type: string) => {
+    setSelectedType(type);
+    setShowResult(true);
+    if (type === examples[currentExample].type) {
+      setScore(prevScore => prevScore + 1);
+    }
+  };
+
+  const nextExample = () => {
+    setCurrentExample(prev => (prev + 1) % examples.length);
+    setSelectedType('');
+    setShowResult(false);
+  };
+
+  return (
+    <div className="flex flex-col p-3 md:p-4 bg-white rounded-lg shadow-xl h-full" style={{ fontFamily: 'Raleway, sans-serif' }}>
+      <div style={{ backgroundColor: diap13Colors.verdeTurquesa }} className="text-white p-3 md:p-4 rounded-t-lg">
+        <h3 className="text-lg md:text-xl font-bold text-center" style={{ fontFamily: 'Aglet Mono, monospace' }}>¡BATALLA DE MODALIDADES!</h3>
+        <h4 className="text-sm md:text-base text-center" style={{ color: diap13Colors.lila }}>Proposicional vs Extraproposicional: El Duelo Lingüístico ⚔️</h4>
+      </div>
+
+      <div className="p-3 md:p-4 mb-2 md:mb-3 rounded-lg" style={{ backgroundColor: diap13Colors.lila+'30' }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+          <div className="text-center">
+            <h5 className="font-bold" style={{ color: diap13Colors.azulOscuro, fontFamily: 'Raleway Bold, sans-serif' }}>🎯 PROPOSICIONAL</h5>
+            <p className="text-xs md:text-sm" style={{color: diap13Colors.grisOscuro}}>Actitud hacia la VERDAD de lo dicho</p>
+          </div>
+          <div className="text-center">
+            <h5 className="font-bold" style={{ color: diap13Colors.azulOscuro, fontFamily: 'Raleway Bold, sans-serif' }}>👥 EXTRAPROPOSICIONAL</h5>
+            <p className="text-xs md:text-sm" style={{color: diap13Colors.grisOscuro}}>Actitud hacia los PARTICIPANTES</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex-grow p-3 md:p-6 rounded-lg mb-2 md:mb-3 min-h-[150px] md:min-h-[200px]" style={{ backgroundColor: diap13Colors.grisClaro }}>
+        <div className="text-center mb-4 md:mb-6">
+          <p className="text-lg md:text-xl font-bold mb-3 md:mb-4" style={{ color: diap13Colors.verdeTurquesa }}>
+            "{examples[currentExample].sentence}"
+          </p>
+          <p className="text-xs md:text-sm" style={{color: diap13Colors.grisOscuro}}>⚔️ ¿Qué tipo de modalidad detectas?</p>
+        </div>
+        
+        {!showResult ? (
+          <motion.div {...diap13Animations.fadeIn} className="flex flex-col sm:flex-row justify-center items-center gap-3 md:gap-4">
+            <button 
+              className="w-full sm:w-auto px-4 py-2 md:px-6 md:py-3 text-white rounded-lg hover:opacity-90 transition-opacity text-sm md:text-base"
+              style={{ backgroundColor: diap13Colors.azulOscuro, fontFamily: 'Raleway Semibold, sans-serif' }}
+              onClick={() => checkAnswer('proposicional')}
+            >
+              🎯 PROPOSICIONAL<br/>
+              <span className="text-xs">(hacia la verdad)</span>
+            </button>
+            <button 
+              className="w-full sm:w-auto px-4 py-2 md:px-6 md:py-3 text-white rounded-lg hover:opacity-90 transition-opacity text-sm md:text-base"
+              style={{ backgroundColor: diap13Colors.amarillo, color: diap13Colors.azulOscuro, fontFamily: 'Raleway Semibold, sans-serif' }}
+              onClick={() => checkAnswer('extraproposicional')}
+            >
+              👥 EXTRAPROPOSICIONAL<br/>
+              <span className="text-xs">(hacia participantes)</span>
+            </button>
+          </motion.div>
+        ) : (
+          <motion.div {...diap13Animations.scaleIn} className="text-center">
+            <div className={`p-3 md:p-4 rounded-lg mb-3 md:mb-4 border-2 ${
+              selectedType === examples[currentExample].type ? 'border-green-500' : 'border-red-500'
+            }`} style={{ backgroundColor: selectedType === examples[currentExample].type ? diap13Colors.exito+'30' : diap13Colors.error+'30' }}>
+              <h5 className={`font-bold text-lg ${
+                selectedType === examples[currentExample].type ? 'text-green-700' : 'text-red-700'
+              }`} style={{ fontFamily: 'Raleway Bold, sans-serif' }}>
+                {selectedType === examples[currentExample].type ? '🎉 ¡CORRECTO!' : '❌ Incorrecto'}
+              </h5>
+              <p className="mt-2 text-sm md:text-base">
+                <strong>Respuesta correcta:</strong> {examples[currentExample].type.toUpperCase()}
+              </p>
+              <p className="text-xs md:text-sm mt-2" style={{color: diap13Colors.grisOscuro}}>{examples[currentExample].explanation}</p>
+            </div>
+          </motion.div>
+        )}
+      </div>
+
+      <div className="p-3 md:p-4 rounded-lg mb-2 md:mb-3" style={{ backgroundColor: diap13Colors.amarillo+'30' }}>
+        <h5 className="font-bold mb-2" style={{ fontFamily: 'Raleway Bold, sans-serif', color: diap13Colors.azulOscuro }}>🤖 Relevancia para IA:</h5>
+        <p className="text-xs md:text-sm" style={{ color: diap13Colors.grisOscuro }}>
+          Esta distinción es crucial para que las IA interpreten intenciones. La proposicional requiere procesamiento semántico, la extraproposicional requiere procesamiento pragmático.
+        </p>
+      </div>
+
+      <div className="flex flex-col sm:flex-row justify-between items-center mt-auto">
+        <div className="text-xs md:text-sm mb-2 sm:mb-0" style={{color: diap13Colors.grisOscuro}}>
+          Puntuación: {score} / {examples.length}
+        </div>
+        <button 
+          className="px-3 py-1 md:px-4 md:py-2 text-white rounded-lg text-xs md:text-sm"
+          style={{ backgroundColor: !showResult ? diap13Colors.grisMedio : diap13Colors.verdeTurquesa, fontFamily: 'Raleway Semibold, sans-serif' }}
+          onClick={nextExample}
+          disabled={!showResult}
+        >
+          Siguiente Batalla
+        </button>
+      </div>
+      <div className="mt-2 text-center text-xs md:text-sm" style={{color: diap13Colors.grisOscuro}}>
+        Batalla {currentExample + 1} de {examples.length}
+      </div>
+    </div>
+  );
+};
+
+// SUB-DIAPOSITIVA 3: ORACIÓN VS ENUNCIADO - Movida fuera
+const OracionEnunciado = () => {
+  const [currentExample, setCurrentExample] = useState(0);
+  const [selectedContextIdx, setSelectedContextIdx] = useState<number | null>(null);
+  const [showTransformation, setShowTransformation] = useState(false);
+
+  const examples = [
+    { oracion: "Llueve", transformations: [
+        { context: "Mirando por la ventana", enunciado: "¡Llueve!", funcion: "Exclamación/Información" },
+        { context: "Decidiendo si salir", enunciado: "Llueve...", funcion: "Justificación" },
+        { context: "Pregunta implícita", enunciado: "Llueve", funcion: "Respuesta" }]
+    },
+    { oracion: "Estudiar", transformations: [
+        { context: "Madre a hijo perezoso", enunciado: "¡A estudiar!", funcion: "Orden" },
+        { context: "Cartel en biblioteca", enunciado: "Estudiar", funcion: "Propósito del lugar" },
+        { context: "Lista de tareas", enunciado: "Estudiar", funcion: "Recordatorio" }]
+    },
+    { oracion: "Cerrado", transformations: [
+        { context: "Cartel en puerta", enunciado: "Cerrado", funcion: "Información de estado" },
+        { context: "Respuesta a pregunta", enunciado: "Cerrado", funcion: "Respuesta" },
+        { context: "Lamento", enunciado: "¡Cerrado!", funcion: "Exclamación de frustración" }]
+    }
+  ];
+
+  const selectContext = (index: number) => {
+    setSelectedContextIdx(index);
+    setShowTransformation(true);
+  };
+
+  const nextExample = () => {
+    setCurrentExample(prev => (prev + 1) % examples.length);
+    setSelectedContextIdx(null);
+    setShowTransformation(false);
+  };
+
+  return (
+    <div className="flex flex-col p-3 md:p-4 bg-white rounded-lg shadow-xl h-full overflow-auto" style={{ fontFamily: 'Raleway, sans-serif' }}>
+      <div style={{ backgroundColor: diap13Colors.amarillo }} className="p-3 md:p-4 rounded-t-lg flex-shrink-0">
+        <h3 className="text-lg md:text-xl font-bold text-center" style={{ fontFamily: 'Aglet Mono, monospace', color: diap13Colors.azulOscuro }}>¡ORACIÓN VS ENUNCIADO!</h3>
+        <h4 className="text-sm md:text-base text-center" style={{ color: diap13Colors.verdeTurquesa }}>Del Laboratorio a la Vida Real: El Contexto lo Cambia Todo 🔬➡️🌍</h4>
+      </div>
+
+      <div className="p-3 md:p-3 mb-2 rounded-lg flex-shrink-0" style={{ backgroundColor: diap13Colors.lila+'30' }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3">
+          <div className="text-center">
+            <h5 className="font-bold text-sm md:text-base" style={{ color: diap13Colors.azulOscuro, fontFamily: 'Raleway Bold, sans-serif' }}>⚗️ ORACIÓN</h5>
+            <p className="text-xs md:text-sm" style={{color: diap13Colors.grisOscuro}}>Unidad sintáctica abstracta</p>
+          </div>
+          <div className="text-center">
+            <h5 className="font-bold text-sm md:text-base" style={{ color: diap13Colors.azulOscuro, fontFamily: 'Raleway Bold, sans-serif' }}>💬 ENUNCIADO</h5>
+            <p className="text-xs md:text-sm" style={{color: diap13Colors.grisOscuro}}>Proposición + Contexto = Comunicación</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex-grow flex flex-col p-3 md:p-4 rounded-lg mb-2 overflow-auto" style={{ backgroundColor: diap13Colors.grisClaro }}>
+        <div className="mb-3 text-center">
+          <div className="p-3 md:p-4 rounded-lg mb-3" style={{ backgroundColor: diap13Colors.verdeClaro+'50' }}>
+            <h5 className="font-bold text-sm md:text-base mb-1" style={{ color: diap13Colors.verdeTurquesa, fontFamily: 'Raleway Bold, sans-serif' }}>📝 ORACIÓN ABSTRACTA:</h5>
+            <p className="text-lg md:text-xl font-bold" style={{ color: diap13Colors.azulOscuro }}>"{examples[currentExample].oracion}"</p>
+          </div>
+          <p className="text-sm md:text-base mb-3" style={{color: diap13Colors.grisOscuro}}>🎭 Elige un contexto para transformarla en enunciado:</p>
+        </div>
+        
+        <div className="space-y-2 mb-3">
+          {examples[currentExample].transformations.map((trans, index) => (
+            <button
+              key={index}
+              className={`w-full p-2 md:p-3 rounded-lg border-2 transition-colors text-sm md:text-base ${
+                selectedContextIdx === index 
+                  ? 'border-green-500 text-green-700' 
+                  : 'border-gray-300 hover:border-green-300'
+              }`}
+              style={{ 
+                backgroundColor: selectedContextIdx === index ? diap13Colors.exito+'30' : diap13Colors.blanco,
+                fontFamily: 'Raleway Semibold, sans-serif'
+              }}
+              onClick={() => selectContext(index)}
+            >
+              🎬 {trans.context}
+            </button>
+          ))}
+        </div>
+        
+        {showTransformation && selectedContextIdx !== null && (
+          <motion.div {...diap13Animations.fadeIn} className="p-3 md:p-4 rounded-lg mt-auto" style={{ backgroundColor: diap13Colors.amarillo+'50' }}>
+            <h5 className="font-bold mb-2 text-sm md:text-base" style={{ color: diap13Colors.azulOscuro, fontFamily: 'Raleway Bold, sans-serif' }}>✨ TRANSFORMACIÓN:</h5>
+            <p className="text-base md:text-lg font-medium">
+              Enunciado: <span style={{ color: diap13Colors.verdeTurquesa }}>"{examples[currentExample].transformations[selectedContextIdx].enunciado}"</span>
+            </p>
+            <p className="text-sm md:text-base mt-2">
+              Función: <strong>{examples[currentExample].transformations[selectedContextIdx].funcion}</strong>
+            </p>
+          </motion.div>
+        )}
+      </div>
+
+      <div className="p-3 md:p-3 rounded-lg mb-2 flex-shrink-0" style={{ backgroundColor: diap13Colors.amarillo+'30' }}>
+        <h5 className="font-bold mb-1 text-sm md:text-base" style={{ fontFamily: 'Raleway Bold, sans-serif', color: diap13Colors.azulOscuro }}>🤖 Relevancia para IA:</h5>
+        <p className="text-xs md:text-sm" style={{ color: diap13Colors.grisOscuro }}>
+          Crucial para IA conversacional. Los modelos deben procesar estructura gramatical y contexto situacional. GPT-4 lo hace bien. Ayuda a entender que la misma forma tiene múltiples funciones.
+        </p>
+      </div>
+
+      <div className="flex flex-col sm:flex-row justify-between items-center flex-shrink-0">
+        <div className="text-xs md:text-sm mb-2 sm:mb-0" style={{color: diap13Colors.grisOscuro, fontFamily: 'Raleway Medium, sans-serif'}}>
+          Fórmula: ENUNCIADO = PROPOSICIÓN + CONTEXTO
+        </div>
+        <button 
+          className="px-3 py-2 md:px-4 md:py-2 text-white rounded-lg text-xs md:text-sm"
+          style={{ backgroundColor: diap13Colors.amarillo, color: diap13Colors.azulOscuro, fontFamily: 'Raleway Semibold, sans-serif' }}
+          onClick={nextExample}
+        >
+          Siguiente Transformación
+        </button>
+      </div>
+      <div className="text-center text-xs md:text-sm mt-1 flex-shrink-0" style={{color: diap13Colors.grisOscuro}}>
+        Ejemplo {currentExample + 1} de {examples.length}
+      </div>
+    </div>
+  );
+};
+
+// SUB-DIAPOSITIVA 4: TRIPLE IMPERATIVO - Movida fuera
+const TripleImperativo = () => {
+  const [currentExample, setCurrentExample] = useState(0);
+  const [showAnalysis, setShowAnalysis] = useState(false);
+  const [selectedSet, setSelectedSet] = useState(0);
+
+  const exampleSets = [
+    {
+      name: "Análisis Clásico",
+      description: "Ejemplos fundamentales del triple análisis",
+      examples: [
+        { 
+          ejemplo: "¡Estudia!", 
+          modoVerbal: true, 
+          tipoOracion: true, 
+          actoHabla: true, 
+          analisis: { 
+            modoVerbal: "Forma morfológica imperativa de 2ª persona singular", 
+            tipoOracion: "Oración imperativa con verbo en modo imperativo", 
+            actoHabla: "Enunciado con fuerza ilocutiva de mandato directo" 
+          }
+        },
+        { 
+          ejemplo: "Debes estudiar", 
+          modoVerbal: false, 
+          tipoOracion: false, 
+          actoHabla: true, 
+          analisis: { 
+            modoVerbal: "Modo indicativo (verbo 'deber')", 
+            tipoOracion: "Oración enunciativa, no imperativa", 
+            actoHabla: "Realiza acto de mandato indirecto mediante modalidad deóntica" 
+          }
+        },
+        { 
+          ejemplo: "¿Podrías estudiar?", 
+          modoVerbal: false, 
+          tipoOracion: false, 
+          actoHabla: true, 
+          analisis: { 
+            modoVerbal: "Modo condicional", 
+            tipoOracion: "Oración interrogativa", 
+            actoHabla: "Acto de habla de solicitud cortés (mandato atenuado)" 
+          }
+        },
+        { 
+          ejemplo: "A estudiar", 
+          modoVerbal: false, 
+          tipoOracion: false, 
+          actoHabla: true, 
+          analisis: { 
+            modoVerbal: "Infinitivo precedido de preposición, sin verbo conjugado", 
+            tipoOracion: "Construcción no oracional (sintagma preposicional)", 
+            actoHabla: "Enunciado imperativo que transmite orden" 
+          }
+        },
+        { 
+          ejemplo: "Que estudie María", 
+          modoVerbal: false, 
+          tipoOracion: false, 
+          actoHabla: true, 
+          analisis: { 
+            modoVerbal: "Modo subjuntivo", 
+            tipoOracion: "Oración desiderativa/yusiva", 
+            actoHabla: "Mandato indirecto hacia tercera persona" 
+          }
+        }
+      ]
+    },
+    {
+      name: "Enclisis Pronominal",
+      description: "La enclisis como marca esencial del imperativo",
+      examples: [
+        { 
+          ejemplo: "Dámelo", 
+          modoVerbal: true, 
+          tipoOracion: true, 
+          actoHabla: true, 
+          analisis: { 
+            modoVerbal: "Imperativo con enclisis pronominal obligatoria", 
+            tipoOracion: "Oración imperativa afirmativa con pronombres enclíticos", 
+            actoHabla: "Mandato directo" 
+          }
+        },
+        { 
+          ejemplo: "No me lo des", 
+          modoVerbal: false, 
+          tipoOracion: true, 
+          actoHabla: true, 
+          analisis: { 
+            modoVerbal: "Subjuntivo (forma subrogada por negación)", 
+            tipoOracion: "Oración imperativa negativa", 
+            actoHabla: "Prohibición (mandato negativo)" 
+          }
+        },
+        { 
+          ejemplo: "Siéntense ustedes", 
+          modoVerbal: false, 
+          tipoOracion: true, 
+          actoHabla: true, 
+          analisis: { 
+            modoVerbal: "Subjuntivo (forma subrogada para tratamiento de cortesía)", 
+            tipoOracion: "Oración imperativa con enclisis", 
+            actoHabla: "Mandato formal/cortés" 
+          }
+        },
+        { 
+          ejemplo: "Te lo doy ahora", 
+          modoVerbal: false, 
+          tipoOracion: false, 
+          actoHabla: false, 
+          analisis: { 
+            modoVerbal: "Modo indicativo presente", 
+            tipoOracion: "Oración declarativa con pronombres proclíticos", 
+            actoHabla: "Aserción/compromiso, no mandato" 
+          }
+        },
+        { 
+          ejemplo: "Déselo a Juan", 
+          modoVerbal: true, 
+          tipoOracion: true, 
+          actoHabla: true, 
+          analisis: { 
+            modoVerbal: "Imperativo con doble enclisis pronominal", 
+            tipoOracion: "Oración imperativa con complementos", 
+            actoHabla: "Instrucción directa" 
+          }
+        }
+      ]
+    },
+    {
+      name: "Formas Exclusivas vs Subrogadas",
+      description: "Formas propias del imperativo vs subjuntivo subrogado",
+      examples: [
+        { 
+          ejemplo: "Canta tú", 
+          modoVerbal: true, 
+          tipoOracion: true, 
+          actoHabla: true, 
+          analisis: { 
+            modoVerbal: "Forma exclusiva imperativa 2ª persona singular", 
+            tipoOracion: "Oración imperativa con sujeto explícito focal", 
+            actoHabla: "Mandato con énfasis en el destinatario" 
+          }
+        },
+        { 
+          ejemplo: "Cante usted", 
+          modoVerbal: false, 
+          tipoOracion: true, 
+          actoHabla: true, 
+          analisis: { 
+            modoVerbal: "Subjuntivo (forma subrogada para tratamiento usted)", 
+            tipoOracion: "Oración imperativa de cortesía", 
+            actoHabla: "Mandato formal" 
+          }
+        },
+        { 
+          ejemplo: "Cantad vosotros", 
+          modoVerbal: true, 
+          tipoOracion: true, 
+          actoHabla: true, 
+          analisis: { 
+            modoVerbal: "Forma exclusiva imperativa 2ª persona plural", 
+            tipoOracion: "Oración imperativa (uso peninsular)", 
+            actoHabla: "Mandato directo plural" 
+          }
+        },
+        { 
+          ejemplo: "No cantes", 
+          modoVerbal: false, 
+          tipoOracion: true, 
+          actoHabla: true, 
+          analisis: { 
+            modoVerbal: "Subjuntivo (el imperativo es incompatible con negación)", 
+            tipoOracion: "Oración imperativa negativa", 
+            actoHabla: "Prohibición" 
+          }
+        },
+        { 
+          ejemplo: "Canten ustedes", 
+          modoVerbal: false, 
+          tipoOracion: true, 
+          actoHabla: true, 
+          analisis: { 
+            modoVerbal: "Subjuntivo (forma subrogada para ustedes)", 
+            tipoOracion: "Oración imperativa formal plural", 
+            actoHabla: "Mandato cortés a grupo" 
+          }
+        }
+      ]
+    },
+    {
+      name: "Control y Agentividad",
+      description: "Verbos controlables vs no controlables",
+      examples: [
+        { 
+          ejemplo: "Sé feliz", 
+          modoVerbal: true, 
+          tipoOracion: true, 
+          actoHabla: true, 
+          analisis: { 
+            modoVerbal: "Imperativo del verbo 'ser'", 
+            tipoOracion: "Oración imperativa con predicado controlable", 
+            actoHabla: "Consejo/mandato (la felicidad es actitud controlable)" 
+          }
+        },
+        { 
+          ejemplo: "Ten paciencia", 
+          modoVerbal: true, 
+          tipoOracion: true, 
+          actoHabla: true, 
+          analisis: { 
+            modoVerbal: "Imperativo del verbo 'tener'", 
+            tipoOracion: "Oración imperativa con objeto controlable", 
+            actoHabla: "Exhortación (la paciencia es controlable)" 
+          }
+        },
+        { 
+          ejemplo: "Aprende rápido", 
+          modoVerbal: true, 
+          tipoOracion: true, 
+          actoHabla: true, 
+          analisis: { 
+            modoVerbal: "Forma imperativa", 
+            tipoOracion: "Oración imperativa con proceso agentivo", 
+            actoHabla: "Instrucción (aprender requiere agentividad)" 
+          }
+        },
+        { 
+          ejemplo: "Ojalá tengas suerte", 
+          modoVerbal: false, 
+          tipoOracion: false, 
+          actoHabla: false, 
+          analisis: { 
+            modoVerbal: "Subjuntivo desiderativo", 
+            tipoOracion: "Oración desiderativa", 
+            actoHabla: "Expresión de deseo, no mandato (suerte no controlable)" 
+          }
+        },
+        { 
+          ejemplo: "Descansa bien", 
+          modoVerbal: true, 
+          tipoOracion: true, 
+          actoHabla: true, 
+          analisis: { 
+            modoVerbal: "Forma imperativa", 
+            tipoOracion: "Oración imperativa", 
+            actoHabla: "Consejo/despedida ritualizada" 
+          }
+        }
+      ]
+    },
+    {
+      name: "Orientación Temporal",
+      description: "Restricción prospectiva del imperativo",
+      examples: [
+        { 
+          ejemplo: "Ven mañana", 
+          modoVerbal: true, 
+          tipoOracion: true, 
+          actoHabla: true, 
+          analisis: { 
+            modoVerbal: "Imperativo con orientación futura", 
+            tipoOracion: "Oración imperativa con complemento temporal", 
+            actoHabla: "Mandato anclado en tiempo posterior al habla" 
+          }
+        },
+        { 
+          ejemplo: "Hazlo ahora mismo", 
+          modoVerbal: true, 
+          tipoOracion: true, 
+          actoHabla: true, 
+          analisis: { 
+            modoVerbal: "Imperativo con enclisis", 
+            tipoOracion: "Oración imperativa de cumplimiento inmediato", 
+            actoHabla: "Orden urgente (tiempo simultáneo al habla)" 
+          }
+        },
+        { 
+          ejemplo: "Termínalo para las cinco", 
+          modoVerbal: true, 
+          tipoOracion: true, 
+          actoHabla: true, 
+          analisis: { 
+            modoVerbal: "Imperativo con plazo", 
+            tipoOracion: "Oración imperativa con límite temporal", 
+            actoHabla: "Instrucción con deadline prospectivo" 
+          }
+        },
+        { 
+          ejemplo: "Ya lo habrás terminado", 
+          modoVerbal: false, 
+          tipoOracion: false, 
+          actoHabla: false, 
+          analisis: { 
+            modoVerbal: "Futuro perfecto de indicativo", 
+            tipoOracion: "Oración declarativa", 
+            actoHabla: "Suposición sobre acción completada, no mandato" 
+          }
+        },
+        { 
+          ejemplo: "Lee este libro hoy", 
+          modoVerbal: true, 
+          tipoOracion: true, 
+          actoHabla: true, 
+          analisis: { 
+            modoVerbal: "Imperativo", 
+            tipoOracion: "Oración imperativa con objeto y tiempo", 
+            actoHabla: "Mandato con cumplimiento en el día presente" 
+          }
+        }
+      ]
+    }
+  ];
+
+  const currentSet = exampleSets[selectedSet];
+  
+  const toggleAnalysis = () => setShowAnalysis(!showAnalysis);
+  
+  const nextExample = () => {
+    setCurrentExample(prev => (prev + 1) % currentSet.examples.length);
+    setShowAnalysis(false);
+  };
+
+  const changeSet = (setIndex: number) => {
+    setSelectedSet(setIndex);
+    setCurrentExample(0);
+    setShowAnalysis(false);
+  };
+
+  return (
+    <div className="flex flex-col p-3 md:p-4 bg-white rounded-lg shadow-xl h-full" style={{ fontFamily: 'Raleway, sans-serif' }}>
+      <div style={{ backgroundColor: diap13Colors.lila }} className="p-3 md:p-4 rounded-t-lg">
+        <h3 className="text-lg md:text-xl font-bold text-center" style={{ fontFamily: 'Aglet Mono, monospace', color: diap13Colors.azulOscuro }}>¡TRIPLE IMPERATIVO!</h3>
+        <h4 className="text-sm md:text-base text-center" style={{ color: diap13Colors.blanco }}>Modo Verbal, Tipo de Oración y Acto de Habla</h4>
+      </div>
+
+      {/* Selector de Sets */}
+      <div className="p-2 md:p-3 mb-2 flex flex-wrap gap-1 md:gap-2 justify-center" style={{ backgroundColor: diap13Colors.grisClaro }}>
+        {exampleSets.map((set, index) => (
+          <button
+            key={index}
+            onClick={() => changeSet(index)}
+            className={`px-2 py-1 md:px-3 md:py-1.5 rounded text-xs md:text-sm transition-all ${
+              selectedSet === index ? 'font-bold shadow-lg' : 'opacity-70 hover:opacity-100'
+            }`}
+            style={{
+              backgroundColor: selectedSet === index ? diap13Colors.amarillo : diap13Colors.blanco,
+              color: selectedSet === index ? diap13Colors.azulOscuro : diap13Colors.grisOscuro,
+              fontFamily: 'Raleway Semibold, sans-serif'
+            }}
+          >
+            {set.name}
+          </button>
+        ))}
+      </div>
+
+      <div className="p-2 md:p-3 mb-1 rounded-lg text-center" style={{ backgroundColor: diap13Colors.amarillo+'20' }}>
+        <p className="text-xs md:text-sm font-medium" style={{ color: diap13Colors.azulOscuro }}>{currentSet.description}</p>
+      </div>
+
+      <div className="p-3 md:p-4 mb-2 md:mb-3 rounded-lg" style={{ backgroundColor: diap13Colors.azulOscuro+'15' }}>
+        <div className="grid grid-cols-3 gap-1 md:gap-2 text-center text-xs md:text-sm">
+          <div className="p-1 md:p-2 rounded" style={{backgroundColor: diap13Colors.verdeClaro+'80'}}>
+            <strong style={{color: diap13Colors.verdeTurquesa}}>MODO VERBAL</strong><br/>Forma morfológica
+          </div>
+          <div className="p-1 md:p-2 rounded" style={{backgroundColor: diap13Colors.amarillo+'80'}}>
+            <strong style={{color: diap13Colors.azulOscuro}}>TIPO ORACIÓN</strong><br/>Unidad sintáctica
+          </div>
+          <div className="p-1 md:p-2 rounded" style={{backgroundColor: diap13Colors.lila+'80'}}>
+            <strong style={{color: diap13Colors.azulOscuro}}>ACTO DE HABLA</strong><br/>Fuerza ilocutiva
+          </div>
+        </div>
+      </div>
+      
+      <div className="flex-grow p-3 md:p-6 rounded-lg mb-2 md:mb-3" style={{ backgroundColor: diap13Colors.grisClaro }}>
+        <div className="text-center mb-4 md:mb-6">
+          <p className="text-xl md:text-2xl font-bold mb-3 md:mb-4" style={{ color: diap13Colors.azulOscuro }}>
+            "{currentSet.examples[currentExample].ejemplo}"
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-3 gap-2 md:gap-4 mb-4 md:mb-6">
+          {[
+            { title: "📝 MODO", condition: currentSet.examples[currentExample].modoVerbal, question: "¿Forma imperativa?", color: diap13Colors.verdeTurquesa },
+            { title: "🏗️ ORACIÓN", condition: currentSet.examples[currentExample].tipoOracion, question: "¿Tipo imperativo?", color: diap13Colors.amarillo },
+            { title: "💬 ACTO", condition: currentSet.examples[currentExample].actoHabla, question: "¿Fuerza de mandato?", color: diap13Colors.lila }
+          ].map(item => (
+            <div key={item.title} className={`p-2 md:p-4 rounded-lg text-center border-2`}
+                 style={{ 
+                   backgroundColor: showAnalysis ? (item.condition ? item.color+'30' : diap13Colors.grisMedio+'30') : diap13Colors.blanco, 
+                   borderColor: showAnalysis ? (item.condition ? item.color : diap13Colors.grisMedio) : diap13Colors.grisClaro 
+                 }}>
+              <h5 className="font-bold mb-1 md:mb-2 text-xs sm:text-sm md:text-base" 
+                  style={{ 
+                    fontFamily: 'Raleway Bold, sans-serif', 
+                    color: showAnalysis ? (item.condition ? item.color : diap13Colors.grisOscuro) : diap13Colors.azulOscuro 
+                  }}>
+                {item.title}
+              </h5>
+              <div className="text-xl md:text-2xl mb-1 md:mb-2">
+                {showAnalysis ? (item.condition ? '✅' : '❌') : '❓'}
+              </div>
+              <p className="text-xs" style={{color: diap13Colors.grisOscuro}}>{item.question}</p>
+            </div>
+          ))}
+        </div>
+        
+        {showAnalysis && (
+          <motion.div {...diap13Animations.fadeIn} className="p-3 md:p-4 rounded-lg" style={{ backgroundColor: diap13Colors.amarillo+'30' }}>
+            <h5 className="font-bold mb-2 md:mb-3" style={{ color: diap13Colors.azulOscuro, fontFamily: 'Raleway Bold, sans-serif' }}>🔍 ANÁLISIS LINGÜÍSTICO:</h5>
+            <div className="grid grid-cols-1 gap-1 md:gap-2 text-xs md:text-sm">
+              <p><strong>Modo verbal:</strong> {currentSet.examples[currentExample].analisis.modoVerbal}</p>
+              <p><strong>Tipo de oración:</strong> {currentSet.examples[currentExample].analisis.tipoOracion}</p>
+              <p><strong>Acto de habla:</strong> {currentSet.examples[currentExample].analisis.actoHabla}</p>
+            </div>
+          </motion.div>
+        )}
+      </div>
+
+      <div className="p-3 md:p-4 rounded-lg mb-2 md:mb-3" style={{ backgroundColor: diap13Colors.amarillo+'30' }}>
+        <h5 className="font-bold mb-2" style={{ fontFamily: 'Raleway Bold, sans-serif', color: diap13Colors.azulOscuro }}>🤖 Relevancia para IA:</h5>
+        <p className="text-xs md:text-sm" style={{ color: diap13Colors.grisOscuro }}>
+          La distinción entre estos tres niveles es crucial para el procesamiento del lenguaje natural. Una IA debe reconocer que una misma intención comunicativa (acto de habla) puede expresarse mediante diferentes formas gramaticales.
+        </p>
+      </div>
+
+      <div className="flex flex-col sm:flex-row justify-between items-center mt-auto">
+        <button 
+          className="px-3 py-1 md:px-4 md:py-2 text-white rounded-lg mb-2 sm:mb-0 text-xs md:text-sm"
+          style={{ backgroundColor: diap13Colors.azulOscuro, fontFamily: 'Raleway Semibold, sans-serif' }}
+          onClick={toggleAnalysis}
+        >
+          {showAnalysis ? 'Ocultar Análisis' : '🔍 Mostrar Análisis'}
+        </button>
+        <button 
+          className="px-3 py-1 md:px-4 md:py-2 text-white rounded-lg text-xs md:text-sm"
+          style={{ backgroundColor: diap13Colors.lila, color: diap13Colors.azulOscuro, fontFamily: 'Raleway Semibold, sans-serif' }}
+          onClick={nextExample}
+        >
+          Siguiente Ejemplo ({currentExample + 1}/{currentSet.examples.length})
+        </button>
+      </div>
+      <div className="mt-2 text-center text-xs md:text-sm" style={{color: diap13Colors.grisOscuro}}>
+        Set: {currentSet.name} - Ejemplo {currentExample + 1} de {currentSet.examples.length}
+      </div>
+    </div>
+  );
+};
+
+// SUB-DIAPOSITIVA 5: IMPERATIVOS ESPECIALES - Movida fuera
+const ImperativosEspeciales = () => {
+  const [currentExample, setCurrentExample] = useState(0);
+  const [showInterpretation, setShowInterpretation] = useState(false);
+  const [selectedType, setSelectedType] = useState('');
+
+  const examples = [
+    { imperativo: "Cásate y serás feliz", tipo: "condicional", funcionReal: "Condición", parafrasis: "Si te casas, serás feliz", explicacion: "No es una orden real, sino una estructura condicional" },
+    { imperativo: "Vete tú a buscar farmacia a estas horas", tipo: "retorico", funcionReal: "Evaluación irónica", parafrasis: "Es imposible/difícil encontrar farmacia a estas horas", explicacion: "Expresa ironía o imposibilidad, no una orden literal" },
+    { imperativo: "Agítese antes de usar", tipo: "pasivo", funcionReal: "Instrucción diferida", parafrasis: "Quien use esto debe agitarlo antes", explicacion: "Orden dirigida a un destinatario futuro no presente" },
+    { imperativo: "Come más y engordarás", tipo: "condicional", funcionReal: "Advertencia/Consecuencia", parafrasis: "Si comes más, engordarás", explicacion: "Expresa una consecuencia, no una recomendación" },
+    { imperativo: "Prepárense las patatas", tipo: "pasivo", funcionReal: "Instrucción de receta", parafrasis: "Alguien debe preparar las patatas", explicacion: "Instrucción general sin destinatario específico presente" }
+  ];
+
+  const checkType = (tipo: string) => {
+    setSelectedType(tipo);
+    setShowInterpretation(true);
+  };
+  const nextExample = () => {
+    setCurrentExample(prev => (prev + 1) % examples.length);
+    setShowInterpretation(false);
+    setSelectedType('');
+  };
+
+  return (
+    <div className="flex flex-col p-3 md:p-4 bg-white rounded-lg shadow-xl h-full" style={{ fontFamily: 'Raleway, sans-serif' }}>
+      <div style={{ backgroundColor: diap13Colors.negro }} className="text-white p-3 md:p-4 rounded-t-lg">
+        <h3 className="text-lg md:text-xl font-bold text-center" style={{ fontFamily: 'Aglet Mono, monospace' }}>¡IMPERATIVOS ESPECIALES!</h3>
+        <h4 className="text-sm md:text-base text-center" style={{ color: diap13Colors.lila }}>Más Allá del Mandato: Actos de Habla Creativos 🎭✨</h4>
+      </div>
+
+      <div className="p-3 md:p-4 mb-2 md:mb-3 rounded-lg" style={{ backgroundColor: diap13Colors.lila+'30' }}>
+        <div className="grid grid-cols-3 gap-1 md:gap-2 text-center text-xs">
+          {[
+            { label: "CONDICIONALES", detail: "Expresan consecuencias", color: diap13Colors.verdeTurquesa },
+            { label: "RETÓRICOS", detail: "Ironía o imposibilidad", color: diap13Colors.amarillo },
+            { label: "PASIVOS", detail: "Destinatario ausente", color: diap13Colors.lila }
+          ].map(item => (
+            <div key={item.label} className="p-1 md:p-2 rounded" style={{backgroundColor: item.color+'30'}}>
+              <strong style={{color: item.color, fontFamily: 'Raleway Bold, sans-serif'}}>{item.label}</strong><br/>{item.detail}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex-grow p-3 md:p-6 rounded-lg mb-2 md:mb-3 min-h-[200px] md:min-h-[250px]" style={{ backgroundColor: diap13Colors.grisClaro }}>
+        <div className="text-center mb-4 md:mb-6">
+          <p className="text-lg md:text-xl font-bold mb-3 md:mb-4" style={{ color: diap13Colors.negro }}>
+            "{examples[currentExample].imperativo}"
+          </p>
+          <p className="text-xs md:text-sm mb-3 md:mb-4" style={{color: diap13Colors.grisOscuro}}>🎭 ¿Qué tipo de imperativo especial es?</p>
+        </div>
+        
+        {!showInterpretation ? (
+          <motion.div {...diap13Animations.fadeIn} className="flex flex-col sm:flex-row justify-center items-center gap-2 md:gap-4">
+            {[
+              { label: "CONDICIONAL", type: "condicional", color: diap13Colors.verdeTurquesa, detail: "(consecuencia)" },
+              { label: "RETÓRICO", type: "retorico", color: diap13Colors.amarillo, detail: "(ironía)", textColor: diap13Colors.azulOscuro },
+              { label: "PASIVO", type: "pasivo", color: diap13Colors.lila, detail: "(diferido)", textColor: diap13Colors.azulOscuro }
+            ].map(item => (
+              <button 
+                key={item.type}
+                className="w-full sm:w-auto px-3 py-2 md:px-6 md:py-3 text-white rounded-lg hover:opacity-90 transition-opacity text-sm md:text-base"
+                style={{ backgroundColor: item.color, color: item.textColor || diap13Colors.blanco, fontFamily: 'Raleway Semibold, sans-serif' }}
+                onClick={() => checkType(item.type)}
+              >
+                🔄 {item.label}<br/>
+                <span className="text-xs">{item.detail}</span>
+              </button>
+            ))}
+          </motion.div>
+        ) : (
+          <motion.div {...diap13Animations.scaleIn}>
+            <div className={`p-3 md:p-4 rounded-lg mb-3 md:mb-4 border-2 ${
+              selectedType === examples[currentExample].tipo ? 'border-green-500' : 'border-red-500'
+            }`} style={{ backgroundColor: selectedType === examples[currentExample].tipo ? diap13Colors.exito+'30' : diap13Colors.error+'30' }}>
+              <h5 className={`font-bold text-lg ${
+                selectedType === examples[currentExample].tipo ? 'text-green-700' : 'text-red-700'
+              }`} style={{ fontFamily: 'Raleway Bold, sans-serif' }}>
+                {selectedType === examples[currentExample].tipo ? '🎉 ¡CORRECTO!' : '❌ Incorrecto'}
+              </h5>
+              <p className="mt-2 text-sm md:text-base">
+                <strong>Tipo correcto:</strong> {examples[currentExample].tipo.toUpperCase()}
+              </p>
+            </div>
+            
+            <div className="p-3 md:p-4 rounded-lg" style={{ backgroundColor: diap13Colors.amarillo+'30' }}>
+              <h5 className="font-bold mb-2" style={{ color: diap13Colors.azulOscuro, fontFamily: 'Raleway Bold, sans-serif' }}>🔍 INTERPRETACIÓN:</h5>
+              <p className="mb-1 md:mb-2 text-sm md:text-base"><strong>Función real:</strong> {examples[currentExample].funcionReal}</p>
+              <p className="mb-1 md:mb-2 text-sm md:text-base"><strong>Paráfrasis:</strong> "{examples[currentExample].parafrasis}"</p>
+              <p className="text-xs md:text-sm"><strong>Explicación:</strong> {examples[currentExample].explicacion}</p>
+            </div>
+          </motion.div>
+        )}
+      </div>
+
+      <div className="p-3 md:p-4 rounded-lg mb-2 md:mb-3" style={{ backgroundColor: diap13Colors.amarillo+'30' }}>
+        <h5 className="font-bold mb-2" style={{ fontFamily: 'Raleway Bold, sans-serif', color: diap13Colors.azulOscuro }}>🤖 Relevancia para IA:</h5>
+        <p className="text-xs md:text-sm" style={{ color: diap13Colors.grisOscuro }}>
+          Estos representan el mayor desafío para la IA, requieren inferencia pragmática avanzada. Interpretar literalmente "Vete tú a encontrar trabajo" como orden real fallaría en captar la ironía.
+        </p>
+      </div>
+
+      <div className="flex flex-col sm:flex-row justify-between items-center mt-auto">
+        <div className="text-xs md:text-sm mb-2 sm:mb-0" style={{color: diap13Colors.grisOscuro, fontFamily: 'Raleway Medium, sans-serif'}}>
+          💡 Clave: Inferencia pragmática en contexto
+        </div>
+        <button 
+          className="px-3 py-1 md:px-4 md:py-2 text-white rounded-lg text-xs md:text-sm"
+          style={{ backgroundColor: diap13Colors.negro, fontFamily: 'Raleway Semibold, sans-serif' }}
+          onClick={nextExample}
+        >
+          Siguiente Especial
+        </button>
+      </div>
+      <div className="mt-2 text-center text-xs md:text-sm" style={{color: diap13Colors.grisOscuro}}>
+        Ejemplo {currentExample + 1} de {examples.length}
+      </div>
+    </div>
+  );
+};
+
+// COMPONENTE PRINCIPAL
+const Diapositiva13 = () => {
+  const [currentSubSlide, setCurrentSubSlide] = useState(0);
+  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const x = (e.clientX / window.innerWidth) * 100;
+      const y = (e.clientY / window.innerHeight) * 100;
+      setMousePos({ x, y });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
+  const subSlideComponents = [
+    DetectiveModalidades,
+    BatallaModalidades,
+    OracionEnunciado,
+    TripleImperativo,
+    ImperativosEspeciales
+  ];
+
+  const subSlideTitles = [
+    "¡DETECTIVE DE MODALIDADES!",
+    "¡BATALLA DE MODALIDADES!",
+    "¡ORACIÓN VS ENUNCIADO!",
+    "¡TRIPLE IMPERATIVO!",
+    "¡IMPERATIVOS ESPECIALES!"
+  ];
+
+  const nextSubSlide = () => {
+    setCurrentSubSlide(prev => Math.min(prev + 1, subSlideComponents.length - 1));
+  };
+  
+  const prevSubSlide = () => {
+    setCurrentSubSlide(prev => Math.max(prev - 1, 0));
+  };
+  
+  const goToSubSlide = (index: number) => {
+    setCurrentSubSlide(index);
+  };
+
+  const CurrentSubSlideComponent = subSlideComponents[currentSubSlide];
+
+  return (
+    <div 
+      className="h-screen flex flex-col p-2 md:p-4 relative overflow-hidden" 
+      style={{ 
+        background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, ${diap13Colors.verdeTurquesa}25 0%, transparent 60%)`,
+      }}
+    >
+      <motion.div {...diap13Animations.fadeIn} className="mb-2 text-center">
+        <h1 className="text-lg md:text-2xl font-bold" style={{ fontFamily: 'Aglet Mono, monospace', color: diap13Colors.azulOscuro }}>
+          Complejidad en la Interpretación Oral
+        </h1>
+        <h2 className="text-sm md:text-base mt-1" style={{ fontFamily: 'Raleway, sans-serif', color: diap13Colors.verdeTurquesa }}>
+          Un ejemplo con los Imperativos en ELE y su tratamiento por IA
+        </h2>
+      </motion.div>
+      
+      <div className="flex-grow mb-2 overflow-y-auto">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentSubSlide}
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -30 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="h-full"
+          >
+            <CurrentSubSlideComponent />
+          </motion.div>
+        </AnimatePresence>
+      </div>
+      
+      <motion.div 
+        {...diap13Animations.fadeIn} 
+        transition={{delay:0.3}} 
+        className="p-2 md:p-3 rounded-lg mt-auto" 
+        style={{ 
+            backgroundColor: diap13Colors.blanco + 'A6',
+            backdropFilter: 'blur(8px)',
+            border: `1px solid ${diap13Colors.amarillo}66`
+        }}
+      >
+        <div className="flex flex-col sm:flex-row justify-between items-center">
+          <button 
+            className="px-2 py-1 md:px-3 md:py-2 text-white rounded-lg text-xs mb-2 sm:mb-0"
+            style={{ backgroundColor: currentSubSlide === 0 ? diap13Colors.grisMedio : diap13Colors.azulOscuro, fontFamily: 'Raleway Semibold, sans-serif' }}
+            onClick={prevSubSlide}
+            disabled={currentSubSlide === 0}
+          >
+            ◀ Anterior
+          </button>
+          
+          <div className="flex flex-wrap justify-center gap-1 md:gap-2 my-2 sm:my-0">
+            {subSlideTitles.map((_, index) => (
+              <button
+                key={index}
+                className={`w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center text-xs md:text-sm transition-all duration-300 ${
+                  currentSubSlide === index ? 'transform scale-125' : ''
+                }`}
+                style={{ 
+                  backgroundColor: currentSubSlide === index ? diap13Colors.amarillo : diap13Colors.grisMedio,
+                  color: currentSubSlide === index ? diap13Colors.azulOscuro : diap13Colors.blanco,
+                  fontFamily: 'Raleway Bold, sans-serif'
+                }}
+                onClick={() => goToSubSlide(index)}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+          
+          <button 
+            className="px-2 py-1 md:px-3 md:py-2 text-white rounded-lg text-xs"
+            style={{ backgroundColor: currentSubSlide === subSlideComponents.length - 1 ? diap13Colors.grisMedio : diap13Colors.azulOscuro, fontFamily: 'Raleway Semibold, sans-serif' }}
+            onClick={nextSubSlide}
+            disabled={currentSubSlide === subSlideComponents.length - 1}
+          >
+            Siguiente ▶
+          </button>
+        </div>
+        
+        <div className="mt-2 text-center text-xs" style={{color: diap13Colors.grisOscuro}}>
+          <p className="font-medium" style={{fontFamily: 'Raleway Medium, sans-serif'}}>Tiempo recomendado: 2-3 minutos por actividad</p>
+          <p style={{fontFamily: 'Raleway, sans-serif'}}>Actividad {currentSubSlide + 1} de {subSlideComponents.length} - <span style={{fontFamily: 'Raleway Semibold, sans-serif'}}>{subSlideTitles[currentSubSlide]}</span></p>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+// =======================================================================
+// FIN DIAPOSITIVA 13
+// =======================================================================
+// =======================================================================
+// DIAPOSITIVA 14: AGRADECIMIENTO CON Dziękuję INTERACTIVO Y ANIMADO
+// =======================================================================
+
+const Diapositiva14 = ({
+  colors = {
+    azulOscuro: '#2C3E50',
+    verdeTurquesa: '#16A085',
+    blanco: '#FFFFFF',
+    grisClaro: '#ECEFF1',
+    lila: '#D2CDEB',
+    verdeClaro: '#D9E4C8',
+    grisOscuro: '#555555'
+  }
+}) => {
+  const mousePos = { x: 50, y: 50 };
+  const [flyingWords, setFlyingWords] = useState<Array<{
+    id: number,
+    x: number,
+    y: number,
+    dx: number,
+    dy: number,
+    size: number,
+    opacity: number,
+    rotation: number,
+    rotationSpeed: number
+  }>>([]);
+  const [showElements, setShowElements] = useState({
+    logo: false,
+    title: false,
+    subtitle: false,
+    info: false
+  });
+
+  // Añadir una "Dziękuję" voladora al hacer click o cada pocos segundos
+  useEffect(() => {
+    // Creador automático cada 600ms
+    const interval = setInterval(() => {
+      createFlyingWord();
+    }, 600);
+
+    // Crear volando onClick
+    const handleClick = (e: MouseEvent) => {
+      createFlyingWord(e.clientX, e.clientY);
+    };
+    window.addEventListener('click', handleClick);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('click', handleClick);
+    };
+    // eslint-disable-next-line
+  }, []);
+
+  // Animación de vuelo (posición, opacidad, rotación)
+  useEffect(() => {
+    let animationFrame: number;
+    const animate = () => {
+      setFlyingWords(words =>
+        words
+          .map(word => ({
+            ...word,
+            x: word.x + word.dx,
+            y: word.y + word.dy,
+            opacity: word.opacity - 0.008,
+            rotation: word.rotation + word.rotationSpeed
+          }))
+          .filter(word => word.opacity > 0 && word.y > -60 && word.x > -200 && word.x < window.innerWidth + 200)
+      );
+      animationFrame = requestAnimationFrame(animate);
+    };
+    animationFrame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrame);
+  }, []);
+
+  function createFlyingWord(x?: number, y?: number) {
+    // Aparece en zona inferior si no hay mouse
+    const startX = x ?? Math.random() * window.innerWidth;
+    const startY = y ?? window.innerHeight * 0.6 + Math.random() * window.innerHeight * 0.3;
+
+    // Trayectoria y tamaño aleatorios
+    const dx = (Math.random() - 0.5) * 1.2; // -0.6 a 0.6 px/frame
+    const dy = - (1.3 + Math.random() * 1.2); // -1.3 a -2.5 px/frame (sube)
+    const size = 20 + Math.random() * 25; // px
+    const rotation = Math.random() * 360;
+    const rotationSpeed = (Math.random() - 0.5) * 0.4; // -0.2 a 0.2 deg/frame
+
+    setFlyingWords(words => [
+      ...words,
+      {
+        id: Date.now() + Math.random(),
+        x: startX,
+        y: startY,
+        dx,
+        dy,
+        size,
+        opacity: 0.25 + Math.random() * 0.17, // 0.25 - 0.42
+        rotation,
+        rotationSpeed
+      }
+    ]);
+  }
+
+  useEffect(() => {
+    const timers = [
+      setTimeout(() => setShowElements(prev => ({ ...prev, logo: true })), 300),
+      setTimeout(() => setShowElements(prev => ({ ...prev, title: true })), 600),
+      setTimeout(() => setShowElements(prev => ({ ...prev, subtitle: true })), 900),
+      setTimeout(() => setShowElements(prev => ({ ...prev, info: true })), 1200)
+    ];
+    return () => timers.forEach(clearTimeout);
+  }, []);
+
+  const uniformColor = colors.azulOscuro;
+
+  return (
+    <div
+      className="min-h-screen relative overflow-hidden"
+      style={{
+        background: `linear-gradient(145deg, ${colors.lila} 0%, ${colors.verdeClaro} 100%)`
+      }}
+    >
+      {/* Gradiente interactivo */}
+      <div
+        className="absolute inset-0 opacity-20 pointer-events-none"
+        style={{
+          background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, ${colors.verdeTurquesa}25 0%, transparent 60%)`,
+          transition: 'background 0.5s ease'
+        }}
+      />
+
+      {/* Gracias voladoras */}
+      <div className="pointer-events-none absolute inset-0 z-10">
+        {flyingWords.map(word => (
+          <span
+            key={word.id}
+            style={{
+              position: 'absolute',
+              left: word.x,
+              top: word.y,
+              fontFamily: 'Aglet Mono, monospace',
+              fontWeight: 700,
+              fontSize: `${word.size}px`,
+              color: uniformColor,
+              opacity: word.opacity,
+              userSelect: 'none',
+              pointerEvents: 'none',
+              letterSpacing: '2.2px',
+              textShadow: '0 2px 8px rgba(0,0,0,0.07)',
+              transform: `rotate(${word.rotation}deg)`
+            }}
+          >
+            Gracias
+          </span>
+        ))}
+      </div>
+
+      <div className="relative z-20 h-screen flex flex-col p-8">
+        {/* Logo GRANDE */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{
+            opacity: showElements.logo ? 1 : 0,
+            scale: showElements.logo ? 1 : 0.5
+          }}
+          transition={{ duration: 1, type: "spring" }}
+          className="absolute top-0 left-0"
+        >
+          <img
+            src="/hablandis.png"
+            alt="Hablandis"
+            className="h-80"
+            style={{
+              filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.1))',
+              maxWidth: '400px'
+            }}
+            onError={(e) => {
+              const img = e.target as HTMLImageElement;
+              img.style.display = 'none';
+              img.parentElement!.innerHTML = `
+                <div style="padding: 30px;">
+                  <div style="font-family: 'Aglet Mono', monospace; color: ${uniformColor}; font-size: 72px; font-weight: 900;">
+                    Hablandis
+                  </div>
+                  <div style="font-family: 'Raleway', sans-serif; color: ${colors.verdeTurquesa}; font-size: 20px; margin-top: 10px;">
+                    Centro Internacional de Idiomas
+                  </div>
+                </div>
+              `;
+            }}
+          />
+        </motion.div>
+
+        {/* Contenido central */}
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center max-w-6xl">
+
+            {/* ¡MUCHAS GRACIAS! */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{
+                opacity: showElements.title ? 1 : 0,
+                y: showElements.title ? 0 : 50
+              }}
+              transition={{ duration: 1, type: "spring", stiffness: 100 }}
+              className="mb-12"
+            >
+              <h1
+                style={{
+                  fontFamily: 'Aglet Mono, monospace',
+                  fontSize: '70px',
+                  fontWeight: 900,
+                  letterSpacing: '4px',
+                  color: uniformColor,
+                  textShadow: '0 8px 40px rgba(0,0,0,0.07)',
+                }}
+              >
+                ¡MUCHAS GRACIAS!
+              </h1>
+            </motion.div>
+
+            {/* Información de contacto */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: showElements.subtitle ? 1 : 0
+              }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+            >
+              <h2
+                className="mb-4"
+                style={{
+                  fontFamily: 'Raleway, sans-serif',
+                  fontSize: '36px',
+                  fontWeight: 600,
+                  color: uniformColor,
+                  letterSpacing: '1px'
+                }}
+              >
+                Armando Cruz Crespillo
+              </h2>
+              <p
+                style={{
+                  fontFamily: 'Raleway, sans-serif',
+                  fontSize: '28px',
+                  fontWeight: 500,
+                  color: colors.verdeTurquesa,
+                  textShadow: '0 4px 20px rgba(0,0,0,0.1)',
+                  letterSpacing: '1px'
+                }}
+              >
+                hola@hablandis.com
+              </p>
+            </motion.div>
+
+            {/* Código QR */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{
+                opacity: showElements.info ? 1 : 0,
+                scale: showElements.info ? 1 : 0.9
+              }}
+              transition={{ delay: 0.6, type: "spring" }}
+              className="mt-16"
+            >
+              <div
+                className="inline-block rounded-3xl px-12 py-8"
+                style={{
+                  backgroundColor: colors.blanco + '80',
+                  backdropFilter: 'blur(30px)',
+                  boxShadow: '0 20px 60px rgba(0,0,0,0.1)'
+                }}
+              >
+                <div className="flex items-center gap-8">
+                  <div className="w-40 h-40 bg-gray-50 rounded-2xl flex items-center justify-center shadow-inner">
+                    <img
+                      src="/qr.png"
+                      alt="QR Code Presentación EVALIA"
+                      className="w-full h-full object-contain p-3"
+                    />
+                  </div>
+                  <div className="text-left">
+                    <h3 style={{
+                      fontFamily: 'Aglet Mono, monospace',
+                      fontSize: '28px',
+                      fontWeight: 800,
+                      color: uniformColor,
+                      marginBottom: '8px'
+                    }}>
+                      Materiales de Presentación
+                    </h3>
+                    <p style={{
+                      fontFamily: 'Raleway, sans-serif',
+                      fontSize: '18px',
+                      color: colors.grisOscuro
+                    }}>
+                      Escanea para acceder a recursos y documentación
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Footer Minimalista */}
+        <div className="absolute bottom-2 left-0 right-0 text-center">
+          <p className="text-xs" style={{
+            fontFamily: 'Raleway, sans-serif',
+            color: uniformColor,
+            opacity: 0.6
+          }}>
+            © {new Date().getFullYear()} Hablandis. Todos los derechos reservados.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// =======================================================================
+// FIN DIAPOSITIVA 13
+// =======================================================================
 // =======================================================================
 // COMPONENTE PRINCIPAL DE PRESENTACIÓN - CORREGIDO
 // =======================================================================
 const Presentacion = () => {
   const [diapositivaActual, setDiapositivaActual] = useState(1);
-  const totalDiapositivas = 12; // Diapositivas: 1-Intro, 2-Blindapalabras, 3-Laboratorio, 4-Apoyo, 5-EVALIA, 6-Agentes IA, 7-AgentIAele, 8-MATERIAELE, 9-Flujo IA, 10-Nivel Texto, 11-Prompts, 12-Matching
+  const totalDiapositivas = 14; // Diapositivas: 1-Intro, 2-Blindapalabras, 3-Laboratorio, 4-Apoyo, 5-EVALIA, 6-Agentes IA, 7-AgentIAele, 8-MATERIAELE, 9-Flujo IA, 10-Nivel Texto, 11-Prompts, 12-Matching, 13-Imperativos, 14-Despedida
 
   const cambiarDiapositiva = (direccion: 'prev' | 'next') => {
     setDiapositivaActual(actual => {
@@ -5426,6 +6888,8 @@ const Presentacion = () => {
   else if (diapositivaActual === 10) SlideComponent = Diapositiva10;
   else if (diapositivaActual === 11) SlideComponent = Diapositiva11;
   else if (diapositivaActual === 12) SlideComponent = Diapositiva12;
+  else if (diapositivaActual === 13) SlideComponent = Diapositiva13;
+  else if (diapositivaActual === 14) SlideComponent = () => <Diapositiva14 />;
   else {
     // Fallback por si acaso
     SlideComponent = () => <div className="flex items-center justify-center h-screen text-2xl">Diapositiva {diapositivaActual} no encontrada</div>;
