@@ -4529,11 +4529,865 @@ const Diapositiva10 = () => {
 
 
 // =======================================================================
+// DIAPOSITIVA 11: CREACIÓN DE TAREAS DE IA - PROMPTS
+// =======================================================================
+const Diapositiva11 = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // --- Logo y Título unificados ---
+  const LogoHablandisUnificado = () => (
+    <div className="absolute top-6 left-6 z-30 flex flex-col items-start">
+      <img
+        src="/hablandis.png"
+        alt="Hablandis"
+        className="h-24 md:h-32 lg:h-36 drop-shadow-[0_4px_8px_rgba(0,0,0,0.10)] rounded-xl"
+        onError={(e) => {
+          const img = e.target as HTMLImageElement;
+          img.style.display = 'none';
+          const parent = img.parentElement;
+          if (parent) {
+            parent.innerHTML = `
+              <div style="font-family: 'Aglet Mono', monospace; color: ${colors.azulOscuro}; font-size: 42px; font-weight: 700; line-height: 1;">
+                Hablandis
+              </div>
+              <div style="font-family: 'Raleway', sans-serif; color: ${colors.verdeTurquesa}; font-size: 15px; margin-top: 2px;">
+                Centro Internacional de Idiomas
+              </div>
+            `;
+          }
+        }}
+      />
+    </div>
+  );
+
+  const MainTitleUnificado = ({ children }: { children: React.ReactNode }) => (
+    <h1
+      className="text-3xl md:text-4xl lg:text-5xl font-semibold mb-6 text-center pt-12"
+      style={{
+        fontFamily: "Aglet Mono, monospace",
+        color: colors.azulOscuro,
+        letterSpacing: "-0.01em"
+      }}
+    >
+      {children}
+    </h1>
+  );
+
+  // --- Footer unificado minimalista ---
+  const FooterUnificado = () => (
+    <div
+      className="absolute bottom-3 left-0 right-0 text-center py-2"
+      style={{
+        fontFamily: 'Raleway, sans-serif',
+        color: colors.azulOscuro,
+        opacity: 0.7,
+        fontWeight: 500,
+        fontSize: 13,
+        background: `${colors.blanco}70`,
+        backdropFilter: 'blur(10px)'
+      }}
+    >
+      © {new Date().getFullYear()} Hablandis. Todos los derechos reservados.
+    </div>
+  );
+
+  // --- Slides Content ---
+  const slides = [
+    {
+      id: 0,
+      title: "Elijamos un texto:",
+      content: (
+        <div className="h-full overflow-y-auto p-1">
+          <article className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+            <header className="mb-8 border-b-2 border-gray-200 pb-5">
+              <p className="text-xs font-semibold mb-2" style={{ color: colors.verdeTurquesa, fontFamily: "'Raleway', sans-serif", letterSpacing: '0.03em' }}>
+                MOVILIDAD
+              </p>
+              <h2 className="text-2xl md:text-3xl font-bold mb-3" style={{ fontFamily: "'Aglet Mono', monospace", color: colors.azulOscuro }}>
+                Movilidad en València o la transformación de una ciudad más allá de los carriles bici
+              </h2>
+              <p className="text-base text-gray-600" style={{ fontFamily: "'Raleway', sans-serif" }}>
+                La nueva Plaça de la Reina, los carriles bici y la recuperación del espacio público marcan el camino hacia una ciudad más sostenible
+              </p>
+            </header>
+            <div className="prose prose-lg max-w-none" style={{ fontFamily: "'Raleway', sans-serif" }}>
+              <p className="mb-6 text-gray-800 leading-relaxed first-letter:text-5xl first-letter:font-bold first-letter:mr-1 first-letter:float-left">
+                La nueva Plaça de la Reina amanece soleada: eran los últimos días de agosto pero el reloj marcaba primera hora de la mañana, así que aún quedaba espacio en los recién estrenados aparcamientos de bicicleta. Un par de horas después empezó el trajín: familias con carritos que atraviesan las zonas de sombra mientras beben horchata, niños y niñas que se inclinan a beber agua en alguna de las fuentes habilitadas para tal fin, jóvenes que se sientan en los bancos y consultan sus dispositivos móviles, turistas que consumen en las terrazas que rodean el nuevo espacio público sin invadirlo.
+              </p>
+              <div className="bg-blue-50 border-l-4 border-blue-600 p-6 my-6 rounded-lg">
+                <p className="text-base italic">
+                  "La afluencia de gente que concentra la plaza desde su inauguración es la mejor muestra de que la transformación ha sido bien acogida"
+                </p>
+                <p className="text-xs mt-2 text-gray-600">— Giuseppe Grezzi, concejal de Movilidad Sostenible</p>
+              </div>
+              <h3 className="text-xl font-bold mt-8 mb-3" style={{ color: colors.verdeTurquesa }}>
+                Más allá de la peatonalización: la revuelta ciclista
+              </h3>
+              <p className="mb-6 text-gray-800 leading-relaxed">
+                La Organización de Consumidores determinó en un reciente estudio que València era una de las tres mejores ciudades españolas para montar en bicicleta. En determinados tramos de su red de casi 170 kilómetros se registran unos 7.000 vehículos diarios, y el uso de este medio de transporte sostenible se ha incrementado en un 21% en el último año.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
+                <div className="bg-green-100 p-4 rounded-lg text-center border border-green-200">
+                  <p className="text-2xl font-bold text-green-700">170 km</p>
+                  <p className="text-xs text-gray-700">Red ciclista actual</p>
+                </div>
+                <div className="bg-green-100 p-4 rounded-lg text-center border border-green-200">
+                  <p className="text-2xl font-bold text-green-700">+21%</p>
+                  <p className="text-xs text-gray-700">Incremento anual</p>
+                </div>
+                <div className="bg-green-100 p-4 rounded-lg text-center border border-green-200">
+                  <p className="text-2xl font-bold text-green-700">11%</p>
+                  <p className="text-xs text-gray-700">Ahorro energético</p>
+                </div>
+              </div>
+              <h3 className="text-xl font-bold mt-8 mb-3" style={{ color: colors.verdeTurquesa }}>
+                Urbanismo, la otra cara de la moneda
+              </h3>
+              <p className="mb-6 text-gray-800 leading-relaxed">
+                A pesar de que los índices contaminantes se han reducido en los últimos diez años en la ciudad, València sigue incumpliendo los valores de la Organización Mundial de la Salud. El vehículo a motor de combustión es, con diferencia, el principal foco de emisión de índices contaminantes.
+              </p>
+              <div className="bg-yellow-50 border-l-4 border-yellow-400 rounded-lg p-5 my-6">
+                <h4 className="font-bold text-base mb-2">Datos clave:</h4>
+                <ul className="list-disc list-inside space-y-1 text-xs text-gray-700">
+                  <li>50% de los desplazamientos se hacen a pie</li>
+                  <li>6% en bicicleta</li>
+                  <li>16% en transporte público</li>
+                  <li>Solo 15% utiliza vehículo privado dentro de la ciudad</li>
+                </ul>
+              </div>
+              <p className="mb-6 text-gray-800 leading-relaxed">
+                El problema metropolitano es evidente: cada día salen y entran de Valencia casi un millón de personas. La coordinación entre administraciones sigue siendo un reto pendiente para abordar esta realidad.
+              </p>
+              <div className="border-t border-gray-200 pt-6 mt-8">
+                <p className="text-xs text-gray-600 italic">
+                  Fuente: El Salto Diario - Artículo sobre movilidad sostenible en València
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      )
+    },
+    {
+      id: 1,
+      title: "Usemos un prompt 'mínimo':",
+      content: (
+        <div className="h-full flex flex-col p-4 sm:p-6 bg-gray-50 rounded-lg">
+          <div className="mb-5 p-4 bg-white rounded-lg border-l-4 border-blue-600 shadow-sm">
+            <p className="text-sm sm:text-base font-mono text-gray-800">
+              Crea siete preguntas tipo test sobre el texto. Cada pregunta debe tener una respuesta correcta y tres incorrectas, con el siguiente formato:
+              Texto de la pregunta A. Respuesta correcta B. Respuesta incorrecta C. Respuesta incorrecta D. Respuesta incorrecta
+            </p>
+          </div>
+          <div className="flex-grow grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 overflow-hidden">
+            {/* ChatGPT 4o */}
+            <div className="flex flex-col bg-green-50 rounded-lg p-2 sm:p-3 border border-green-200 overflow-y-auto">
+              <h4 className="text-base sm:text-lg font-bold mb-2 text-green-800 sticky top-0 bg-green-50 pb-2 z-10">
+                ChatGPT 4o
+              </h4>
+              <div className="space-y-3 text-xs sm:text-sm">
+                <div className="bg-white p-2 rounded border border-green-100">
+                  <p className="font-semibold mb-1">¿Qué ha sido una de las principales líneas de trabajo del Ayuntamiento de València en los últimos años?</p>
+                  <p className="text-green-700">A. Peatonalización</p>
+                  <p>B. Construcción de rascacielos</p>
+                  <p>C. Expansión de autopistas</p>
+                  <p>D. Reducción de parques públicos</p>
+                </div>
+                <div className="bg-white p-2 rounded border border-green-100">
+                  <p className="font-semibold mb-1">Según Francesc Arechavala, ¿cuál es el siguiente paso en la mejora de la movilidad urbana en València?</p>
+                  <p className="text-green-700">A. Extender las políticas a todos los barrios</p>
+                  <p>B. Construir más autopistas</p>
+                  <p>C. Aumentar el uso de vehículos privados</p>
+                  <p>D. Reducir el número de ciclovías</p>
+                </div>
+              </div>
+            </div>
+            {/* Gemini */}
+            <div className="flex flex-col bg-purple-50 rounded-lg p-2 sm:p-3 border border-purple-200 overflow-y-auto">
+              <h4 className="text-base sm:text-lg font-bold mb-2 text-purple-800 sticky top-0 bg-purple-50 pb-2 z-10">
+                Gemini
+              </h4>
+              <div className="space-y-3 text-xs sm:text-sm">
+                <div className="bg-white p-2 rounded border border-purple-100">
+                  <p className="font-semibold mb-1">¿Cuáles son las dos principales líneas de trabajo que ha seguido el Ayuntamiento de València para reducir la contaminación en la ciudad?</p>
+                  <p>A. La construcción de nuevas carreteras y la ampliación de carriles para coches.</p>
+                  <p className="text-purple-700">B. La peatonalización de calles y la mejora de la red de carriles bici.</p>
+                  <p>C. La creación de nuevas zonas de aparcamiento para coches y la promoción del uso del transporte público.</p>
+                  <p>D. La restricción del uso del vehículo privado en el centro de la ciudad y la inversión en energías renovables.</p>
+                </div>
+                <div className="bg-white p-2 rounded border border-purple-100">
+                  <p className="font-semibold mb-1">¿Qué colectivo ciudadano critica la falta de ambición en las políticas de movilidad del Ayuntamiento de València?</p>
+                  <p>A. València en Bici</p>
+                  <p>B. Per l'horta per la defensa del territori</p>
+                  <p className="text-purple-700">C. València per l'aire</p>
+                  <p>D. Ecologistas en Acción</p>
+                </div>
+              </div>
+            </div>
+            {/* Claude */}
+            <div className="flex flex-col bg-orange-50 rounded-lg p-2 sm:p-3 border border-orange-200 overflow-y-auto">
+              <h4 className="text-base sm:text-lg font-bold mb-2 text-orange-800 sticky top-0 bg-orange-50 pb-2 z-10">
+                Claude
+              </h4>
+              <div className="space-y-3 text-xs sm:text-sm">
+                <div className="bg-white p-2 rounded border border-orange-100">
+                  <p className="font-semibold mb-1">¿Qué afirma el texto sobre la reducción de índices contaminantes en València en los últimos 10 años?</p>
+                  <p className="text-orange-700">A. Aunque se han reducido, València sigue incumpliendo los valores de la Organización Mundial de la Salud</p>
+                  <p>B. Los índices contaminantes se han mantenido estables</p>
+                  <p>C. València es una de las ciudades con menores índices de contaminación en España</p>
+                  <p>D. No se menciona nada sobre la reducción de índices contaminantes</p>
+                </div>
+                <div className="bg-white p-2 rounded border border-orange-100">
+                  <p className="font-semibold mb-1">Según el texto, ¿cuál es una de las propuestas para reducir el uso del vehículo privado en València?</p>
+                  <p className="text-orange-700">A. Implementar un peaje urbano de tarifa progresiva</p>
+                  <p>B. Prohibir totalmente el uso de vehículos privados en el centro de la ciudad</p>
+                  <p>C. Aumentar significativamente el precio de los combustibles</p>
+                  <p>D. Limitar el acceso al centro solo a residentes</p>
+                </div>
+              </div>
+            </div>
+            {/* Microsoft Copilot */}
+            <div className="flex flex-col bg-blue-50 rounded-lg p-2 sm:p-3 border border-blue-200 overflow-y-auto">
+              <h4 className="text-base sm:text-lg font-bold mb-2 text-blue-800 sticky top-0 bg-blue-50 pb-2 z-10">
+                Microsoft Copilot
+              </h4>
+              <div className="space-y-3 text-xs sm:text-sm">
+                <div className="bg-white p-2 rounded border border-blue-100">
+                  <p className="font-semibold mb-1">¿Qué ha permitido la rehabilitación de la Plaça de la Reina?</p>
+                  <p className="text-blue-700">A. La recuperación de 12.000 metros cuadrados como espacio peatonal</p>
+                  <p>B. La construcción de un nuevo aparcamiento subterráneo</p>
+                  <p>C. La instalación de más paradas de autobuses</p>
+                  <p>D. El aumento de las zonas ajardinadas</p>
+                </div>
+                <div className="bg-white p-2 rounded border border-blue-100">
+                  <p className="font-semibold mb-1">¿Cuál ha sido la reacción general ante la transformación de la Plaça de la Reina?</p>
+                  <p className="text-blue-700">A. Bien acogida por la afluencia de gente</p>
+                  <p>B. Rechazo total por la falta de vegetación</p>
+                  <p>C. Indiferencia por parte de los residentes</p>
+                  <p>D. Protestas por el aumento del ruido</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 2,
+      title: "¿Se puede mejorar esto? Intentémoslo:",
+      content: (
+        <div className="h-full flex flex-col p-4 sm:p-6 bg-gray-50 rounded-lg">
+          <div className="mb-6 p-4 bg-white rounded-lg border-l-4 border-purple-600 shadow-sm">
+            <p className="text-sm text-gray-700 mb-2">Intentemos con un prompt más detallado y exigente:</p>
+            <p className="text-base text-gray-800 leading-relaxed whitespace-pre-line">
+              Crea siete preguntas tipo test sobre el texto <span className="font-bold text-purple-800">para estudiantes con un nivel C1 de español.</span> Cada pregunta debe tener una respuesta correcta y tres incorrectas.
+- La información en la que se basan las respuestas incorrectas debe aparecer también en el texto.
+- <span className="font-bold text-purple-800">Las respuestas incorrectas deben ser muy verosímiles y aparentemente correctas, de tal forma que solo sea posible identificarlas como erróneas tras una lectura atenta, y no ser descartables por mero sentido común o cultura general.</span>
+- <span className="font-bold text-purple-800">Tanto la opción correcta como las incorrectas deben ser respuestas de inferencia, es decir, que la información necesaria para responderlas no aparezca de forma evidente en el texto, sino que haya de ser inferida tras una lectura atenta.</span>
+- Al final de cada pregunta debe aparecer una breve explicación de por qué la respuesta correcta es verdadera y por qué las tres incorrectas son falsas.
+- <span className="font-bold text-purple-800">MUY IMPORTANTE: NO CREES RESPUESTAS INCORRECTAS INVENTADAS Y NO BASADAS EN EL TEXTO.</span>
+            </p>
+          </div>
+          <div className="flex-grow flex flex-col items-center justify-center bg-white rounded-lg border border-gray-200 p-4 mt-4 sm:mt-6 shadow-sm">
+            <div className="rounded-xl p-4 sm:p-6 flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full max-w-xl mx-auto">
+              <div className="w-40 h-40 sm:w-56 sm:h-56 rounded-lg flex items-center justify-center flex-shrink-0 border-2 border-gray-200 p-1 bg-gray-50">
+                <img
+                  src="/qr.png"
+                  alt="QR Code Presentación EVALIA"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div className="flex-1 text-center sm:text-left mt-4 sm:mt-0">
+                <h4 className="text-lg sm:text-2xl font-semibold mb-2" style={{
+                  color: colors.azulOscuro,
+                  fontFamily: "'Raleway', sans-serif"
+                }}>
+                  Materiales de Presentación
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }
+  ];
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
+
+  return (
+    <div
+      className="w-full h-screen min-h-screen flex flex-col relative overflow-hidden"
+      style={{
+        background: '#E8E6DA'
+      }}
+    >
+      {/* Logo Unificado */}
+      <LogoHablandisUnificado />
+
+      {/* Título Unificado */}
+      <MainTitleUnificado>
+        Creación de Tareas de IA: Prompts
+      </MainTitleUnificado>
+
+      {/* Navegación y contenido */}
+      <div className="flex-grow flex items-center justify-center px-3 sm:px-6 pb-12">
+        <div className="w-full flex items-center gap-2 sm:gap-4 max-w-6xl mx-auto">
+          {/* Botón anterior */}
+          <button
+            onClick={prevSlide}
+            className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/80 hover:bg-white shadow-lg flex items-center justify-center transition-all transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+            aria-label="Slide anterior"
+            tabIndex={0}
+          >
+            <svg className="w-6 h-6" fill="none" stroke={colors.azulOscuro} strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          {/* Contenedor principal */}
+          <div
+            className="flex-grow bg-white rounded-xl shadow-xl overflow-hidden border border-gray-100"
+            style={{ minHeight: '480px', maxHeight: '752px', height: 'calc(100vh - 200px)' }}
+          >
+            {/* Header del slide */}
+            <div className="bg-gray-50 px-4 sm:px-6 py-3 border-b border-gray-200 flex justify-between items-center">
+              <h2 className="text-base sm:text-lg font-semibold truncate pr-2" style={{ fontFamily: "'Raleway', sans-serif", color: colors.azulOscuro }}>
+                {slides[currentSlide].title}
+              </h2>
+              <div className="flex gap-1 sm:gap-2">
+                {slides.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentSlide(index)}
+                    className={`h-2 sm:h-2.5 rounded-full transition-all duration-300 ease-in-out ${index === currentSlide ? 'w-6 sm:w-8' : 'w-2 sm:w-2.5'}`}
+                    style={{ backgroundColor: index === currentSlide ? colors.azulOscuro : colors.grisMedio }}
+                    aria-label={`Ir al slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+            {/* Contenido del slide */}
+            <motion.div
+              key={currentSlide}
+              className="h-[calc(100%-58px)]"
+              style={{ overflowY: 'auto' }}
+              initial={{ opacity: 0.8, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0.8, x: -30 }}
+              transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
+            >
+              {slides[currentSlide].content}
+            </motion.div>
+          </div>
+
+          {/* Botón siguiente */}
+          <button
+            onClick={nextSlide}
+            className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/80 hover:bg-white shadow-lg flex items-center justify-center transition-all transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+            aria-label="Siguiente slide"
+            tabIndex={0}
+          >
+            <svg className="w-6 h-6" fill="none" stroke={colors.azulOscuro} strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Footer Unificado */}
+      <FooterUnificado />
+    </div>
+  );
+};
+
+
+// =======================================================================
+// DIAPOSITIVA 12: CREACIÓN DE TAREAS DE MATCHING (DISEÑO POR FASES)
+// =======================================================================
+const Diapositiva12 = () => {
+  const [faseActiva, setFaseActiva] = useState(1);
+
+  // Prompt inicial
+  const promptInicial = "Actúa como un experto en creación de tareas para exámenes de certificación de ELE. Crea quince frases de nivel B1 que expresen la necesidad de encontrar un profesional o una empresa que les resuelvan quince situaciones cotidiana relacionada con vivienda, salud, mascotas, profesión, tiempo libre, celebraciones, etc.";
+
+  // Datos estructurados FASE 1 - NUEVOS
+  const situacionesGenericas = [
+    "Necesito encontrar un fontanero urgente porque la tubería del baño está rota y se está saliendo el agua.",
+    "Busco una empresa de mudanzas porque me cambio de piso la semana que viene.",
+    "Me gustaría contratar a alguien para que pinte el salón antes de que lleguen mis padres de visita.",
+    "Tengo que pedir cita con un fisioterapeuta porque me duele la espalda desde hace días.",
+    "Quiero buscar una clínica dental para hacerme una limpieza bucal.",
+    "Estoy buscando una peluquería canina para mi perro, porque tiene el pelo muy largo.",
+    "Necesito un veterinario que atienda urgencias, mi gato no quiere comer nada.",
+    "Quiero contratar a un profesor particular de inglés para preparar una entrevista de trabajo.",
+    "Busco una academia que ofrezca cursos de informática para mejorar mi currículum.",
+    "Me gustaría encontrar un grupo de teatro amateur para participar los fines de semana.",
+    "Estoy buscando un taller de cerámica cerca de casa, quiero aprender algo nuevo.",
+    "Necesitamos una empresa de catering para organizar la fiesta de cumpleaños de mi hijo.",
+    "Estoy buscando un fotógrafo para hacer un reportaje de nuestra boda.",
+    "Quiero encontrar un mecánico de confianza para revisar mi coche antes del viaje.",
+    "Busco una agencia de viajes que organice escapadas de fin de semana por Andalucía."
+  ];
+
+  // FASE 2 - NUEVAS situaciones con palabras marcadas
+  const situacionesEspecificas = [
+    { base: "Necesito un fontanero", mejora: "que trabaje los fines de semana y que sepa instalar grifos inteligentes", extra: ", porque quiero modernizar la cocina." },
+    { base: "Busco una empresa de mudanzas", mejora: "que ofrezca servicio de embalaje y transporte internacional", extra: ": en un mes me voy a vivir a Lisboa." },
+    { base: "Me gustaría contratar a un pintor", mejora: "que trabaje con pinturas ecológicas", extra: ", porque quiero renovar el dormitorio sin dañar el medio ambiente." },
+    { base: "Tengo que pedir cita con un fisioterapeuta", mejora: "especializado en lesiones deportivas", extra: ", porque me hice daño corriendo una media maratón." },
+    { base: "Estoy buscando una clínica dental", mejora: "que tenga servicio en inglés", extra: ", porque mi pareja extranjera necesita una revisión y no habla español." },
+    { base: "Necesito una peluquería canina", mejora: "que venga a domicilio", extra: ", porque mi perro es muy nervioso y se estresa al salir de casa." },
+    { base: "Quiero encontrar un veterinario", mejora: "con experiencia en animales exóticos", extra: ", porque mi iguana tiene un comportamiento raro desde ayer." },
+    { base: "Busco un profesor particular", mejora: "que prepare entrevistas de trabajo para el sector turístico", extra: ", ya que me presento a una oferta en un hotel de lujo." },
+    { base: "Quiero apuntarme a una academia", mejora: "que enseñe Excel y Google Sheets para autónomos", extra: ", porque necesito mejorar mi gestión administrativa." },
+    { base: "Me gustaría encontrar un grupo de teatro", mejora: "que monte obras en espacios no convencionales, como bares o parques", extra: ", para vivir una experiencia distinta." },
+    { base: "Estoy buscando un taller de cerámica", mejora: "que también tenga clases para niños", extra: ", porque quiero compartir esta actividad con mi hija los sábados." },
+    { base: "Necesitamos una empresa de catering", mejora: "especializada en comida vegetariana y sin gluten", extra: ", para la comunión de mi sobrino." },
+    { base: "Busco un fotógrafo", mejora: "que haga sesiones espontáneas al aire libre", extra: ", porque quiero un álbum natural con mi familia sin poses artificiales." },
+    { base: "Quiero un mecánico", mejora: "que haga revisiones a domicilio", extra: ", ya que tengo un coche híbrido y no quiero moverlo hasta estar seguro de que todo va bien." },
+    { base: "Estoy buscando una agencia de viajes", mejora: "que organice rutas en bici por pueblos de interior y que incluya alojamiento rural con desayuno casero", extra: "." }
+  ];
+
+  const promptProfesor = `Actúa como un profesor de español como lengua extranjera experto en la creación de tareas para exámenes oficiales de acreditación de conocimientos de español. Escribe tres anuncios de entre 90 y 110 palabras en los que profesionales o empresas ofrezcan productos o servicios que parezcan ser apropiados a la situación que describiré a continuación. Los anuncios deben incluir nombres y datos muy concretos de forma que parezcan anuncios de periódico reales. Sin embargo, de los tres anuncios solo uno debe ser válido para la necesidad descrita. El anuncio válido no debe ser evidente, evitando repetir expresiones literales de la tarea, utilizando para ello sinónimos y parafraseo. Los otros dos anuncios deben ser verosímiles y parecer adecuados pero no serlo, de forma que exijan una lectura atenta por parte del estudiante para descubrir el motivo por el cual deben ser descartados como válidos.`;
+
+  // FASE 4 - NUEVOS anuncios sobre teatro
+  const anuncios = [
+    {
+      titulo: "Teatro nómada",
+      texto: '"Teatro nómada" busca actores y actrices no profesionales para sus nuevas producciones itinerantes. Representamos obras modernas y adaptaciones clásicas en lugares poco habituales: cafeterías, terrazas, estaciones de tren y espacios abiertos. No es necesaria experiencia previa, solo compromiso y ganas de actuar. Ensayos: martes y jueves, 19:00–21:00, en la Biblioteca Pública de la calle Zamora. Estrenos en mayo y junio. Contacto: grupo.nomada@gmail.com o WhatsApp 611 924 713. ¡Ven a transformar la ciudad en un escenario!',
+      valido: true,
+      explicacion: "Cumple todos los requisitos: obras en espacios no convencionales como cafeterías, terrazas, estaciones y espacios abiertos."
+    },
+    {
+      titulo: "Ficción a escena",
+      texto: 'Grupo teatral "Ficción a escena" selecciona nuevos miembros para sus montajes en el Teatro Municipal del Centro Cultural Pilar Miró. Se busca gente entre 18 y 35 años con algo de experiencia o formación. Las obras se representarán entre septiembre y diciembre en el auditorio del distrito. Se valorarán conocimientos de expresión corporal. Ensayos los lunes y miércoles de 18:00 a 20:30. Interesados, escribid a ficcionaescena@correo.es con breve presentación. No se ofrece remuneración, pero sí certificado de participación.',
+      valido: false,
+      explicacion: "Las representaciones son en el Teatro Municipal, un espacio convencional. No ofrece la experiencia alternativa buscada."
+    },
+    {
+      titulo: "Voces del cuerpo",
+      texto: 'Taller de teatro "Voces del cuerpo" ofrece clases de interpretación centradas en el trabajo emocional, la improvisación y el análisis de texto. Dirigido a personas que buscan desarrollar su creatividad y expresividad. Las sesiones se realizan en el estudio "Artes en calma", junto al metro Guzmán el Bueno. Cursos trimestrales (160 €), con opción a participar en una muestra final en sala cerrada. Para más información: www.vocesdelcuerpo.com o Instagram @vocesdelcuerpo. Profesora: Clara Iturri, formada en la RESAD y especializada en pedagogía teatral.',
+      valido: false,
+      explicacion: "Es un taller de formación, no un grupo teatral. Las presentaciones son en sala cerrada, no en espacios no convencionales."
+    }
+  ];
+
+  return (
+    <div className="w-full h-screen flex flex-col relative overflow-hidden" style={{ backgroundColor: '#E8E6DA' }}>
+      {/* Logo Unificado */}
+      <div className="absolute top-6 left-6 z-30">
+        <img
+          src="/hablandis.png"
+          alt="Hablandis"
+          className="h-24 md:h-32 lg:h-36 drop-shadow-[0_4px_8px_rgba(0,0,0,0.10)] rounded-xl"
+          onError={(e) => {
+            const img = e.target as HTMLImageElement;
+            img.style.display = 'none';
+            const parent = img.parentElement;
+            if (parent) {
+              parent.innerHTML = `
+                <div style="font-family: 'Aglet Mono', monospace; color: ${colors.azulOscuro}; font-size: 42px; font-weight: 700; line-height: 1;">
+                  Hablandis
+                </div>
+                <div style="font-family: 'Raleway', sans-serif; color: ${colors.verdeTurquesa}; font-size: 15px; margin-top: 2px;">
+                  Centro Internacional de Idiomas
+                </div>
+              `;
+            }
+          }}
+        />
+      </div>
+
+      {/* Título Unificado */}
+      <div className="pt-12 pb-2 flex flex-col items-center">
+        <h1
+          className="text-3xl md:text-4xl lg:text-5xl font-semibold mb-4 md:mb-6 text-center"
+          style={{
+            fontFamily: "Aglet Mono, monospace",
+            color: colors.azulOscuro,
+            letterSpacing: "-0.01em"
+          }}
+        >
+          Creación de tareas de matching
+        </h1>
+      </div>
+
+      {/* Indicadores de fase */}
+      <div className="flex justify-center gap-2 py-3" style={{ backgroundColor: colors.verdeClaro + '20' }}>
+        {[1, 2, 3, 4].map((fase) => (
+          <button
+            key={fase}
+            onClick={() => setFaseActiva(fase)}
+            className="px-4 py-2 rounded-full transition-all"
+            style={{
+              backgroundColor: faseActiva === fase ? colors.azulOscuro : colors.blanco,
+              color: faseActiva === fase ? colors.blanco : colors.azulOscuro,
+              fontFamily: 'Raleway, sans-serif',
+              fontSize: '0.875rem',
+              fontWeight: faseActiva === fase ? 'bold' : 'normal',
+              border: `2px solid ${colors.azulOscuro}`
+            }}
+          >
+            Fase {fase}
+          </button>
+        ))}
+      </div>
+
+      {/* Contenido de las fases */}
+      <div className="flex-grow flex overflow-hidden pb-8">
+        {/* Fase 1 */}
+        <div className={`${faseActiva === 1 ? 'w-full' : 'w-0'} transition-all duration-300 overflow-hidden`}>
+          <div className="h-full p-4 md:p-6 overflow-y-auto">
+            <h2 className="text-lg mb-4" style={{
+              fontFamily: 'Raleway, sans-serif',
+              fontWeight: 'bold',
+              color: colors.azulOscuro
+            }}>
+              Fase 1: Punto de partida
+            </h2>
+            <div className="mb-6 p-4 rounded-lg" style={{
+              backgroundColor: colors.verdeTurquesa + '15',
+              border: `1px solid ${colors.verdeTurquesa}`
+            }}>
+              <h3 className="text-base mb-2" style={{
+                fontFamily: 'Raleway, sans-serif',
+                color: colors.verdeTurquesa,
+                fontWeight: '600'
+              }}>
+                Prompt para crear la primera parte de la tarea:
+              </h3>
+              <p style={{
+                fontFamily: 'Raleway, sans-serif',
+                fontSize: '0.85rem',
+                color: colors.negro,
+                lineHeight: '1.5',
+                fontStyle: 'italic'
+              }}>
+                "{promptInicial}"
+              </p>
+            </div>
+            <div className="mb-6">
+              <h3 className="text-base mb-3" style={{
+                fontFamily: 'Raleway, sans-serif',
+                color: colors.verdeTurquesa,
+                fontWeight: '600'
+              }}>
+                Resultado:
+              </h3>
+              <div className="space-y-2">
+                {situacionesGenericas.map((situacion, index) => (
+                  <div key={index} className="flex items-start">
+                    <span className="mr-2 text-sm" style={{ color: colors.verdeTurquesa }}>
+                      {index + 1}.
+                    </span>
+                    <p style={{
+                      fontFamily: 'Raleway, sans-serif',
+                      fontSize: '0.85rem',
+                      color: colors.negro
+                    }}>
+                      {situacion}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="mt-8 p-4 rounded-lg text-center" style={{
+              backgroundColor: colors.lila + '25',
+              border: `2px dashed ${colors.lila}`
+            }}>
+              <p className="text-base mb-2" style={{
+                fontFamily: 'Raleway, sans-serif',
+                fontWeight: 'bold',
+                color: colors.azulOscuro
+              }}>
+                ¿Nos llama algo la atención?
+              </p>
+              <p style={{
+                fontFamily: 'Raleway, sans-serif',
+                fontSize: '0.9rem',
+                color: colors.negro,
+                fontStyle: 'italic'
+              }}>
+                ...Sí, hemos sido demasiado tacaños en el prompt.
+              </p>
+            </div>
+          </div>
+        </div>
+        {/* Fase 2 */}
+        <div className={`${faseActiva === 2 ? 'w-full' : 'w-0'} transition-all duration-300 overflow-hidden`}>
+          <div className="h-full p-4 md:p-6 overflow-y-auto">
+            <h2 className="text-lg mb-4" style={{
+              fontFamily: 'Raleway, sans-serif',
+              fontWeight: 'bold',
+              color: colors.azulOscuro
+            }}>
+              Fase 2: Refinamiento
+            </h2>
+            <div className="mb-6 p-4 rounded-lg" style={{ backgroundColor: colors.lila + '20' }}>
+              <h3 className="text-base mb-2" style={{
+                fontFamily: 'Raleway, sans-serif',
+                fontWeight: '600',
+                color: colors.azulOscuro
+              }}>
+                Enmendémonos:
+              </h3>
+              <p style={{
+                fontFamily: 'Raleway, sans-serif',
+                fontSize: '0.9rem',
+                color: colors.negro
+              }}>
+                Modifica las situaciones para que sean <strong style={{ color: colors.verdeTurquesa }}>más variadas y originales</strong>,
+                e incluyan <strong style={{ color: colors.verdeTurquesa }}>detalles más específicos</strong>, de forma que la empresa o el
+                profesional tenga <strong style={{ color: colors.verdeTurquesa }}>características muy determinadas</strong>.
+              </p>
+            </div>
+            <h3 className="text-base mb-3" style={{
+              fontFamily: 'Raleway, sans-serif',
+              color: colors.verdeTurquesa,
+              fontWeight: '600'
+            }}>
+              Resultado mejorado:
+            </h3>
+            <div className="mb-3 p-3 rounded-lg" style={{
+              backgroundColor: colors.verdeTurquesa + '10',
+              border: `1px solid ${colors.verdeTurquesa}`
+            }}>
+              <p style={{
+                fontFamily: 'Raleway, sans-serif',
+                fontSize: '0.8rem',
+                color: colors.negro,
+                fontStyle: 'italic'
+              }}>
+                💡 La situación 10 está destacada porque será nuestro ejemplo práctico en las siguientes fases.
+              </p>
+            </div>
+            <div className="space-y-2">
+              {situacionesEspecificas.map((situacion, index) => (
+                <div key={index} className={`flex items-start p-2 rounded ${index === 9 ? 'ring-2' : ''}`}
+                  style={{
+                    backgroundColor: index === 9 ? colors.verdeTurquesa + '15' : 'transparent',
+                    borderColor: index === 9 ? colors.verdeTurquesa : 'transparent'
+                  }}>
+                  <span className="mr-2 text-sm" style={{ color: colors.verdeTurquesa }}>
+                    {index + 1}.
+                  </span>
+                  <p style={{
+                    fontFamily: 'Raleway, sans-serif',
+                    fontSize: '0.85rem',
+                    color: colors.negro
+                  }}>
+                    {situacion.base} <span style={{
+                      backgroundColor: colors.amarillo + '50',
+                      padding: '0 4px',
+                      borderRadius: '2px'
+                    }}>{situacion.mejora}</span>{situacion.extra}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        {/* Fase 3 */}
+        <div className={`${faseActiva === 3 ? 'w-full' : 'w-0'} transition-all duration-300 overflow-hidden`}>
+          <div className="h-full p-4 md:p-6 overflow-y-auto">
+            <h2 className="text-lg mb-4" style={{
+              fontFamily: 'Raleway, sans-serif',
+              fontWeight: 'bold',
+              color: colors.azulOscuro
+            }}>
+              Fase 3: Metodología
+            </h2>
+            <div className="mb-4">
+              <h3 className="text-base mb-3" style={{
+                fontFamily: 'Raleway, sans-serif',
+                fontWeight: '600',
+                color: colors.verdeTurquesa
+              }}>
+                Ahora creemos la otra parte de la tarea:
+              </h3>
+            </div>
+            <div className="p-4 rounded-lg" style={{
+              backgroundColor: colors.verdeClaro + '30',
+              border: `1px solid ${colors.verdeClaro}`
+            }}>
+              <div className="mb-3">
+                <span className="px-3 py-1 rounded-full text-sm" style={{
+                  backgroundColor: colors.azulOscuro,
+                  color: colors.blanco,
+                  fontFamily: 'Raleway, sans-serif'
+                }}>
+                  Prompt del profesor experto
+                </span>
+              </div>
+              <p style={{
+                fontFamily: 'Raleway, sans-serif',
+                fontSize: '0.85rem',
+                color: colors.negro,
+                lineHeight: '1.6'
+              }}>
+                {promptProfesor}
+              </p>
+              <p className="mt-3 font-semibold" style={{
+                fontFamily: 'Raleway, sans-serif',
+                fontSize: '0.9rem',
+                color: colors.azulOscuro
+              }}>
+                Ahora crea tres textos para la situación 10
+              </p>
+            </div>
+            <div className="mt-6 p-4 rounded-lg" style={{ backgroundColor: colors.lila + '15' }}>
+              <h4 className="text-sm mb-2" style={{
+                fontFamily: 'Raleway, sans-serif',
+                fontWeight: '600',
+                color: colors.azulOscuro
+              }}>
+                Situación seleccionada:
+              </h4>
+              <p style={{
+                fontFamily: 'Raleway, sans-serif',
+                fontSize: '0.9rem',
+                color: colors.negro,
+                fontWeight: '500'
+              }}>
+                10. Me gustaría encontrar un grupo de teatro que monte obras en espacios no convencionales, como bares o parques, para vivir una experiencia distinta.
+              </p>
+            </div>
+          </div>
+        </div>
+        {/* Fase 4 */}
+        <div className={`${faseActiva === 4 ? 'w-full' : 'w-0'} transition-all duration-300 overflow-hidden`}>
+          <div className="h-full p-4 md:p-6 overflow-y-auto">
+            <h2 className="text-lg mb-4" style={{
+              fontFamily: 'Raleway, sans-serif',
+              fontWeight: 'bold',
+              color: colors.azulOscuro
+            }}>
+              Fase 4: Resultado final
+            </h2>
+            <div className="grid md:grid-cols-3 gap-4 mb-6">
+              {anuncios.map((anuncio, index) => (
+                <div key={index} className="relative p-4 rounded-lg" style={{
+                  backgroundColor: colors.blanco,
+                  border: `2px solid ${anuncio.valido ? colors.verdeTurquesa : colors.lila}`,
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
+                }}>
+                  <div className="absolute top-2 right-2" style={{
+                    backgroundColor: anuncio.valido ? colors.verdeTurquesa : colors.lila,
+                    color: colors.blanco,
+                    width: '30px',
+                    height: '30px',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '1.2rem',
+                    fontWeight: 'bold'
+                  }}>
+                    {anuncio.valido ? '✓' : '✗'}
+                  </div>
+                  <h4 className="mb-2 pr-8" style={{
+                    fontFamily: 'Raleway, sans-serif',
+                    fontWeight: 'bold',
+                    fontSize: '0.95rem',
+                    color: colors.azulOscuro
+                  }}>
+                    Anuncio {String.fromCharCode(65 + index)}: {anuncio.titulo}
+                  </h4>
+                  <p className="mb-3" style={{
+                    fontFamily: 'Raleway, sans-serif',
+                    fontSize: '0.75rem',
+                    color: colors.negro,
+                    lineHeight: '1.4'
+                  }}>
+                    {anuncio.texto}
+                  </p>
+                  <div className="pt-3 border-t" style={{ borderColor: colors.verdeClaro }}>
+                    <p style={{
+                      fontFamily: 'Raleway, sans-serif',
+                      fontSize: '0.7rem',
+                      color: anuncio.valido ? colors.verdeTurquesa : colors.azulOscuro,
+                      fontWeight: '500'
+                    }}>
+                      {anuncio.explicacion}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="p-4 rounded-lg mb-4" style={{ backgroundColor: colors.verdeClaro + '20' }}>
+              <h3 className="text-base mb-2" style={{
+                fontFamily: 'Raleway, sans-serif',
+                fontWeight: '600',
+                color: colors.azulOscuro
+              }}>
+                Resumen de validación:
+              </h3>
+              <ul className="space-y-1">
+                <li style={{ fontFamily: 'Raleway, sans-serif', fontSize: '0.85rem', color: colors.negro }}>
+                  <span style={{ color: colors.verdeTurquesa, fontWeight: 'bold' }}>✓</span> Anuncio A: Cumple todos los requisitos (espacios no convencionales)
+                </li>
+                <li style={{ fontFamily: 'Raleway, sans-serif', fontSize: '0.85rem', color: colors.negro }}>
+                  <span style={{ color: colors.lila, fontWeight: 'bold' }}>✗</span> Anuncio B: Teatro convencional, no espacios alternativos
+                </li>
+                <li style={{ fontFamily: 'Raleway, sans-serif', fontSize: '0.85rem', color: colors.negro }}>
+                  <span style={{ color: colors.lila, fontWeight: 'bold' }}>✗</span> Anuncio C: Es un taller de formación, no un grupo teatral
+                </li>
+              </ul>
+            </div>
+            {/* Código QR */}
+            <div className="rounded-xl p-4 shadow-lg flex items-center gap-4" style={{
+              backgroundColor: colors.verdeTurquesa + '15',
+              border: `1px solid ${colors.verdeTurquesa}`
+            }}>
+              <div className="w-32 h-32 rounded-lg flex items-center justify-center flex-shrink-0" style={{
+                backgroundColor: colors.blanco
+              }}>
+                <img
+                  src="/qr.png"
+                  alt="QR Code Materiales"
+                  className="w-full h-full object-contain p-2"
+                />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold mb-1" style={{
+                  color: colors.azulOscuro,
+                  fontFamily: 'Raleway, sans-serif'
+                }}>
+                  Materiales de Formación
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer Unificado Minimalista */}
+      <div className="absolute bottom-2 left-0 right-0 text-center">
+        <p className="text-xs" style={{
+          fontFamily: 'Raleway, sans-serif',
+          color: colors.azulOscuro,
+          opacity: 0.6
+        }}>
+          © {new Date().getFullYear()} Hablandis. Todos los derechos reservados.
+        </p>
+      </div>
+    </div>
+  );
+};
+
+
+// =======================================================================
 // COMPONENTE PRINCIPAL DE PRESENTACIÓN - CORREGIDO
 // =======================================================================
 const Presentacion = () => {
   const [diapositivaActual, setDiapositivaActual] = useState(1);
-  const totalDiapositivas = 10; // Diapositivas: 1-Intro, 2-Blindapalabras, 3-Laboratorio, 4-Apoyo, 5-EVALIA, 6-Agentes IA, 7-AgentIAele, 8-MATERIAELE, 9-Flujo IA, 10-Nivel Texto
+  const totalDiapositivas = 12; // Diapositivas: 1-Intro, 2-Blindapalabras, 3-Laboratorio, 4-Apoyo, 5-EVALIA, 6-Agentes IA, 7-AgentIAele, 8-MATERIAELE, 9-Flujo IA, 10-Nivel Texto, 11-Prompts, 12-Matching
 
   const cambiarDiapositiva = (direccion: 'prev' | 'next') => {
     setDiapositivaActual(actual => {
@@ -4570,6 +5424,8 @@ const Presentacion = () => {
   else if (diapositivaActual === 8) SlideComponent = Diapositiva8;
   else if (diapositivaActual === 9) SlideComponent = Diapositiva9;
   else if (diapositivaActual === 10) SlideComponent = Diapositiva10;
+  else if (diapositivaActual === 11) SlideComponent = Diapositiva11;
+  else if (diapositivaActual === 12) SlideComponent = Diapositiva12;
   else {
     // Fallback por si acaso
     SlideComponent = () => <div className="flex items-center justify-center h-screen text-2xl">Diapositiva {diapositivaActual} no encontrada</div>;
